@@ -1,6 +1,8 @@
 const { EmbedBuilder }      = require('discord.js');
 const { EmbedDecorator }    = require('../../config/decorator.json');
+const { pushLinks, pushCommands }         = require('./Miau/Fields');
 const Command               = require("../../models/command");
+const Project               = require('../../package.json');
 
 module.exports = class Miau extends Command
 {
@@ -11,18 +13,23 @@ module.exports = class Miau extends Command
             {
                 name:           'miau',
                 description:    'Proporciona ayuda con los comandos.',
-                usage:          '<información>',
-                category:       'Ayuda',
-                permissions:    'cualquiera'
+                category:       'Ayuda'
             })
     }
     async run(message)
     {
         const reply = new EmbedBuilder()
             .setTitle(`Miauyuda para ${message.author.username}#${message.author.discriminator}`)
-            .setColor(EmbedDecorator.color);
+            .setColor(EmbedDecorator.color)
+            .setTimestamp()
+            .setFooter(
+                {
+                    text: `${Project.name}  v${Project.version}    |     by ${Project.author}`,
+                    iconURL: EmbedDecorator.icon
+                });
         const fields = [];
-
+        fields.push(pushLinks());
+        fields.push(pushCommands(message));
         reply.addFields(fields);
         message.channel.send({embeds: [reply]});
     }

@@ -1,0 +1,13 @@
+{
+    "Fields":{
+        "Links":"» Enlaces de interés",
+        "Commands":"» Comandos globales"
+    },
+    "Links":{
+        "Invite":
+        { 
+            "text":"Añadir a un Servidor",
+            "url":"https://discord.com/api/oauth2/authorize?client_id=1011526655048687647&permissions=8&scope=bot%20applications.commands"
+        }
+    }
+}

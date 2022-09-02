@@ -5,7 +5,8 @@
         },
         "ReadyLog":"The B0T started successfully!",
         "GuildJoinLog":"\n Joined at:\n\n",
-        "NotClientLog":"There is not client logged in."
+        "NotClientLog":"There is not client logged in.",
+        "CommandLoadLog":"\n Commands loaded:\n\n"
     },
     "MessageConfig":{
         "Prefix":"!"
