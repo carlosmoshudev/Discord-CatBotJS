@@ -1,6 +1,6 @@
 {
-  "name": "discord-catbotjs",
-  "version": "1.0.0",
+  "name": "catbot-js",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/carlosmoshudev/Discord-CatBotJS.git"
   },
-  "author": "",
+  "author": "Carlos Moshu",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/carlosmoshudev/Discord-CatBotJS/issues"
