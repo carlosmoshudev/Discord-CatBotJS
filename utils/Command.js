@@ -2,13 +2,30 @@ const { readdirSync: read, existsSync: exists } = require('fs')
 const dir = `${process.cwd()}/commands/`;
 module.exports =
 {
-    loader: () =>
+    Loader: client =>
     {
         const cmds = [];
-        read(dir).forEach(cat => read(`${dir}${cat}`).forEach(cmd => cmds.push(cmd)));
+        read(dir).forEach(
+            cat => read(`${dir}${cat}`).forEach(
+                cmd => 
+                { 
+                    if(cmd.endsWith('js'))
+                    {
+                        const builder = require(`${dir}${cat}/${cmd}`);
+                        cmds.push
+                        (
+                            {
+                                command: cmd.replace('.js',''),
+                                class: new builder(client)
+                            }
+                        )
+                    }
+                }
+            )
+        );
         return cmds;
     },
-    runner: (cmd, message) =>
+    Runner: (cmd, message) =>
     {
         read(dir).forEach(cat => 
             { 
