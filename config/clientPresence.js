@@ -1,10 +1,10 @@
-const { ActivityType } = require('discord.js');
-const { Ready } = require('./bot.json');
+const { ActivityType: activity }    = require('discord.js');
+const { ReadyConfig: config }       = require('./bot.json');
 module.exports = 
 { 
     activities: 
     [{ 
-        name:   Ready.Presence.Name,
-        type:   ActivityType.Watching,
+        name:   config.Presence.Name,
+        type:   activity.Watching,
     }] 
 }

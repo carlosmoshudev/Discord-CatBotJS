@@ -1,5 +1,5 @@
 {
-    "Ready":{
+    "ReadyConfig":{
         "Presence":{
             "Name":"El gato con B0Ts"
         },
@@ -7,7 +7,7 @@
         "GuildJoinLog":"\n Joined at:\n\n",
         "NotClientLog":"There is not client logged in."
     },
-    "Message":{
+    "MessageConfig":{
         "Prefix":"!"
     }
 }
