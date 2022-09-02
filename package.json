@@ -1,0 +1,23 @@
+{
+  "name": "discord-catbotjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlosmoshudev/Discord-CatBotJS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carlosmoshudev/Discord-CatBotJS/issues"
+  },
+  "homepage": "https://github.com/carlosmoshudev/Discord-CatBotJS#readme",
+  "dependencies": {
+    "discord.js": "^14.3.0",
+    "dotenv": "^16.0.2"
+  }
+}
