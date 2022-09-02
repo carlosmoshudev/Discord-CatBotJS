@@ -12,7 +12,7 @@ module.exports = class Miau extends Command
             client, 
             {
                 name:           'miau',
-                aliases:        ['help', 'ayuda'],
+                aliases:        ['help', 'ayuda', 'meow'],
                 description:    'Proporciona ayuda con los comandos.',
                 category:       'Ayuda'
             })
@@ -31,7 +31,7 @@ module.exports = class Miau extends Command
                 });
         const fields = [];
         fields.push(pushLinks());
-        fields.push(pushCommands(message));
+        fields.push(pushCommands(message.client));
         reply.addFields(fields);
         message.channel.send({embeds: [reply]});
     }

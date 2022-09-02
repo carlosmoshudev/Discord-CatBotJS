@@ -8,15 +8,15 @@ module.exports =
             value: `[${Links.Invite.text}](${Links.Invite.url})` 
         }
     },
-    pushCommands: message =>
+    pushCommands: client =>
     {
         let value = '';
         const categories = [];
-        message.client.commands.forEach(x => categories.push(x.class.category));
+        client.commands.forEach(x => categories.push(x.class.category));
         categories.forEach(x => 
             {
                 value += `\n**- Categoría de *${x}* **`
-                message.client.commands.forEach(y =>
+                client.commands.forEach(y =>
                     {
                         if(y.class.category === x) value += `\n**!${y.class.name}** - ${y.class.description} | \`${y.class.permissions}\``
                     })
