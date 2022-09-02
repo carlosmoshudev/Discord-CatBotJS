@@ -1,0 +1,13 @@
+{
+    "Ready":{
+        "Presence":{
+            "Name":"El gato con B0Ts"
+        },
+        "ReadyLog":"The B0T started successfully!",
+        "GuildJoinLog":"\n Joined at:\n\n",
+        "NotClientLog":"There is not client logged in."
+    },
+    "Message":{
+        "Prefix":"!"
+    }
+}
