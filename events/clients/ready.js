@@ -1,6 +1,6 @@
-const { ReadyConfig: config }         = require('../../config/bot.json');
-const clientPresence    = require('../../config/clientPresence');
-module.exports          = client =>
+const { ReadyConfig: config }   = require('../../config/bot.json');
+const clientPresence            = require('../../config/clientPresence');
+module.exports                  = client =>
 {
     if(!client) 
     {
