@@ -5,24 +5,14 @@ module.exports =
     Loader: client =>
     {
         const cmds = [];
-        read(dir).forEach(
-            cat => read(`${dir}${cat}`).forEach(
-                cmd => 
-                { 
-                    if(cmd.endsWith('js'))
+        read(dir).forEach(cat => read(`${dir}${cat}`).forEach(cmd => { if(cmd.endsWith('js'))
                     {
                         const builder = require(`${dir}${cat}/${cmd}`);
                         cmds.push
-                        (
-                            {
-                                command: cmd.replace('.js',''),
-                                class: new builder(client)
-                            }
-                        )
-                    }
-                }
-            )
-        );
+                        ({
+                            command: cmd.replace('.js',''),
+                            class: new builder(client)
+                        })}}));
         return cmds;
     },
     Runner: (cmd, message) =>

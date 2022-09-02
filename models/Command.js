@@ -22,5 +22,6 @@ module.exports = class Command
         this.botpermissions = options.botpermissions || false;
         this.tos            = options.tos || false;
         this.spam           = options.spam || false;
+        this.helpText       = options.helpText;
     }
 }
