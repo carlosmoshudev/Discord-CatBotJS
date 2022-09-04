@@ -17,7 +17,7 @@ module.exports = class Miau extends Command
                 category:       'Ayuda'
             })
     }
-    async run(message)
+    async run(message, args)
     {
         const reply = new EmbedBuilder()
             .setTitle(`Miauyuda para ${message.author.username}#${message.author.discriminator}`)
