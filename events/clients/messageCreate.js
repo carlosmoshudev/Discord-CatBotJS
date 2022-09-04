@@ -6,10 +6,5 @@ module.exports                  = async message =>
     if(!isCMD || message.author.bot) return;
     const args  = message.content.split(/\s+/);
     const cmd   = args.shift().toLowerCase().replace(config.Prefix, '');
-    if(!message.client.commands.map(c => c.command).includes(cmd)) 
-    {
-        //TODO: check aliases
-        return;
-    };
-    Run(cmd, message);
+    Run(cmd, args, message.client, message);
 }
