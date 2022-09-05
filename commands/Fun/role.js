@@ -1,15 +1,15 @@
 const Command   = require("../../models/command");
-module.exports  = class Say extends Command
+module.exports  = class Role extends Command
 {
     constructor(client)
     {
         super(
             client, 
             {
-                name:           'say',
+                name:           'role',
                 aliases:        ['habla'],
                 description:    'El bot escribe lo que le pidas.',
-                category:       'Diversión',
+                category:       'Administración',
                 usage:          '<texto>',
                 helpText:       '(ej. !say Hola amigos, soy un bot! ^^)'
             })
