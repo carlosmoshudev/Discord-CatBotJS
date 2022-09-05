@@ -14,6 +14,6 @@ module.exports                          = client =>
     client.user.setPresence(clientPresence);
     client.commands = Loader(client);
     console.log(ReadyConfig.CommandLoadLog + client.commands.map(
-        cmd => MessageConfig.Prefix + cmd.class.name + ' | ' + cmd.class.description));
+        cmd => MessageConfig.Prefix + cmd.class.name + ' | ' + cmd.class.description +'\n').join(''));
 
 }
