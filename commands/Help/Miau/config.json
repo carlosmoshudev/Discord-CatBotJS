@@ -1,7 +1,9 @@
 {
     "Fields":{
         "Links":"» Enlaces de interés",
-        "Commands":"» Comandos globales"
+        "Commands":"» Comandos globales",
+        "CommandInfo":"Información general",
+        "CommandHelp":"Más ayuda y ejemplos"
     },
     "Links":{
         "Invite":
