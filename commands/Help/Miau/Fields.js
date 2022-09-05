@@ -1,5 +1,7 @@
 const { Fields, Links } = require('./config.json');
-const { Language, MessageConfig } = require('../../../config/bot.json');
+const { MessageConfig } = require('../../../config/bot.json');
+const { List }          = require('../../../utils/Formatter');
+
 module.exports =
 {
     pushLinks: () =>
@@ -32,9 +34,8 @@ module.exports =
     },
     commandHelp: command =>
     {
-        const aliasFormater = new Intl.ListFormat(Language);
         const valueInfo = `**Comando:** *${MessageConfig.Prefix}${command.class.name}*
-        **Alias:** *${aliasFormater.format(command.class.aliases.map(a => MessageConfig.Prefix+a))}*
+        **Alias:** *${List(command.class.aliases.map(a => MessageConfig.Prefix+a))}*
         **Descripción:** *${command.class.description}*
         **Parámetros:** \`${command.class.usage}\`
         **Permisos:** \`${command.class.permissions}\`
