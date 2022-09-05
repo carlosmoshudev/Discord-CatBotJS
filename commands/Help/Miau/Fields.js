@@ -1,4 +1,5 @@
 const { Fields, Links } = require('./config.json');
+const { Language, MessageConfig } = require('../../../config/bot.json');
 module.exports =
 {
     pushLinks: () =>
@@ -12,19 +13,38 @@ module.exports =
     {
         let value = '';
         const categories = [];
-        client.commands.forEach(x => categories.push(x.class.category));
-        categories.forEach(x => 
+        client.commands.forEach(cmd => 
             {
-                value += `\n**- Categoría de *${x}* **`
-                client.commands.forEach(y =>
+                if(!categories.includes(cmd.class.category)) categories.push(cmd.class.category)
+            });
+        categories.forEach(category => 
+            {
+                value += `\n**- Categoría de *${category}* **`
+                client.commands.forEach(command =>
                     {
-                        if(y.class.category === x) value += `\n**!${y.class.name}** - ${y.class.description} | \`${y.class.permissions}\``
+                        if(command.class.category === category) value += `\n**!${command.class.name}** - ${command.class.description} | \`${command.class.permissions}\``
                     })
             })
-        console.log(categories)
         return {
             name: Fields.Commands,
             value: value
         }
+    },
+    commandHelp: command =>
+    {
+        const aliasFormater = new Intl.ListFormat(Language);
+        const valueInfo = `**Comando:** *${MessageConfig.Prefix}${command.class.name}*
+        **Alias:** *${aliasFormater.format(command.class.aliases.map(a => MessageConfig.Prefix+a))}*
+        **Descripción:** *${command.class.description}*
+        **Parámetros:** \`${command.class.usage}\`
+        **Permisos:** \`${command.class.permissions}\`
+        **Categoría:** *${command.class.category}*\n`;
+        const fields = 
+        [
+            { name: Fields.CommandInfo, value: valueInfo },
+            { name: Fields.CommandHelp, value: command.class.helpText}
+        ];
+
+        return fields;
     }
 }
