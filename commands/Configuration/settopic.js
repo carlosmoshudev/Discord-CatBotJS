@@ -1,6 +1,6 @@
-const Command   = require("../../models/command");
-const { checkPermissions } = require('../../utils/User');
-module.exports  = class Ping extends Command
+const Command               = require("../../models/command");
+const { checkPermissions }  = require('../../utils/User');
+module.exports              = class SetTopic extends Command
 {
     constructor(client)
     {

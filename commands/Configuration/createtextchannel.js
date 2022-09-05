@@ -1,7 +1,7 @@
 const Command               = require("../../models/command");
 const { checkPermissions }  = require('../../utils/User');
 const { createChannel }     = require('../../utils/Channels');
-module.exports              = class Ping extends Command
+module.exports              = class CreateChannel extends Command
 {
     constructor(client)
     {
