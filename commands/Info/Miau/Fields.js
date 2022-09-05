@@ -11,7 +11,7 @@ module.exports =
             value: `[${Links.Invite.text}](${Links.Invite.url})` 
         }
     },
-    pushCommands: client =>
+    pushCommands: category =>
     {
         let value = '';
         const categories = [];
@@ -30,6 +30,18 @@ module.exports =
         return {
             name: Fields.Commands,
             value: value
+        }
+    },
+    pushCategories: client => 
+    {
+        const categories = [];
+        client.commands.forEach(cmd => 
+            {
+                if(!categories.includes(cmd.class.category)) categories.push(cmd.class.category)
+            });
+        return {
+            name: '» Categorías de comandos',
+            value: categories.join(' \n ')
         }
     },
     commandHelp: command =>

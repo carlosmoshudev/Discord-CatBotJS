@@ -1,8 +1,12 @@
-const { EmbedBuilder }              = require('discord.js');
-const { EmbedDecorator }            = require('../../config/decorator.json');
-const { pushLinks, pushCommands, commandHelp }   = require('./Miau/Fields');
-const Command                       = require("../../models/command");
-const Project                       = require('../../package.json');
+const { EmbedBuilder }      = require('discord.js');
+const { EmbedDecorator }    = require('../../config/decorator.json');
+const { 
+    pushLinks, 
+    pushCommands, 
+    pushCategories,
+    commandHelp }           = require('./Miau/Fields');
+const Command               = require("../../models/command");
+const Project               = require('../../package.json');
 
 module.exports = class Miau extends Command
 {
@@ -33,13 +37,14 @@ module.exports = class Miau extends Command
                 });
         if(!args[0]) 
         {
+            const linksEmbed = new EmbedBuilder();
+            linksEmbed.setColor(EmbedDecorator.color)
+            .addFields(pushLinks());
             reply
-                .setTitle(title);
-
-            const fields = [];
-            fields.push(pushLinks());
-            fields.push(pushCommands(message.client));
-            reply.addFields(fields);
+                .setTitle(title)
+                .setDescription('Escribe !miau + <categoría> para más ayuda.')
+                .addFields(pushCategories(message.client));
+            message.channel.send({embeds: [reply, linksEmbed]});
         }
         if(message.client.commands.map(cmd => cmd.command).includes(args[0])) 
         {
@@ -47,13 +52,14 @@ module.exports = class Miau extends Command
             reply
                 .setTitle(`${title} sobre ${cmdHelpInfo.command}`)
                 .addFields(commandHelp(cmdHelpInfo));
+            message.channel.send({embeds: [reply]});
         }
         else if (args[0])
         {
             reply
                 .setTitle('Ayuda no encontrada')
                 .setDescription(`${args[0]} no se reconoce como comando o categoría.`);
+            message.channel.send({embeds: [reply]});
         }
-        message.channel.send({embeds: [reply]});
     }
 }
