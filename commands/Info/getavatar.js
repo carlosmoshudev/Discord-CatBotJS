@@ -6,11 +6,11 @@ module.exports  = class GetAvatar extends Command
         super(
             client, 
             {
-                name:           '',
-                aliases:        [''],
-                description:    '',
-                category:       '',
-                usage:          '',
+                name:           'getavatar',
+                aliases:        ['avatar','profilepic','getuserpic'],
+                description:    'Obtiene la foto de perfil.',
+                category:       'Información',
+                usage:          '<member?> {default:user}',
                 helpText:       ''
             })
     }

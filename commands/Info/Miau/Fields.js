@@ -37,7 +37,7 @@ module.exports =
         const valueInfo = `**Comando:** *${MessageConfig.Prefix}${command.class.name}*
         **Alias:** *${List(command.class.aliases.map(a => MessageConfig.Prefix+a))}*
         **Descripción:** *${command.class.description}*
-        **Parámetros:** \`${command.class.usage}\`
+        **Parámetros:** \n\`${command.class.usage}\`
         **Permisos:** \`${command.class.permissions}\`
         **Categoría:** *${command.class.category}*\n`;
         const fields = 

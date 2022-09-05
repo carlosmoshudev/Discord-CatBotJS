@@ -11,7 +11,7 @@ module.exports              = class ClearMessages extends Command
                 aliases:        ['deletemessages', 'clearchannel', 'borrarmensajes'],
                 description:    'Elimina los mensajes del canal.',
                 category:       'Administración',
-                usage:          '<número?> (max. 100, default 100)',
+                usage:          '<número?> {max:100, default:100}',
                 permissions:    'ManageMessages',
                 helpText:       '(ej. !clearmessages | !clearmessages 100)\n Borra los mensajes de todos los usuarios. Max 100'
             })

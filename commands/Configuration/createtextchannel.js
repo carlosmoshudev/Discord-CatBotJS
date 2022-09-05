@@ -12,7 +12,7 @@ module.exports              = class CreateChannel extends Command
                 aliases:        ['nuevocanal', 'newchannel'],
                 description:    'Crea canales en tu servidor.',
                 category:       'Configuración',
-                usage:          '<categoría> (#channelId) <nombre> <número?> (default 1)',
+                usage:          '<categoría> (#channelId)\n<nombre>\n<número?> {default:1}',
                 permissions:    'ManageChannels',
                 helpText:       '(ej. !createtextchannel 1000000000000000000 Juegos 3)'
             })

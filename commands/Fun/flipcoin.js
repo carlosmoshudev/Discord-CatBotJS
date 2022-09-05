@@ -6,14 +6,21 @@ module.exports  = class FlipCoin extends Command
         super(
             client, 
             {
-                name:           '',
-                aliases:        [''],
-                description:    '',
-                category:       '',
-                usage:          '',
-                helpText:       ''
+                name:           'flipcoin',
+                aliases:        ['caraocruz','lanzarmoneda'],
+                description:    'Lanza una moneda al aire.',
+                category:       'Diversión',
+                usage:          'N/A',
+                helpText:       'sin parámetros.'
             })
     }
     async run(message, args)
-    {}
+    {
+        const faces = ['cara','cruz'];
+        const dropChance = Math.random() * 100;
+        let result;
+        if(Math.round(dropChance) === 50) result = 'de canto';
+        else result = faces[Math.round(dropChance/100)];
+        message.channel.send(`${message.author}, tu moneda ha salido ${result}.`)
+    }
 }

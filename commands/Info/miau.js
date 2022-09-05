@@ -15,7 +15,7 @@ module.exports = class Miau extends Command
                 aliases:        ['help', 'ayuda', 'meow', 'comandos', 'commands', 'man'],
                 description:    'Proporciona ayuda con los comandos.',
                 category:       'Información',
-                usage:          '<comando>',
+                usage:          '<comando?> {default:global help}',
                 helpText:       '!miau | !miau + comando (ej. !miau ping, !miau getavatar)'
             })
     }
@@ -48,7 +48,7 @@ module.exports = class Miau extends Command
                 .setTitle(`${title} sobre ${cmdHelpInfo.command}`)
                 .addFields(commandHelp(cmdHelpInfo));
         }
-        else 
+        else if (args[0])
         {
             reply
                 .setTitle('Ayuda no encontrada')
