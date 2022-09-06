@@ -18,5 +18,14 @@ module.exports              = class GetPermissions extends Command
     }
     async run(message, args)
     {
+        if(!checkPermissions(message.member, 'ModerateMembers')) return;
+        let 
+        mentionedUser   = message.mentions.users.first(),
+        userMember      = await message.guild.members.fetch(mentionedUser);
+        if(!userMember.permissions) userMember = message.member;
+        console.log(userMember.permissions)
+        const permissions     = userMember.permissions.toArray().map(perm => `${perm}\n`).join('');
+        //TODO: Arreglar la salida
+        message.reply(permissions);
     }
 }
