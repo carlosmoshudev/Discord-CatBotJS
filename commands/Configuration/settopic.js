@@ -10,7 +10,7 @@ module.exports              = class SetTopic extends Command
                 name:           'settopic',
                 aliases:        ['topic', 'topico', 'tematica'],
                 description:    'Actualiza la temática del canal.',
-                category:       'Configuración',
+                category:       'Configuration',
                 permissions:    'ManageChannels',
                 usage:          '<topic>',
                 helpText:       '(ej. !settopic Canal de ayuda y soporte.)'

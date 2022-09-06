@@ -9,7 +9,7 @@ module.exports  = class WayraChiste extends Command
                 name:           'wayrachiste',
                 aliases:        ['wayrajoke'],
                 description:    'Cuenta un chiste de Wayra. +18',
-                category:       'Diversión',
+                category:       'Fun',
                 usage:          'N/A',
                 helpText:       '(ej. !wayrachiste)'
             })

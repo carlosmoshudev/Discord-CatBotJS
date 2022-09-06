@@ -9,7 +9,7 @@ module.exports  = class FlipCoin extends Command
                 name:           'flipcoin',
                 aliases:        ['caraocruz','lanzarmoneda'],
                 description:    'Lanza una moneda al aire.',
-                category:       'Diversión',
+                category:       'Fun',
                 usage:          'N/A',
                 helpText:       'sin parámetros.'
             })
