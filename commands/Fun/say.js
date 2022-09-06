@@ -9,7 +9,7 @@ module.exports  = class Say extends Command
                 name:           'say',
                 aliases:        ['habla'],
                 description:    'El bot escribe lo que le pidas.',
-                category:       'Diversión',
+                category:       'Fun',
                 usage:          '<texto>',
                 helpText:       '(ej. !say Hola amigos, soy un bot! ^^)'
             })

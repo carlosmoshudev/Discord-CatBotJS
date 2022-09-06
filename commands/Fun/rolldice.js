@@ -9,7 +9,7 @@ module.exports  = class RollDice extends Command
                 name:           'rolldice',
                 aliases:        ['lanzardado'],
                 description:    'Lanza un dado de n caras.',
-                category:       'Diversión',
+                category:       'Fun',
                 usage:          '<faces?> {default:6}',
                 helpText:       ''
             })

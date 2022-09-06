@@ -10,7 +10,7 @@ module.exports              = class GetPermissions extends Command
                 name:           'getpermissions',
                 aliases:        ['permissions', 'permisos', 'userpermissions'],
                 description:    'Obtiene los permisos.',
-                category:       'Información',
+                category:       'Information',
                 usage:          '<member?> {default:user}',
                 permissions:    'ModerateMembers',
                 helpText:       '(ej. !getpermissions | !getpermissions @alguien)'

@@ -9,7 +9,7 @@ module.exports  = class ChannelInfo extends Command
                 name:           'channelinfo',
                 aliases:        ['infocanal','getchannel'],
                 description:    'Información del canal.',
-                category:       'Información',
+                category:       'Information',
                 usage:          '<canal?> (#ChannelId) {default:current}',
                 helpText:       'bla bla'
             })

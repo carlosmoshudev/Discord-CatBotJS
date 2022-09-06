@@ -5,15 +5,22 @@ module.exports =
     Loader: client =>
     {
         const cmds = [];
-        read(dir).forEach(cat => read(`${dir}${cat}`).forEach(cmd => { if(cmd.endsWith('js'))
+        read(dir).forEach(subdir => read(`${dir}${subdir}`).forEach(cmd => { if(cmd.endsWith('js'))
                     {
-                        const builder = require(`${dir}${cat}/${cmd}`);
+                        const builder = require(`${dir}${subdir}/${cmd}`);
                         cmds.push
                         ({
                             command: cmd.replace('.js',''),
                             class: new builder(client)
                         })}}));
         return cmds;
+    },
+    DirLoader: () =>
+    {
+        const categories = [];
+        read(dir).forEach(category => categories.push(category));
+        console.log(categories);
+        return categories;
     },
     Runner: (cmd, args, client, message) =>
     {
