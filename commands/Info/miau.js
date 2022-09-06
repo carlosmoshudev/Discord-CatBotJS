@@ -18,7 +18,7 @@ module.exports = class Miau extends Command
                 name:           'miau',
                 aliases:        ['help', 'ayuda', 'meow', 'comandos', 'commands', 'man'],
                 description:    'Proporciona ayuda con los comandos.',
-                category:       'Información',
+                category:       'Info',
                 usage:          '<comando?> {default:global help}',
                 helpText:       '!miau | !miau + comando (ej. !miau ping, !miau getavatar)'
             })
@@ -53,6 +53,13 @@ module.exports = class Miau extends Command
                 .setTitle(`${title} sobre ${cmdHelpInfo.command}`)
                 .addFields(commandHelp(cmdHelpInfo));
             message.channel.send({embeds: [reply]});
+        }
+        else if(message.client.categories.map(cat => cat.toLowerCase()).includes(args[0]))
+        {
+            reply
+                .setTitle(title)
+                .setDescription(pushCommands(message.client, args[0]));
+                message.channel.send({embeds: [reply]});
         }
         else if (args[0])
         {

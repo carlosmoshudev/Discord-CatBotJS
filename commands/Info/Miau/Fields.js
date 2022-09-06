@@ -11,26 +11,18 @@ module.exports =
             value: `[${Links.Invite.text}](${Links.Invite.url})` 
         }
     },
-    pushCommands: category =>
+    pushCommands: (client, category) =>
     {
         let value = '';
-        const categories = [];
-        client.commands.forEach(cmd => 
+        value += `\n**- Categoría de *${category}* **`
+        client.commands.forEach(command =>
             {
-                if(!categories.includes(cmd.class.category)) categories.push(cmd.class.category)
+                console.log(command.class.category)
+                console.log(category)
+                if(command.class.category.toLowerCase() === category.toLowerCase()) 
+                    value += `\n**!${command.class.name}** - ${command.class.description} | \`${command.class.permissions}\``
             });
-        categories.forEach(category => 
-            {
-                value += `\n**- Categoría de *${category}* **`
-                client.commands.forEach(command =>
-                    {
-                        if(command.class.category === category) value += `\n**!${command.class.name}** - ${command.class.description} | \`${command.class.permissions}\``
-                    })
-            })
-        return {
-            name: Fields.Commands,
-            value: value
-        }
+        return value;
     },
     pushCategories: client => 
     {
