@@ -1,4 +1,4 @@
-const { readdirSync: read, existsSync: exists } = require('fs')
+const { readdirSync: read } = require('fs')
 const dir = `${process.cwd()}/commands/`;
 module.exports =
 {
@@ -19,7 +19,6 @@ module.exports =
     {
         const categories = [];
         read(dir).forEach(category => categories.push(category));
-        console.log(categories);
         return categories;
     },
     Runner: (cmd, args, client, message) =>

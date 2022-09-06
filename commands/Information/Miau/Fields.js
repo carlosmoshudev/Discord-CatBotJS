@@ -17,8 +17,6 @@ module.exports =
         value += `\n**- Categoría de *${category}* **`
         client.commands.forEach(command =>
             {
-                console.log(command.class.category)
-                console.log(category)
                 if(command.class.category.toLowerCase() === category.toLowerCase()) 
                     value += `\n**!${command.class.name}** - ${command.class.description} | \`${command.class.permissions}\``
             });
