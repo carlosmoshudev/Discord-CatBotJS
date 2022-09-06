@@ -9,7 +9,7 @@ module.exports  = class Ban extends Command
                 name:           'ban',
                 aliases:        ['banear'],
                 description:    'Banea un usuario.',
-                category:       'Admin',
+                category:       'Moderation',
                 permissions:    'BanMembers',
                 usage:          '<member> #mention\n<reason?>',
                 helpText:       '(ej. !ban @usuario Lenguaje inapropiado.)'

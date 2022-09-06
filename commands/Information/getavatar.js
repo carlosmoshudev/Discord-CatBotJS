@@ -9,7 +9,7 @@ module.exports  = class GetAvatar extends Command
                 name:           'getavatar',
                 aliases:        ['avatar','profilepic','getuserpic'],
                 description:    'Obtiene la foto de perfil.',
-                category:       'Info',
+                category:       'Information',
                 usage:          '<member?> {default:user}',
                 helpText:       ''
             })

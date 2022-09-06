@@ -9,7 +9,7 @@ module.exports  = class Ping extends Command
                 name:           'ping',
                 aliases:        ['delay', 'latencia', 'ms'],
                 description:    'Comprueba la latencia con el bot.',
-                category:       'Info',
+                category:       'Information',
                 usage:          'N/A',
                 helpText:       'No responde a parámetros. (ej. !ping)'
             })

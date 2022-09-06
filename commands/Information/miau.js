@@ -18,7 +18,7 @@ module.exports = class Miau extends Command
                 name:           'miau',
                 aliases:        ['help', 'ayuda', 'meow', 'comandos', 'commands', 'man'],
                 description:    'Proporciona ayuda con los comandos.',
-                category:       'Info',
+                category:       'Information',
                 usage:          '<comando?> {default:global help}',
                 helpText:       '!miau | !miau + comando (ej. !miau ping, !miau getavatar)'
             })
