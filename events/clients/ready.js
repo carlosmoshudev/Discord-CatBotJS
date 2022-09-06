@@ -10,11 +10,11 @@ module.exports                          = client =>
     }
     console.log(ReadyConfig.ReadyLog);
     const guildsJoined = client.guilds.cache.map(guild => guild.name).join(' \n');
-    console.log(ReadyConfig.GuildJoinLog + guildsJoined);
+    // console.log(ReadyConfig.GuildJoinLog + guildsJoined);
     client.user.setPresence(clientPresence);
     client.commands     = Loader(client);
     client.categories   = DirLoader(client);
-    console.log(ReadyConfig.CommandLoadLog + client.commands.map(
-        cmd => MessageConfig.Prefix + cmd.class.name + ' | ' + cmd.class.description +'\n').join(''));
+    // console.log(ReadyConfig.CommandLoadLog + client.commands.map(
+    //     cmd => MessageConfig.Prefix + cmd.class.name + ' | ' + cmd.class.description +'\n').join(''));
 
 }
