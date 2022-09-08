@@ -7,7 +7,7 @@ module.exports  = class Say extends Command
             client, 
             {
                 name:           'say',
-                aliases:        ['habla'],
+                aliases:        ['decir','escribe','write'],
                 description:    'El bot escribe lo que le pidas.',
                 category:       'Fun',
                 usage:          '<texto>',
@@ -15,5 +15,8 @@ module.exports  = class Say extends Command
             })
     }
     async run(message, args)
-    {}
+    {
+        if(args) message.channel.send(args.join(' '));
+        message.delete();
+    }
 }
