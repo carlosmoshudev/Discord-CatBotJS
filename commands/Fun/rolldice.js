@@ -11,15 +11,14 @@ module.exports  = class RollDice extends Command
                 description:    'Lanza un dado de n caras.',
                 category:       'Fun',
                 usage:          '<faces?> {default:6}',
-                helpText:       ''
+                helpText:       '(ej. !rolldice 14)'
             })
     }
     async run(message, args)
     {
-        let faces = args[0]? args[0] : 6;
-        console.log(`args ` + args[0]);
-        const dice = [];
-        for(let i = 1; i < faces + 1; i++) {console.log(faces+1); console.log(i)};
+        const faces = args[0] || 6;
+        let face = Math.floor(Math.random() * faces) + 1;
+        message.channel.send(`${message.author}, te ha salido un ${face}. :game_die:`)
 
     }
 }
