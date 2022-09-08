@@ -6,9 +6,15 @@ module.exports =
 {
     pushLinks: () =>
     {
+        const links =
+        [
+            `[${Links.Invite.text}](${Links.Invite.url})`,
+            `[${Links.Repository.text}](${Links.Repository.url})`,
+            `[${Links.HelpGuild.text}](${Links.HelpGuild.url})`
+        ]
         return {
             name: Fields.Links, 
-            value: `[${Links.Invite.text}](${Links.Invite.url})` 
+            value: links.join(' | ')
         }
     },
     pushCommands: (client, category) =>
