@@ -16,5 +16,7 @@ module.exports  = class Ban extends Command
             })
     }
     async run(message, args)
-    {}
+    {
+        
+    }
 }
