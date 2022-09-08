@@ -11,12 +11,16 @@ module.exports  = class Ban extends Command
                 description:    'Banea un usuario.',
                 category:       'Moderation',
                 permissions:    'BanMembers',
-                usage:          '<member> #mention\n<reason?>',
-                helpText:       '(ej. !ban @usuario Lenguaje inapropiado.)'
+                usage:          '<member> #mention\n<days?> (default:360)',
+                helpText:       '(ej. !ban @usuario 1.)'
             })
     }
     async run(message, args)
     {
-        
+        const user =
+            message.mentions.members.first() ||
+            (await message.guild.members.fetch(args[0]).catch(e => {return}));
+        const time = args[1] || 360;
+        if(user) await user.ban({days: time});
     }
 }
