@@ -18,7 +18,7 @@ module.exports              = class SetTopic extends Command
     }
     async run(message, args)
     {
-        if(!checkPermissions(message.member, 'ManageChannels')) return;
+        if(!checkPermissions(message.member, 'ManageChannels') || message.channel.type != 1) return;
         message.channel.setTopic(args.join(' '));
     }
 }
