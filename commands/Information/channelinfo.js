@@ -1,6 +1,7 @@
 const Command               = require("../../models/command");
 const { EmbedBuilder }      = require('discord.js');
 const { EmbedDecorator }    = require('../../config/decorator.json');
+const { getChannelType }    = require('../../utils/Channels');
 module.exports              = class ChannelInfo extends Command
 {
     constructor(client)
@@ -19,7 +20,8 @@ module.exports              = class ChannelInfo extends Command
     async run(message, args)
     {
         const 
-        channel         = message.channel,
+        client          = message.client,
+        channel         = args[0] ? client.channels.cache.get(args[0]) : message.channel,
         creationTime    = channel.createdAt, 
         Date            = creationTime.getUTCDate(),
         Month           = creationTime.getUTCMonth(),
@@ -30,10 +32,12 @@ module.exports              = class ChannelInfo extends Command
         [
             `**ID:**            ${channel.id}\n`,
             `**Creado:**        ${creation}\n`,
-            `**Ratio:**         ${channel.bitrate}\n`,
-            `**Descripción:**   ${channel.topic}\n`,
-            `**NSFW:**          ${channel.nsfw}\n`,
+            `**Ratio:**         ${channel.bitrate || "no configurado"}\n`,
+            `**Descripción:**   ${channel.topic || "no establecida"}\n`,
+            `**Type:**          ${getChannelType(channel.type)}\n`,
+            `**NSFW:**          ${this.getNSFW(channel)}\n`,
             `**Categoría:**     ${channel.parent}\n`,
+            `**ID Categoría:**  ${channel.parentId}\n`,
             `**Mención:**       ${channel}\n`,
         ];
         const embed = new EmbedBuilder()
@@ -53,6 +57,7 @@ module.exports              = class ChannelInfo extends Command
                     iconURL: message.author.avatarURL()
                 }
             );
-            channel.send({ embeds: [embed] });
+            message.channel.send({ embeds: [embed] });
     }
+    getNSFW = (channel) => channel.nsfw === false ? 'Todos los públicos' : 'Contenido explícito (+18)'
 }

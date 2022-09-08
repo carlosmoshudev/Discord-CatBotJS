@@ -8,5 +8,25 @@ module.exports =
                 parent: parent,
                 type: type,
             })
+    },
+    getChannelType: (typeInt) =>
+    {
+        const types = 
+        [
+            'Canal de texto',
+            'Mensaje directo',
+            'Canal de voz',
+            'Chat grupal',
+            'Categoría',
+            'Anuncios',
+            '','','','',
+            'Hilo de anuncio',
+            'Hilo público',
+            'Hilo privado',
+            'Auditorio',
+            'Server HUB',
+            'Foro'
+        ];
+        return types[typeInt];
     }
 }
