@@ -10,6 +10,16 @@
         { 
             "text":"Añadir a un Servidor",
             "url":"https://discord.com/api/oauth2/authorize?client_id=1011526655048687647&permissions=8&scope=bot%20applications.commands"
+        },
+        "Repository":
+        {
+            "text":"Repositorio GitHub",
+            "url":"https://github.com/carlosmoshudev/Discord-CatBotJS.git"
+        },
+        "HelpGuild":
+        {
+            "text":"Servidor de ayuda",
+            "url":"https://discord.gg/g6kwSaeddk"
         }
     }
 }

@@ -1,5 +1,6 @@
 const { EmbedBuilder }      = require('discord.js');
 const { EmbedDecorator }    = require('../../config/decorator.json');
+const { Links }             = require('./Miau/config.json');
 const { 
     pushLinks, 
     pushCommands, 
@@ -29,6 +30,7 @@ module.exports = class Miau extends Command
         const title = `Miauyuda para ${message.author.username}#${message.author.discriminator}`;
         const reply = new EmbedBuilder()
             .setColor(EmbedDecorator.color)
+            .setURL(Links.Invite.url)
             .setTimestamp()
             .setThumbnail(message.author.avatarURL())
             .setFooter(
@@ -39,7 +41,7 @@ module.exports = class Miau extends Command
         if(!requested) 
         {
             const linksEmbed = new EmbedBuilder();
-            linksEmbed.setColor(EmbedDecorator.color)
+            linksEmbed.setColor(EmbedDecorator.secondarycolor)
             .addFields(pushLinks());
             reply
                 .setTitle(title)

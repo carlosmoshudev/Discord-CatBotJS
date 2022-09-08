@@ -1,6 +1,7 @@
 {
     "EmbedDecorator":{
         "color":"0x0099FF",
+        "secondarycolor":"0xFF9900",
         "icon":"https://images-ext-1.discordapp.net/external/MQicIrbbMg3RBlKoxG0w1xn7oT6DIgfLC3RwksI5Okg/https/cdn.discordapp.com/avatars/649759938545188864/a_3e1e277b8e2f57630c70ce6ecef81d98.gif"
     }
 }
