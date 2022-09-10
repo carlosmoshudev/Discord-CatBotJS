@@ -1,0 +1,6 @@
+{
+    "PinoLogger":{
+        "target":"pino/file",
+        "file":"./.Logs/client-log.json"
+    }
+}

@@ -1,10 +1,11 @@
-const { MessageConfig: config } = require('../../config/bot.json');
-const { Loader: Load, Runner: Run } = require('../../utils/Command');
-module.exports                  = async message =>
+const { Prefix } = require('../../config/bot.json').MessageConfig;
+const { CommandRunner } = require('../../utils/Command');
+module.exports          = async message =>
 {
-    const isCMD = (message.content.startsWith(config.Prefix));
-    if(!isCMD || message.author.bot) return;
-    const args  = message.content.split(/\s+/);
-    const cmd   = args.shift().toLowerCase().replace(config.Prefix, '');
-    Run(cmd, args, message.client, message);
+    const 
+    isCMD = (message.content.startsWith(Prefix)),
+    args  = message.content.split(/\s+/),
+    cmd   = args.shift().toLowerCase().replace(Prefix, '');
+    if(isCMD && !message.author.bot)
+        CommandRunner(cmd, args, message.client, message);
 }

@@ -18,7 +18,10 @@ module.exports              = class WayraChiste extends Command
     }
     async run(message, args)
     {
-        const jokes = 
+        const
+        user    = message.author,
+        channel = message.channel,
+        jokes   = //TODO: Traer de google sheets ? mongoose ?
         [
         `¿Qué le dijo un plátano a una gelatina? 
         Todavía no me desnudo y ya estás temblando.`,
@@ -47,19 +50,19 @@ module.exports              = class WayraChiste extends Command
         -¡Espero que tengas una vida horrible y que no vuelvas a tener sexo!
         El hombre le contesta:
         -Si eso es lo que quieres, ¡Decídete! ¿Quieres que me vaya o que me quede?`,
-        ]
-        const joke = jokes[Math.floor(Math.random() * jokes.length)];
-        const embed = new EmbedBuilder()
+        ],
+        joke        = jokes[Math.floor(Math.random() * jokes.length)],
+        embedReply  = new EmbedBuilder()
             .setTitle("WayraChiste +18")
             .setDescription(joke)
             .setColor(EmbedDecorator.color)
             .setTimestamp()
             .setFooter(
                 {
-                    text: `Solicitado por ${message.author.username}`, 
-                    iconURL: message.author.avatarURL()
+                    text:   `Solicitado por ${user.username}`, 
+                    iconURL: user.avatarURL()
                 }
             );
-            message.channel.send({ embeds: [embed] });
+            channel.send({ embeds: [embedReply] });
     }
 }

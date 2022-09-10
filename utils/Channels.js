@@ -9,7 +9,7 @@ module.exports =
                 type: type,
             })
     },
-    getChannelType: (typeInt) =>
+    getChannelType: (typeIndex) =>
     {
         const types = 
         [
@@ -27,6 +27,6 @@ module.exports =
             'Server HUB',
             'Foro'
         ];
-        return types[typeInt];
+        return types[typeIndex];
     }
 }

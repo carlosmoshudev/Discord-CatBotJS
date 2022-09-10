@@ -1,6 +1,7 @@
 const Command               = require("../../models/command");
 const { EmbedBuilder }      = require('discord.js');
 const { EmbedDecorator }    = require('../../config/decorator.json');
+const { Datetime }          = require('../../utils/Formatter')
 module.exports              = class ServerInfo extends Command
 {
     constructor(client)
@@ -13,20 +14,18 @@ module.exports              = class ServerInfo extends Command
                 description:    'Información del servidor.',
                 category:       'Information',
                 usage:          '<server?> (#GuildID Joined) {default:current}',
-                helpText:       'bla bla'
+                helpText:       '(ej. !serverinfo | !serverinfo 0000000000000000)'
             })
     }
     async run(message, args)
     {
         const 
         server          = message.guild,
+        user            = message.author,
+        channel         = message.channel,
         owner           = message.client.users.cache.get(server.ownerId),
-        creationTime    = server.createdAt, 
-        Date            = creationTime.getUTCDate(),
-        Month           = creationTime.getUTCMonth(),
-        Year            = creationTime.getUTCFullYear();
-        const creation  = `${Date}/${Month}/${Year}`;
-        const serverConfig =
+        creation        = Datetime(server.createdAt),
+        serverConfig    =
         [
             `**ID:**            ${server.id}\n`,
             `**Creado en:**     ${creation}\n`,
@@ -36,8 +35,8 @@ module.exports              = class ServerInfo extends Command
             `**Ver reglas:**    ${server.rulesChannel || "sin canal de reglas"}\n`,
             `**Propiedad:**     ${owner}\n`,
             `**Creado:**        ${creation}\n`,
-        ];
-        const embed = new EmbedBuilder()
+        ],
+        embedReply = new EmbedBuilder()
             .setTitle(`Información sobre servidor: ${server.name}`)
             .setURL(server.url)
             .addFields([
@@ -50,11 +49,11 @@ module.exports              = class ServerInfo extends Command
             .setTimestamp()
             .setFooter(
                 {
-                    text: `Solicitado por ${message.author.username}`, 
-                    iconURL: message.author.avatarURL()
+                    text: `Solicitado por ${user.username}`, 
+                    iconURL: user.avatarURL()
                 }
             );
-            message.channel.send({ embeds: [embed] });
+            channel.send({ embeds: [embedReply] });
     }
     getF2A = (server) => server.mfaLevel === 0 ? '*Habilitado*' : '*Deshabilitado*';
 }

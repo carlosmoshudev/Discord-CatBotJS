@@ -1,6 +1,7 @@
-const { ReadyConfig, MessageConfig }    = require('../../config/bot.json');
+const { ReadyConfig }    = require('../../config/bot.json');
 const clientPresence                    = require('../../config/clientPresence');
-const { Loader, DirLoader }             = require('../../utils/Command');
+const { CommandLoader, CategoryLoader } = require('../../utils/Command');
+const cli                               = require('../../.DevTools/cli');
 module.exports                          = client =>
 {
     if(!client) 
@@ -8,13 +9,14 @@ module.exports                          = client =>
         console.error(ReadyConfig.NotClientLog);
         return;
     }
-    console.log(ReadyConfig.ReadyLog);
-    const guildsJoined = client.guilds.cache.map(guild => guild.name).join(' \n');
-    // console.log(ReadyConfig.GuildJoinLog + guildsJoined);
     client.user.setPresence(clientPresence);
-    client.commands     = Loader(client);
-    client.categories   = DirLoader(client);
-    // console.log(ReadyConfig.CommandLoadLog + client.commands.map(
-    //     cmd => MessageConfig.Prefix + cmd.class.name + ' | ' + cmd.class.description +'\n').join(''));
+    client.commands     = CommandLoader(client);
+    client.categories   = CategoryLoader(client);
 
+    const 
+    guildsJoined    = client.guilds.cache.size,
+    commandsLoaded  = client.commands.length;
+    cli.yellowLog(ReadyConfig.ReadyLog);
+    cli.cyanLog(ReadyConfig.GuildJoinLog, `${guildsJoined}.`);
+    cli.purpleLog(ReadyConfig.CommandLoadLog, `${commandsLoaded}.`);
 }

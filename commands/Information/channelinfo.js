@@ -2,6 +2,7 @@ const Command               = require("../../models/command");
 const { EmbedBuilder }      = require('discord.js');
 const { EmbedDecorator }    = require('../../config/decorator.json');
 const { getChannelType }    = require('../../utils/Channels');
+const { Datetime }          = require('../../utils/Formatter')
 module.exports              = class ChannelInfo extends Command
 {
     constructor(client)
@@ -19,16 +20,12 @@ module.exports              = class ChannelInfo extends Command
     }
     async run(message, args)
     {
-        const 
+        const
+        user            = message.author,
         client          = message.client,
         channel         = args[0] ? client.channels.cache.get(args[0]) : message.channel,
-        creationTime    = channel.createdAt, 
-        Date            = creationTime.getUTCDate(),
-        Month           = creationTime.getUTCMonth(),
-        Year            = creationTime.getUTCFullYear();
-        const creation  = `${Date}/${Month}/${Year}`
-
-        const channelConfig =
+        creation        = Datetime(channel.createdAt),
+        channelConfig   =
         [
             `**ID:**            ${channel.id}\n`,
             `**Creado:**        ${creation}\n`,
@@ -39,8 +36,8 @@ module.exports              = class ChannelInfo extends Command
             `**Categoría:**     ${channel.parent}\n`,
             `**ID Categoría:**  ${channel.parentId}\n`,
             `**Mención:**       ${channel}\n`,
-        ];
-        const embed = new EmbedBuilder()
+        ],
+        embedReply = new EmbedBuilder()
             .setTitle(`Información sobre canal: ${channel.name}`)
             .setURL(channel.url)
             .addFields([
@@ -53,11 +50,11 @@ module.exports              = class ChannelInfo extends Command
             .setTimestamp()
             .setFooter(
                 {
-                    text: `Solicitado por ${message.author.username}`, 
-                    iconURL: message.author.avatarURL()
+                    text: `Solicitado por ${user.username}`, 
+                    iconURL: user.avatarURL()
                 }
             );
-            message.channel.send({ embeds: [embed] });
+            message.channel.send({ embeds: [embedReply] });
     }
     getNSFW = (channel) => channel.nsfw === false ? 'Todos los públicos' : 'Contenido explícito (+18)'
 }

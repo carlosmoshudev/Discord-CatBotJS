@@ -1,5 +1,5 @@
-const { Partials, GatewayIntentBits: Intents } = require('discord.js');
-module.exports = 
+const { Partials, GatewayIntentBits }   = require('discord.js');
+module.exports                          = 
 {
     restTimeOffset: 0,
     partials:
@@ -12,12 +12,12 @@ module.exports =
     ],
     intents:
     [
-        Intents.Guilds,
-        Intents.GuildMembers,
-        Intents.GuildMessages,
-        Intents.MessageContent,
-        Intents.GuildVoiceStates,
-        Intents.GuildMessageReactions,
-        Intents.GuildEmojisAndStickers,
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.GuildMessageReactions,
+        GatewayIntentBits.GuildEmojisAndStickers,
     ]
 }

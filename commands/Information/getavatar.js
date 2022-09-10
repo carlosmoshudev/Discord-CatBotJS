@@ -18,34 +18,36 @@ module.exports              = class GetAvatar extends Command
     }
     async run(message, args)
     {
-        let mentionUser = message.mentions.users.first()
-        if (!mentionUser) 
+        const
+        user        = message.author,
+        channel     = message.channel,
+        mention     = message.mentions.users.first() ||
+            await message.guild.members.fetch(args[0]),
+        embedReply = new EmbedBuilder()
+            .setColor(EmbedDecorator.color)
+        if (!mention) 
         {
-            const embed = new EmbedBuilder()
-                .setTitle(`${message.author.username}#${message.author.discriminator}`)
-                .setURL(`https://discordapp.com/users/${message.author.id}`)
-                .setImage(`${message.author.avatarURL({size: 1024})}`)
-                .setColor(EmbedDecorator.color)
-                .setDescription(`[Ver imagen completa](${message.author.avatarURL({size: 4096})})`)
-                
-            message.channel.send({ embeds: [embed] });
+            embedReply
+                .setTitle(`${user.username}#${user.discriminator}`)
+                .setURL(`https://discordapp.com/users/${user.id}`)
+                .setImage(`${user.avatarURL({size: 1024})}`)
+                .setDescription(`[Ver imagen completa](${user.avatarURL({size: 4096})})`)
         } 
-        else if (mentionUser.avatarURL() === null) 
+        else if (mention.avatarURL() === null) 
         {
-            message.channel.send(`El usuario (${mentionUser.username}) no tiene avatar!`);
+            channel.send(`El usuario (${mention.username}) no tiene avatar!`);
+            return;
         } 
         else 
         {
-            const embed = new EmbedBuilder()
-                .setTitle(`${mentionUser.username}#${mentionUser.discriminator}`)
-                .setURL(`https://discordapp.com/users/${mentionUser.id}`)
-                .setThumbnail(`${message.author.avatarURL()}`)
-                .setImage(`${mentionUser.avatarURL({size: 1024})}`)
-                .setColor(EmbedDecorator.color)
-                .setFooter({text:`A petición de ${message.author.username}`, iconURL: `${message.author.avatarURL()}`})
-                .setDescription(`${message.author.username} quiere ver tu foto :face_with_hand_over_mouth: ${mentionUser}
-                [Ver la imagen completa](${mentionUser.avatarURL({size: 4096})})`)
-            message.channel.send({ embeds: [embed] });
-        };
+            embedReply
+                .setTitle(`${mention.username}#${mention.discriminator}`)
+                .setURL(`https://discordapp.com/users/${mention.id}`)
+                .setThumbnail(`${user.avatarURL()}`)
+                .setImage(`${mention.avatarURL({size: 1024})}`)
+                .setFooter({text:`A petición de ${user.username}`, iconURL: `${user.avatarURL()}`})
+                .setDescription(`[Ver la imagen completa](${mention.avatarURL({size: 4096})})`);
+        }
+        channel.send({ embeds: [embedReply] });
     }
 }

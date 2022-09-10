@@ -20,9 +20,13 @@ module.exports              = class CreateChannel extends Command
     async run(message, args)
     {
         if(!checkPermissions(message.member, 'ManageChannels')) return;
-        const category      = args[0];
-        const channelName   = args[1];
-        if(args[2]) for(let i = 0; i < args[2]; i++)createChannel(message, `${channelName}_${i}`, category, 0);
-        else createChannel(message, channelName, category, 0);
+        const 
+        category      = args[0],
+        channelName   = args[1],
+        channelCount  = args[2] || null;
+        if(!channelCount) createChannel(message, channelName, category, 0);
+        else 
+            for(let i = 0; i < channelCount; i++)
+                createChannel(message, `${channelName}_${i}`, category, 0);
     }
 }
