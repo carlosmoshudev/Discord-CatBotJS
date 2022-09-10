@@ -2,7 +2,7 @@ require('dotenv').config();
 const { Client, Collection }    = require('discord.js');
 const { clientEvents }          = require('./events/Events');
 const clientOptions             = require('./config/clientOptions');
-const logger                    = require('./logger');
+const logger                    = require('./.DevTools/logger');
 
 const client        = new Client(clientOptions);
 client.commands     = new Collection();

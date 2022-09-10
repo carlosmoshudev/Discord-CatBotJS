@@ -1,31 +1,44 @@
-const { readdirSync: read } = require('fs')
-const dir = `${process.cwd()}/commands/`;
+const { readdirSync }   = require('fs')
+const commandsDirectory = `${process.cwd()}/commands/`;
+const fileExtension     = '.js'
 module.exports =
 {
-    Loader: client =>
+    CommandLoader: client =>
     {
-        const cmds = [];
-        read(dir).forEach(subdir => read(`${dir}${subdir}`).forEach(cmd => { if(cmd.endsWith('js'))
+        const commands = [];
+        readdirSync(commandsDirectory).forEach(category => 
+            readdirSync(`${commandsDirectory}${category}`).forEach(command => 
+                { 
+                    if(command.endsWith(fileExtension))
                     {
-                        const builder = require(`${dir}${subdir}/${cmd}`);
-                        cmds.push
+                        const 
+                        cmd = require(`${commandsDirectory}${category}/${command}`);
+                        commands.push
                         ({
-                            command: cmd.replace('.js',''),
-                            class: new builder(client)
-                        })}}));
-        return cmds;
+                            command: command.replace(fileExtension,''),
+                            class: new cmd(client)
+                        })
+                    }
+                }
+            )
+        );
+        return commands;
     },
-    DirLoader: () =>
+    CategoryLoader: () =>
     {
         const categories = [];
-        read(dir).forEach(category => categories.push(category));
+        readdirSync(commandsDirectory).forEach(category => 
+            categories.push(category));
         return categories;
     },
-    Runner: (cmd, args, client, message) =>
+    CommandRunner: (cmd, args, client, message) =>
     {
-        const cmdInstance = client.commands.filter(c => c.command === cmd)[0];
-        const aliasInstance = client.commands.filter(c => c.class.aliases.includes(cmd))[0];
-        const cmdClass = cmdInstance? cmdInstance.class : aliasInstance?.class;
-        cmdClass?.run(message, args);
+        const 
+        instance    = client.commands.filter(command => 
+            command.command === cmd)[0],
+        alias       = client.commands.filter(command => 
+            command.class.aliases.includes(cmd))[0],
+        command = instance? instance.class : alias?.class;
+        command?.run(message, args);
     }
 }

@@ -23,11 +23,11 @@ module.exports              = class ChannelInfo extends Command
         client          = message.client,
         channel         = args[0] ? client.channels.cache.get(args[0]) : message.channel,
         creationTime    = channel.createdAt, 
-        Date            = creationTime.getUTCDate(),
-        Month           = creationTime.getUTCMonth(),
-        Year            = creationTime.getUTCFullYear();
+            Date        = creationTime.getUTCDate(),
+            Month       = creationTime.getUTCMonth(),
+            Year        = creationTime.getUTCFullYear();
         const creation  = `${Date}/${Month}/${Year}`
-
+//TODO:Extraer a formatter
         const channelConfig =
         [
             `**ID:**            ${channel.id}\n`,

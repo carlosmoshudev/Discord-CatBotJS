@@ -18,14 +18,18 @@ module.exports              = class GetPermissions extends Command
     }
     async run(message, args)
     {
-        if(!checkPermissions(message.member, 'ModerateMembers')) return;
+        const 
+        member              = message.member,
+        channel             = message.channel;
+        if(!checkPermissions(member, this.permissions)) return;
         let 
-        mentionedUser   = message.mentions.users.first(),
-        userMember      = await message.guild.members.fetch(mentionedUser);
-        if(!userMember.permissions) userMember = message.member;
-        console.log(userMember.permissions)
-        const permissions     = userMember.permissions.toArray().map(perm => `${perm}\n`).join('');
+        mention = message.mentions.users.first() || args[0],
+        user    = await message.guild.members.fetch(mention);
+        if(!user.permissions) user = member;
+        const 
+        permissions = user.permissions.toArray().map(permission => 
+            `${permission}\n`).join('');
         //TODO: Arreglar la salida
-        message.reply(permissions);
+        channel.send(permissions);
     }
 }

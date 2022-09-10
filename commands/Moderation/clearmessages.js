@@ -18,8 +18,13 @@ module.exports              = class ClearMessages extends Command
     }
     async run(message, args)
     {
-        if(!checkPermissions(message.member, 'ManageMessages')) return;
-        const deleteCounter = args[0] ? args[0] : 100;
-        message.channel.bulkDelete(deleteCounter, true).catch(error => console.log(error.stack));
+        const
+        member  = message.member,
+        channel = message.channel;
+        if(!checkPermissions(member, this.permissions)) return;
+        const 
+        deleteCounter = args[0] ? args[0] : 100;
+        channel.bulkDelete(deleteCounter, true)
+            .catch(error => console.log(error.stack));
     }
 }
