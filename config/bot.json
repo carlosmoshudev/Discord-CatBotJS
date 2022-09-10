@@ -4,10 +4,10 @@
         "Presence":{
             "Name":"El gato con B0Ts"
         },
-        "ReadyLog":"\nThe B0T started successfully!",
-        "GuildJoinLog":"\n -  Joined at:\n",
+        "ReadyLog":"\nThe B0T has started successfully!",
+        "GuildJoinLog":"-  Servers joined at:      ",
         "NotClientLog":"There is not client logged in.",
-        "CommandLoadLog":"\n -  Commands loaded:\n"
+        "CommandLoadLog":"-  Global commands loaded:"
     },
     "MessageConfig":{
         "Prefix":"!"

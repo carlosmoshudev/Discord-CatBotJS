@@ -15,5 +15,6 @@ module.exports = class Command
         this.production     = options.production || false;
         this.botpermissions = options.botpermissions || false;
         this.helptext       = options.helptext;
+        this.developerOnly  = options.developerOnly || false;
     }
 }

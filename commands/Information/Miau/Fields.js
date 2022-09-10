@@ -1,5 +1,5 @@
 const { Fields, Links } = require('./config.json');
-const { MessageConfig } = require('../../../config/bot.json');
+const { Prefix }        = require('../../../config/bot.json').MessageConfig;
 const { List }          = require('../../../utils/Formatter');
 
 module.exports =
@@ -19,9 +19,10 @@ module.exports =
     },
     pushCommands: (client, category) =>
     {
+        const commands = client.commands;
         let value = '';
         value += `\n**- Categoría de *${category}* **`
-        client.commands.forEach(command =>
+        commands.forEach(command =>
             {
                 if(command.class.category.toLowerCase() === category.toLowerCase()) 
                     value += `\n**!${command.class.name}** - ${command.class.description} | \`${command.class.permissions}\``
@@ -30,10 +31,13 @@ module.exports =
     },
     pushCategories: client => 
     {
-        const categories = [];
-        client.commands.forEach(cmd => 
+        const 
+        categories  = [],
+        commands    = client.commands;
+        commands.forEach(command => 
             {
-                if(!categories.includes(cmd.class.category)) categories.push(cmd.class.category)
+                if(!categories.includes(command.class.category)) 
+                    categories.push(command.class.category)
             });
         return {
             name: '» Categorías de comandos',
@@ -42,18 +46,20 @@ module.exports =
     },
     commandHelp: command =>
     {
-        const valueInfo = `**Comando:** *${MessageConfig.Prefix}${command.class.name}*
-        **Alias:** *${List(command.class.aliases.map(a => MessageConfig.Prefix+a))}*
-        **Descripción:** *${command.class.description}*
-        **Parámetros:** \n\`${command.class.usage}\`
-        **Permisos:** \`${command.class.permissions}\`
-        **Categoría:** *${command.class.category}*\n`;
-        const fields = 
+        const
+        cmd         = command.class,
+        valueInfo   = 
+        `**Comando:**       *${Prefix}${cmd.name}*
+        **Alias:**          *${List(cmd.aliases.map(alias => Prefix+alias))}*
+        **Descripción:**    *${cmd.description}*
+        **Parámetros:**  \n\`${cmd.usage}\`
+        **Permisos:**      \`${cmd.permissions}\`
+        **Categoría:**      *${cmd.category}*\n`,
+        fields      = 
         [
             { name: Fields.CommandInfo, value: valueInfo },
-            { name: Fields.CommandHelp, value: command.class.helpText}
+            { name: Fields.CommandHelp, value: cmd.helpText}
         ];
-
         return fields;
     }
 }

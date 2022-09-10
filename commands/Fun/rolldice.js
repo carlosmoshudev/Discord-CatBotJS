@@ -16,9 +16,12 @@ module.exports  = class RollDice extends Command
     }
     async run(message, args)
     {
-        const faces = args[0] || 6;
-        let face = Math.floor(Math.random() * faces) + 1;
-        message.channel.send(`${message.author}, te ha salido un ${face}. :game_die:`)
+        const 
+        user    = message.author,
+        channel = message.channel,
+        faces   = args[0] || 6,
+        face    = Math.floor(Math.random() * faces) + 1;
+        channel.send(`${user}, te ha salido un ${face}. :game_die:`)
 
     }
 }

@@ -17,11 +17,11 @@ module.exports  = class Ban extends Command
     }
     async run(message, args)
     {
-        const banUser =
-            message.mentions.members.first() ||
+        const 
+        banUser = message.mentions.members.first() ||
             await message.guild.members.fetch(args[0])
-                .catch(error => { return });
-        const banTime = args[1] || 360;
+                .catch(error => { return }),
+        banTime = args[1] || 360;
         if(banUser) await banUser.ban({days: banTime});
     }
 }

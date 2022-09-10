@@ -1,6 +1,7 @@
 const Command               = require("../../models/command");
 const { EmbedBuilder }      = require('discord.js');
 const { EmbedDecorator }    = require('../../config/decorator.json');
+const { Datetime }          = require('../../utils/Formatter')
 module.exports              = class ServerInfo extends Command
 {
     constructor(client)
@@ -23,11 +24,7 @@ module.exports              = class ServerInfo extends Command
         user            = message.author,
         channel         = message.channel,
         owner           = message.client.users.cache.get(server.ownerId),
-        creationTime    = server.createdAt, 
-            Date        = creationTime.getUTCDate(),
-            Month       = creationTime.getUTCMonth(),
-            Year        = creationTime.getUTCFullYear(),
-        creation        = `${Date}/${Month}/${Year}`,
+        creation        = Datetime(server.createdAt),
         serverConfig    =
         [
             `**ID:**            ${server.id}\n`,
@@ -38,8 +35,8 @@ module.exports              = class ServerInfo extends Command
             `**Ver reglas:**    ${server.rulesChannel || "sin canal de reglas"}\n`,
             `**Propiedad:**     ${owner}\n`,
             `**Creado:**        ${creation}\n`,
-        ];
-        const embed = new EmbedBuilder()
+        ],
+        embedReply = new EmbedBuilder()
             .setTitle(`Información sobre servidor: ${server.name}`)
             .setURL(server.url)
             .addFields([
@@ -56,7 +53,7 @@ module.exports              = class ServerInfo extends Command
                     iconURL: user.avatarURL()
                 }
             );
-            channel.send({ embeds: [embed] });
+            channel.send({ embeds: [embedReply] });
     }
     getF2A = (server) => server.mfaLevel === 0 ? '*Habilitado*' : '*Deshabilitado*';
 }

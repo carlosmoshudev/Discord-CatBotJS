@@ -4,8 +4,7 @@ const { Links }             = require('./Miau/config.json');
 const { 
     pushLinks, 
     pushCommands, 
-    pushCategories,
-    commandHelp }           = require('./Miau/Fields');
+    pushCategories}         = require('./Miau/Fields');
 const Command               = require("../../models/command");
 const Project               = require('../../package.json');
 

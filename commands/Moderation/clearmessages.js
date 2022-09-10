@@ -23,7 +23,7 @@ module.exports              = class ClearMessages extends Command
         channel = message.channel;
         if(!checkPermissions(member, this.permissions)) return;
         const 
-        deleteCounter = args[0] ? args[0] : 100;
+        deleteCounter = args[0] || 100;
         channel.bulkDelete(deleteCounter, true)
             .catch(error => console.log(error.stack));
     }

@@ -6,7 +6,7 @@ const colors =
 }
 module.exports = 
 {
-    yellowLog:  (message) => console.log(colors.yellow, message),
-    cyanLog:    (message) => console.log(colors.cyan, message),
-    purpleLog:  (message) => console.log(colors.purple, message),
+    yellowLog:  (message, white = '') => console.log(colors.yellow, message, white),
+    cyanLog:    (message, white = '') => console.log(colors.cyan, message, white),
+    purpleLog:  (message, white = '') => console.log(colors.purple, message, white),
 }

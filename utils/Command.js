@@ -1,4 +1,4 @@
-const { readdirSync }   = require('fs')
+const { readdirSync }   = require('fs');
 const commandsDirectory = `${process.cwd()}/commands/`;
 const fileExtension     = '.js'
 module.exports =

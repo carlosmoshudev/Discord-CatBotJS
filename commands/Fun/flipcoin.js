@@ -16,11 +16,14 @@ module.exports  = class FlipCoin extends Command
     }
     async run(message, args)
     {
-        const faces = ['cara','cruz'];
-        const dropChance = Math.random() * 100;
+        const
+        user        = message.author,
+        channel     = message.channel,
+        faces       = ['cara','cruz'],
+        dropChance  = Math.random() * 100;
         let result;
         if(Math.round(dropChance) === 50) result = 'de canto';
         else result = faces[Math.round(dropChance/100)];
-        message.channel.send(`${message.author}, tu moneda ha salido ${result}.`)
+        channel.send(`${user}, tu moneda ha salido ${result}.`)
     }
 }
