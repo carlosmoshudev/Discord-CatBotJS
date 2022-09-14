@@ -1,6 +1,6 @@
 {
   "name": "catbot-js",
-  "version": "PRE-2.0.18",
+  "version": "PRE-2.0.19",
   "description": "Bot para discord multipropósito en Discord.js v14.3 y node.js",
   "main": "index.js",
   "type": "commonjs",
