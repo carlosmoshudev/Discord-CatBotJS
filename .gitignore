@@ -107,3 +107,7 @@ dist
 
 # Editor config
 .vscode
+
+#Developer
+.DevCommands/*
+.WorkingProgress/*
