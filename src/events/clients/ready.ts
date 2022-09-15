@@ -1,13 +1,14 @@
-const { ReadyConfig } = require('../../config/bot.json');
-const clientPresence = require('../../config/clientPresence');
-const { CommandLoader, CategoryLoader } = require('../../utils/Command');
-const cli = require('../../.DevTools/cli');
-module.exports = client => {
+import { ReadyConfig } from '../../config/bot.json';
+import clientPresence from '../../config/clientPresence';
+import { CommandLoader, CategoryLoader } from '../../utils/Command';
+import cli from '../../.DevTools/cli';
+
+export function Ready(client): void {
     if (!client) {
         console.error(ReadyConfig.NotClientLog);
         return;
-    }
-    client.user.setPresence(clientPresence);
+    } 
+    client!.user.setPresence(clientPresence);
     client.commands = CommandLoader(client);
     client.categories = CategoryLoader(client);
 

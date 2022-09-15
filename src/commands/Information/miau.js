@@ -6,7 +6,7 @@ const {
     pushCommands,
     pushCategories } = require('./Miau/Fields');
 const Command = require("../../models/command");
-const Project = require('../../package.json');
+const Project = require('../../../package.json');
 
 module.exports = class Miau extends Command {
     constructor(client) {

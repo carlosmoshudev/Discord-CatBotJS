@@ -1,10 +1,11 @@
 require('dotenv').config();
-const { Client, Collection } = require('discord.js');
-const { clientEvents } = require('./events/Events');
-const clientOptions = require('./config/clientOptions');
-const logger = require('./.DevTools/logger');
+import './utils/Discord';
+import { Client, Collection } from 'discord.js';
+import clientEvents from './events/ClientEvents';
+import clientOptions from './config/clientOptions';
+import logger from './.DevTools/logger';
 
-const client = new Client(clientOptions);
+const client: Client<boolean> = new Client(clientOptions);
 client.commands = new Collection();
 client.categories = new Collection();
 
