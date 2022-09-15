@@ -10,7 +10,7 @@ export function Ready(client): void {
     } 
     client!.user.setPresence(clientPresence);
     client.commands = CommandLoader(client);
-    client.categories = CategoryLoader(client);
+    client.categories = CategoryLoader();
 
     const
         guildsJoined = client.guilds.cache.size,

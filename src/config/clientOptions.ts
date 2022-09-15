@@ -1,5 +1,5 @@
-const { Partials, GatewayIntentBits } = require('discord.js');
-module.exports =
+import { Partials, GatewayIntentBits } from 'discord.js';
+const clientOptions =
 {
     restTimeOffset: 0,
     partials:
@@ -21,3 +21,4 @@ module.exports =
             GatewayIntentBits.GuildEmojisAndStickers,
         ]
 }
+export default clientOptions;
