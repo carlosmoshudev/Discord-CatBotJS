@@ -1,5 +1,5 @@
 require('dotenv').config();
-import './utils/Discord';
+
 import { Client, Collection } from 'discord.js';
 import clientEvents from './events/ClientEvents';
 import clientOptions from './config/clientOptions';
@@ -14,4 +14,5 @@ client.on('messageCreate', message => { clientEvents.onMessageCreate(message) })
 client.on('debug', message => logger.debug(message));
 client.on('warn', message => logger.warn(message));
 client.on('error', message => logger.error(message));
-client.login(process.env.DISCORD_OAUTH);
+
+client?.login(process.env.DISCORD_OAUTH);
