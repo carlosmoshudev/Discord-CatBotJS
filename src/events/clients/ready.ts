@@ -10,8 +10,9 @@ export function Ready(client: Client<true>): void {
     client.categories = CategoryLoader();
     const guildsJoined: number = client.guilds.cache.size;
     const commandsLoaded: number = client.commands.size;
+    const categoriesLoaded: number = client.categories.size;
 
     YellowLog(ReadyConfig.ReadyLog);
     CyanLog(ReadyConfig.GuildJoinLog, `${guildsJoined}.`);
-    PurpleLog(ReadyConfig.CommandLoadLog, `${commandsLoaded}.`);
+    PurpleLog(ReadyConfig.CommandLoadLog, `${commandsLoaded} en ${categoriesLoaded} categorías.`);
 }
