@@ -1,5 +1,20 @@
-module.exports = class Command {
-    constructor(client, options) {
+import { Client } from "discord.js";
+export class Command {
+    client: any;
+    name: any;
+    aliases: string[];
+    description: string;
+    args: boolean;
+    usage: string;
+    subcommands: string[];
+    cooldown: number;
+    permissions: string;
+    category: string;
+    production: string;
+    botpermissions: string;
+    helptext: string;
+    developerOnly: boolean;
+    constructor(client: Client, options) {
         this.client = client;
         this.name = options.name;
         this.aliases = options.aliases;

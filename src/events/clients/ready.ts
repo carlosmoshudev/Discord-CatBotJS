@@ -1,20 +1,17 @@
+import {Client} from 'discord.js';
 import { ReadyConfig } from '../../config/bot.json';
-import clientPresence from '../../config/clientPresence';
 import { CommandLoader, CategoryLoader } from '../../utils/Command';
+import clientPresence from '../../config/clientPresence';
 import cli from '../../.DevTools/cli';
 
-export function Ready(client): void {
-    if (!client) {
-        console.error(ReadyConfig.NotClientLog);
-        return;
-    } 
-    client!.user.setPresence(clientPresence);
+export function Ready(client: Client<true>): void {
+    client.user.setPresence(clientPresence);
     client.commands = CommandLoader(client);
     client.categories = CategoryLoader();
 
     const
         guildsJoined = client.guilds.cache.size,
-        commandsLoaded = client.commands.length;
+        commandsLoaded = client.commands.size;
     cli.yellowLog(ReadyConfig.ReadyLog);
     cli.cyanLog(ReadyConfig.GuildJoinLog, `${guildsJoined}.`);
     cli.purpleLog(ReadyConfig.CommandLoadLog, `${commandsLoaded}.`);

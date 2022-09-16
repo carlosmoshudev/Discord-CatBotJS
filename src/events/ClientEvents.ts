@@ -1,6 +1,9 @@
-const clientEvents =
-{
-    onReady: client => require('./clients/ready')(client),
-    onMessageCreate: message => require('./clients/messageCreate')(message)
+import { Client, Message } from 'discord.js';
+import { Ready } from './clients/ready';
+import { CreateMessage } from './clients/messageCreate'
+export function onReady(client : Client<true>) {
+    Ready(client);
 }
-export default clientEvents;
+export function onMessageCreate(message: Message<boolean>) {
+    CreateMessage(message);
+}

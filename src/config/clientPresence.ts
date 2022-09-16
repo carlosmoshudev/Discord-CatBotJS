@@ -1,4 +1,4 @@
-import { ActivityType } from 'discord.js';
+import { ActivityType, PresenceData } from 'discord.js';
 import { ReadyConfig } from './bot.json';
 
 const clientPresence =
@@ -10,4 +10,4 @@ const clientPresence =
         }]
 }
 
-export default clientPresence;
+export default clientPresence as PresenceData;

@@ -1,4 +1,4 @@
-const Command = require("../../models/command");
+import { Command } from "../../models/command";
 module.exports = class Ping extends Command {
     constructor(client) {
         super(client, {

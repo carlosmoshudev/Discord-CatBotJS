@@ -1,16 +1,20 @@
+import { Collection, Client } from 'discord.js';
 import { readdirSync } from 'fs';
 const commandsDirectory = `${process.cwd()}/src/commands/`;
 const fileExtension = '.js'
-type CommandInfo = { command, class };
+type CommandInfo = { command: string, class: any };
 
-export function CommandLoader(client) {
-    const commandsInfo: CommandInfo[] = [];
+export function CommandLoader(client: Client<true>): Collection<unknown, unknown> {
+    const 
+    commandInfoFiller: CommandInfo[] | any = [];
+    let 
+    commandsInfo: Collection<unknown, unknown> = new Collection();
     readdirSync(commandsDirectory).forEach(category =>
         readdirSync(`${commandsDirectory}${category}`).forEach(command => {
             if (command.endsWith(fileExtension)) {
                 const
                     cmd = require(`${commandsDirectory}${category}/${command}`);
-                commandsInfo.push
+                commandInfoFiller.push
                     ({
                         command: command.replace(fileExtension, ''),
                         class: new cmd(client)
@@ -19,12 +23,15 @@ export function CommandLoader(client) {
         }
         )
     );
+    commandsInfo = commandInfoFiller;
     return commandsInfo;
 }
-export function CategoryLoader() {
-    const categories: string[] = [];
+export function CategoryLoader(): Collection<unknown, unknown> {
+    const categoryFiller: string[] | any = [];
+    let categories: Collection<unknown, unknown> = new Collection();
     readdirSync(commandsDirectory).forEach(category =>
-        categories.push(category));
+        categoryFiller.push(category));
+    categories = categoryFiller;
     return categories;
 }
 export function CommandRunner(cmd, args, client, message) {

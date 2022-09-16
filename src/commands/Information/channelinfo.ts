@@ -1,8 +1,8 @@
-const Command = require("../../models/command");
-const { EmbedBuilder } = require('discord.js');
-const { EmbedDecorator } = require('../../config/decorator.json');
-const { getChannelType } = require('../../utils/Channels');
-const { Datetime } = require('../../utils/Formatter')
+import { Command } from '../../models/Command';
+import { EmbedBuilder, Message, User } from 'discord.js';
+import { EmbedDecorator } from '../../config/decorator.json';
+import { GetChannelType } from '../../utils/Channels';
+import { FromatToDatetime } from '../../utils/Formatter';
 module.exports = class ChannelInfo extends Command {
     constructor(client) {
         super(
@@ -16,22 +16,22 @@ module.exports = class ChannelInfo extends Command {
                 helpText: 'bla bla'
             })
     }
-    async run(message, args) {
+    async run(message: Message<boolean>, args: string[]) {
         const
-            user = message.author,
-            client = message.client,
-            channel = args[0] ? client.channels.cache.get(args[0]) : message.channel,
-            creation = Datetime(channel.createdAt),
-            channelConfig =
+            user: User = message.author,
+            avatar: string | null = user.avatarURL(),
+            channel: any = message.channel,
+            creation: string = FromatToDatetime(channel?.createdAt),
+            channelConfig: string[] =
                 [
-                    `**ID:**            ${channel.id}\n`,
+                    `**ID:**            ${channel?.id}\n`,
                     `**Creado:**        ${creation}\n`,
-                    `**Ratio:**         ${channel.bitrate || "no configurado"}\n`,
-                    `**Descripción:**   ${channel.topic || "no establecida"}\n`,
-                    `**Type:**          ${getChannelType(channel.type)}\n`,
+                    `**Ratio:**         ${channel?.bitrate || "no configurado"}\n`,
+                    `**Descripción:**   ${channel?.topic || "no establecida"}\n`,
+                    `**Type:**          ${GetChannelType(channel?.type)}\n`,
                     `**NSFW:**          ${this.getNSFW(channel)}\n`,
-                    `**Categoría:**     ${channel.parent}\n`,
-                    `**ID Categoría:**  ${channel.parentId}\n`,
+                    `**Categoría:**     ${channel?.parent}\n`,
+                    `**ID Categoría:**  ${channel?.parentId}\n`,
                     `**Mención:**       ${channel}\n`,
                 ],
             embedReply = new EmbedBuilder()
@@ -48,7 +48,7 @@ module.exports = class ChannelInfo extends Command {
                 .setFooter(
                     {
                         text: `Solicitado por ${user.username}`,
-                        iconURL: user.avatarURL()
+                        iconURL: avatar!
                     }
                 );
         message.channel.send({ embeds: [embedReply] });

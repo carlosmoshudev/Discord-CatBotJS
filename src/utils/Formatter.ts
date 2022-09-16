@@ -1,10 +1,11 @@
 import { Language } from '../config/bot.json';
+import './Intl';
 
-export function FormatToList(list) {
+export function FormatToList(array: string[]) {
     const ListFormatter = new Intl.ListFormat(Language);
-    return ListFormatter.format(list);
+    return ListFormatter.format(array);
 }
-export function FromatToDatetime(rawDatetime) {
+export function FromatToDatetime(rawDatetime: Date) {
     const
         Date = rawDatetime.getUTCDate(),
         Month = rawDatetime.getUTCMonth(),
