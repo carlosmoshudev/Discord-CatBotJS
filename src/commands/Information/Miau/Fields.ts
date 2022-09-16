@@ -16,21 +16,19 @@ export function pushLinks() {
         value: links.join(' | ')
     }
 }
-export function pushCommands(client, category) {
-    const commands = client.commands;
+export function pushCommands(client: Client, category: string) {
     let value = '';
     value += `\n**- Categoría de *${category}* **`
-    commands.forEach(command => {
-        if (command.class.category.toLowerCase() === category.toLowerCase())
-            value += `\n**!${command.class.name}** - ${command.class.description} | \`${command.class.permissions}\``
+    client.commands.forEach(command => {
+        if (command.category.toLowerCase() === category.toLowerCase())
+            value += `\n**!${command.name}** - ${command.description} | \`${command.permissions}\``
     });
     return value;
 }
 export function pushCategories(client: Client) {
     const
-        categories: string[] = [],
-        commands = client.commands;
-    commands.forEach(command => {
+        categories: string[] = [];
+    client.commands.forEach(command => {
         if (!categories.includes(command.category))
             categories.push(command.category)
     });

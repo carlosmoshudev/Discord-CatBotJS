@@ -1,4 +1,4 @@
-import { EmbedBuilder, Client } from 'discord.js';
+import { EmbedBuilder, Client, Message, ColorResolvable } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { Links } from './Miau/config.json';
 import { pushLinks, pushCommands, pushCategories } from './Miau/Fields';
@@ -25,7 +25,7 @@ export class ConcreteCommand extends Command {
                 helpText: 'Se puede añadir un comando o categoría como parámetro\n (ej. !miau ping, !miau getavatar)',
             })
     }
-    async run(message, args) {
+    async run(message: Message, args: string[]) {
         const
             user = message.author,
             client = message.client,
@@ -33,7 +33,7 @@ export class ConcreteCommand extends Command {
             commandOrCategory = args[0] || null,
             embedTitle = `Miauyuda para ${user.username}#${user.discriminator}`,
             embedReply = new EmbedBuilder()
-                //.setColor(EmbedDecorator.color)
+                .setColor(EmbedDecorator.color as ColorResolvable)
                 .setURL(Links.Invite.url)
                 .setTimestamp()
                 .setThumbnail(user.avatarURL())
@@ -45,7 +45,7 @@ export class ConcreteCommand extends Command {
         if (!commandOrCategory) {
             const
                 linksEmbed = new EmbedBuilder()
-                    //.setColor(EmbedDecorator.secondarycolor)
+                    .setColor(EmbedDecorator.secondarycolor as ColorResolvable)
                     .addFields(pushLinks());
             embedReply
                 .setTitle(embedTitle)
@@ -54,20 +54,20 @@ export class ConcreteCommand extends Command {
             channel.send({ embeds: [embedReply, linksEmbed] });
         }
         if (client.commands.map(command =>
-            command.command).includes(commandOrCategory)) {
+            command.name).includes(commandOrCategory!)) {
             const
                 commandHelpInfo = client.commands.filter(command =>
-                    command.command === commandOrCategory)[0];
+                    command.name === commandOrCategory)[0];
             embedReply
                 .setTitle(`${embedTitle} sobre ${commandHelpInfo.command}`)
                 .addFields(commandHelpInfo(commandHelpInfo));
             channel.send({ embeds: [embedReply] });
         }
         else if (client.categories.map(category =>
-            category.toLowerCase()).includes(commandOrCategory)) {
+            category.toLowerCase()).includes(commandOrCategory!)) {
             embedReply
                 .setTitle(embedTitle)
-                .setDescription(pushCommands(client, commandOrCategory));
+                .setDescription(pushCommands(client, commandOrCategory!));
             channel.send({ embeds: [embedReply] });
         }
         else if (commandOrCategory) {
