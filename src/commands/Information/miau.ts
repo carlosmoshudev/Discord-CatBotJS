@@ -5,7 +5,7 @@ import { pushLinks, pushCommands, pushCategories } from './Miau/Fields';
 import { Command } from "../../models/Command";
 import Project from '../../../package.json';
 
-export class Miau extends Command {
+export class ConcreteCommand extends Command {
     constructor(client: Client) {
         super(
             client,

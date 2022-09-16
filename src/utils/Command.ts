@@ -3,50 +3,33 @@ import { readdirSync } from 'fs';
 import { Command } from '../models/Command';
 import { YellowLog, CyanLog, PurpleLog } from '../.DevTools/cli';
 
-type CommandInfo = { command: string, class: any };
-
-const commandsDirectory: string = `${process.cwd()}/src/commands/`;
+const directory: string = `${process.cwd()}/src/commands/`;
 const fileExtension: string = '.ts'
 
-export function CommandLoader(client: Client<true>): any/*Collection<unknown, unknown>*/ {
-    YellowLog('Loading commands');
-    const commandInfoFiller: CommandInfo[] | any = [];
-    let commandsInfo: Collection<unknown, unknown> = new Collection();
-    readdirSync(commandsDirectory).forEach(category => 
-        readdirSync(`${commandsDirectory}${category}`).forEach(command => {
-            if (command.endsWith(fileExtension)) {
-                const cmd: Command = require(`${commandsDirectory}${category}/${command}`);
-                commandInfoFiller.push(cmd);
-                /*commandInfoFiller.push
-                    ({
-                        command: command.replace(fileExtension, ''),
-                        class: new (cmd as any)(client)
-                    })*/
-            }
-        })
+export function CommandLoader(client): Collection<string, Command> {
+    let commandsInfo: Collection<string, Command> = new Collection();
+    readdirSync(directory).forEach(category => readdirSync(`${directory}${category}`).forEach(command => {
+        if (command.endsWith(fileExtension)) {
+            let a = require(`${directory}${category}/${command}`);
+            const cmd = new a.ConcreteCommand(client);
+            commandsInfo.set(cmd.name, cmd);
+        }
+    })
     );
-    commandsInfo = commandInfoFiller;
     return commandsInfo;
 }
 
-export function CategoryLoader(): Collection<unknown, string> {
+export function CategoryLoader(): Collection<string, string> {
     const categoryFiller: string[] | any = [];
-    let categories: Collection<unknown, string> = new Collection();
-    readdirSync(commandsDirectory).forEach(category =>
+    let categories: Collection<string, string> = new Collection();
+    readdirSync(directory).forEach(category =>
         categoryFiller.push(category));
     categories = categoryFiller;
     return categories;
 }
 
 export function Run(cmd: string | undefined, args: string[], client: Client<boolean>, message: Message): void {
-    YellowLog("Run CMD");
-    CyanLog(`${client.commands.size}`);
-    const
-        instance: Command = client.commands.filter(command =>
-            command.name === cmd)[0],
-        alias: Command = client.commands.filter(command =>
-            command.aliases.includes(cmd!))[0],
-        command: Command = instance ? instance : alias!;
-    
-    command?.run(message, args);
+    YellowLog("running command");
+    if (client.commands.has(cmd!)) client.commands.get(cmd!)?.run(message, args);
+    else PurpleLog(`the command ${cmd} is not in the collection ${client.commands.size}`);
 }
