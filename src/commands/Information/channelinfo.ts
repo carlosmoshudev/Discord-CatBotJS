@@ -11,7 +11,7 @@ export class ConcreteCommand extends Command {
                 name: 'channelinfo',
                 aliases: ['infocanal', 'getchannel'],
                 description: 'Información del canal.',
-                caftegory: 'Information',
+                category: 'Information',
                 usage: '<canal?> (#ChannelId) {default:current}',
                 helpText: 'bla bla'
             })

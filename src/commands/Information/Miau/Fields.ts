@@ -1,7 +1,7 @@
+import { Client, RestOrArray, APIEmbedField } from 'discord.js';
 import { Fields, Links } from './config.json';
-const { Prefix } = require('../../../config/bot.json').MessageConfig;
+import { MessageConfig } from '../../../config/bot.json';
 import { FormatToList } from '../../../utils/Formatter';
-import { Client } from 'discord.js';
 import { Command } from '../../../models/Command';
 
 export function pushLinks() {
@@ -40,16 +40,15 @@ export function pushCategories(client: Client) {
 export function commandHelp(command: Command) {
     const
         valueInfo =
-            `**Comando:**       *${Prefix}${command.name}*
-        **Alias:**          *${FormatToList(command.aliases.map(alias => Prefix + alias))}*
-        **Descripción:**    *${command.description}*
-        **Parámetros:**  \n\`${command.usage}\`
-        **Permisos:**      \`${command.permissions}\`
-        **Categoría:**      *${command.category}*\n`,
-        fields =
-            [
-                { name: Fields.CommandInfo, value: valueInfo },
-                { name: Fields.CommandHelp, value: command.helptext }
-            ];
-    return fields;
+`**Comando:**       *${MessageConfig.Prefix}${command.name}*
+**Alias:**          *${FormatToList(command.aliases.map(alias => MessageConfig.Prefix + alias))}*
+**Descripción:**    *${command.description}*
+**Parámetros:**  \n\`${command.usage}\`
+**Permisos:**      \`${command.permissions}\`
+**Categoría:**      *${command.category}*\n`,
+        fields: RestOrArray<APIEmbedField> = [];
+        fields.push({name: Fields.CommandInfo, value: valueInfo });
+        fields.push({ name: Fields.CommandHelp, value: command.helptext })
+
+    return fields; 
 }

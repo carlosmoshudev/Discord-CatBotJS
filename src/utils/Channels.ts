@@ -1,14 +1,15 @@
+import { CategoryChannelResolvable, Message } from "discord.js";
 
-export function Create(message, name, parent, type):void {
-    message.guild.channels.create(
+export function Create(message: Message, name: string, parent: CategoryChannelResolvable, type: any): void {
+    message.guild?.channels.create(
         {
             name: name,
             parent: parent,
             type: type,
         })
 }
-export function GetType(typeIndex) {
-    const types =
+export function GetType(typeIndex: number) {
+    const types: string[] =
         [
             'Canal de texto',
             'Mensaje directo',

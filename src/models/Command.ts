@@ -29,7 +29,7 @@ export abstract class Command {
         this.category = options.category;
         this.production = options.production || false;
         this.botpermissions = options.botpermissions || false;
-        this.helptext = options.helptext;
+        this.helptext = options.helpText;
         this.developerOnly = options.developerOnly || false;
     }
 }

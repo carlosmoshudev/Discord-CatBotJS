@@ -1,7 +1,7 @@
 import { EmbedBuilder, Client, Message, ColorResolvable } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { Links } from './Miau/config.json';
-import { pushLinks, pushCommands, pushCategories } from './Miau/Fields';
+import { pushLinks, pushCommands, pushCategories, commandHelp } from './Miau/Fields';
 import { Command } from "../../models/Command";
 import Project from '../../../package.json';
 
@@ -55,12 +55,10 @@ export class ConcreteCommand extends Command {
         }
         if (client.commands.map(command =>
             command.name).includes(commandOrCategory!)) {
-            const
-                commandHelpInfo = client.commands.filter(command =>
-                    command.name === commandOrCategory)[0];
+            const cmdInfo = client.commands.get(commandOrCategory!);
             embedReply
-                .setTitle(`${embedTitle} sobre ${commandHelpInfo.command}`)
-                .addFields(commandHelpInfo(commandHelpInfo));
+                .setTitle(`${embedTitle} sobre ${cmdInfo}`)
+                .addFields(commandHelp(cmdInfo!));
             channel.send({ embeds: [embedReply] });
         }
         else if (client.categories.map(category =>

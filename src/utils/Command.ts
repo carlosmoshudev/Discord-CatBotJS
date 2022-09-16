@@ -9,8 +9,8 @@ export function CommandLoader(client: Client): Collection<string, Command> {
     let commandsInfo: Collection<string, Command> = new Collection();
     readdirSync(directory).forEach(category => readdirSync(`${directory}${category}`).forEach(command => {
         if (command.endsWith(fileExtension)) {
-            let commandScript = require(`${directory}${category}/${command}`);
-            const cmd: Command = new commandScript.ConcreteCommand(client);
+            let commandBuilder: any = require(`${directory}${category}/${command}`);
+            const cmd: Command = new commandBuilder.ConcreteCommand(client);
             commandsInfo.set(cmd.name, cmd);
         }
     }));
@@ -19,6 +19,6 @@ export function CommandLoader(client: Client): Collection<string, Command> {
 
 export function CategoryLoader(): Collection<string, string> {
     let categories: Collection<string, string> = new Collection();
-    readdirSync(directory).forEach(category => categories.set(category, category));
+    readdirSync(directory).forEach(category => {categories.set(category, category); console.log(category + " is a category")});
     return categories;
 }
