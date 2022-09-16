@@ -1,6 +1,6 @@
-import { Client } from "discord.js";
+import { Client, Message } from "discord.js";
 
-export class Command {
+export abstract class Command {
     client: Client;
     name: string;
     aliases: string[];
@@ -15,7 +15,7 @@ export class Command {
     botpermissions: string;
     helptext: string;
     developerOnly: boolean;
-    run: any;
+    abstract run(message: Message<boolean>, args: string[]): Promise<void>;
     constructor(client: Client, options: any) {
         this.client = client;
         this.name = options.name;

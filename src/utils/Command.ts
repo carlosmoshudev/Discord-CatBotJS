@@ -25,7 +25,6 @@ export function CommandLoader(client: Client<true>): any/*Collection<unknown, un
             }
         })
     );
-    console.log(commandInfoFiller);
     commandsInfo = commandInfoFiller;
     return commandsInfo;
 }
@@ -41,12 +40,13 @@ export function CategoryLoader(): Collection<unknown, string> {
 
 export function Run(cmd: string | undefined, args: string[], client: Client<boolean>, message: Message): void {
     YellowLog("Run CMD");
+    CyanLog(`${client.commands.size}`);
     const
         instance: Command = client.commands.filter(command =>
             command.name === cmd)[0],
         alias: Command = client.commands.filter(command =>
             command.aliases.includes(cmd!))[0],
         command: Command = instance ? instance : alias!;
-    CyanLog(`${client.commands}`);
+    
     command?.run(message, args);
 }

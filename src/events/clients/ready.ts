@@ -8,7 +8,7 @@ export function Ready(client: Client<true>): void {
     client.user.setPresence(clientPresence);
     client.commands = CommandLoader(client);
     client.categories = CategoryLoader();
-
+    console.log(client.commands.size);
     const guildsJoined: number = client.guilds.cache.size;
     const commandsLoaded: number = client.commands.size;
     

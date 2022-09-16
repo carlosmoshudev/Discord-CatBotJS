@@ -1,15 +1,12 @@
-const { EmbedBuilder } = require('discord.js');
-const { EmbedDecorator } = require('../../config/decorator.json');
-const { Links } = require('./Miau/config.json');
-const {
-    pushLinks,
-    pushCommands,
-    pushCategories } = require('./Miau/Fields');
-const Command = require("../../models/command");
-const Project = require('../../../package.json');
+import { EmbedBuilder, Client } from 'discord.js';
+import { EmbedDecorator } from '../../config/decorator.json';
+import { Links } from './Miau/config.json';
+import { pushLinks, pushCommands, pushCategories } from './Miau/Fields';
+import { Command } from "../../models/Command";
+import Project from '../../../package.json';
 
-module.exports = class Miau extends Command {
-    constructor(client) {
+export class Miau extends Command {
+    constructor(client: Client) {
         super(
             client,
             {
@@ -25,7 +22,7 @@ module.exports = class Miau extends Command {
                 description: 'Proporciona ayuda con los comandos.',
                 category: 'Information',
                 usage: '<comando?> {default:global help}',
-                helpText: 'Se puede añadir un comando o categoría como parámetro\n (ej. !miau ping, !miau getavatar)'
+                helpText: 'Se puede añadir un comando o categoría como parámetro\n (ej. !miau ping, !miau getavatar)',
             })
     }
     async run(message, args) {
@@ -36,7 +33,7 @@ module.exports = class Miau extends Command {
             commandOrCategory = args[0] || null,
             embedTitle = `Miauyuda para ${user.username}#${user.discriminator}`,
             embedReply = new EmbedBuilder()
-                .setColor(EmbedDecorator.color)
+                //.setColor(EmbedDecorator.color)
                 .setURL(Links.Invite.url)
                 .setTimestamp()
                 .setThumbnail(user.avatarURL())
@@ -48,7 +45,7 @@ module.exports = class Miau extends Command {
         if (!commandOrCategory) {
             const
                 linksEmbed = new EmbedBuilder()
-                    .setColor(EmbedDecorator.secondarycolor)
+                    //.setColor(EmbedDecorator.secondarycolor)
                     .addFields(pushLinks());
             embedReply
                 .setTitle(embedTitle)
