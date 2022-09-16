@@ -1,8 +1,9 @@
-import { Command } from '../../models/Command';
-import { EmbedBuilder } from 'discord.js';
+import { Client, EmbedBuilder, Message, User, Channel, ColorResolvable } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
+import { Command } from '../../models/Command';
+
 export class ConcreteCommand extends Command {
-    constructor(client) {
+    constructor(client: Client) {
         super(
             client,
             {
@@ -14,11 +15,11 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !wayrachiste) Sin parámetros'
             })
     }
-    async run(message, args) {
+    async run(message: Message, args: string[]) {
         const
-            user = message.author,
-            channel = message.channel,
-            jokes = //TODO: Traer de google sheets ? mongoose ?
+            user: User = message.author,
+            channel: Channel = message.channel,
+            jokes: string[] = //TODO: Traer de google sheets ? mongoose ?
                 [
                     `¿Qué le dijo un plátano a una gelatina? 
         Todavía no me desnudo y ya estás temblando.`,
@@ -48,16 +49,16 @@ export class ConcreteCommand extends Command {
         El hombre le contesta:
         -Si eso es lo que quieres, ¡Decídete! ¿Quieres que me vaya o que me quede?`,
                 ],
-            joke = jokes[Math.floor(Math.random() * jokes.length)],
+            joke: string = jokes[Math.floor(Math.random() * jokes.length)],
             embedReply = new EmbedBuilder()
                 .setTitle("WayraChiste +18")
                 .setDescription(joke)
-                //.setColor(EmbedDecorator.color)
+                .setColor(EmbedDecorator.color as ColorResolvable)
                 .setTimestamp()
                 .setFooter(
                     {
                         text: `Solicitado por ${user.username}`,
-                        iconURL: user.avatarURL()
+                        iconURL: user.avatarURL()!
                     }
                 );
         channel.send({ embeds: [embedReply] });

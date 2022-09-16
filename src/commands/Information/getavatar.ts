@@ -1,8 +1,9 @@
-import { Command } from '../../models/Command';
-import { ColorResolvable, EmbedBuilder } from 'discord.js';
+import { Channel, Client, ColorResolvable, EmbedBuilder, GuildMember, Message, User } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
+import { Command } from '../../models/Command';
+
 export class ConcreteCommand extends Command {
-    constructor(client) {
+    constructor(client: Client) {
         super(
             client,
             {
@@ -14,13 +15,12 @@ export class ConcreteCommand extends Command {
                 helpText: ''
             })
     }
-    async run(message, args) {
+    async run(message: Message, args: string[]) {
         const
-            user = message.author,
-            channel = message.channel,
-            mention = message.mentions.users.first() ||
-                await message.guild.members.fetch(args[0]),
-            embedReply = new EmbedBuilder()
+            user: User = message.author,
+            channel: Channel = message.channel,
+            mention: User = message.mentions.users.first()!,
+            embedReply: EmbedBuilder = new EmbedBuilder()
                 .setColor(EmbedDecorator.color as ColorResolvable)
         if (!mention) {
             embedReply

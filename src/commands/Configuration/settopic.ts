@@ -1,6 +1,7 @@
-import { Command } from '../../models/Command';
-import { CheckUserPermissions } from '../../utils/User';
 import { Client, GuildMember, Message, Channel } from 'discord.js';
+import { CheckUserPermissions } from '../../utils/User';
+import { Command } from '../../models/Command';
+
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
         super(

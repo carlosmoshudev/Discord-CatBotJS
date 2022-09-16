@@ -1,7 +1,7 @@
-import { Command } from '../../models/Command';
+import { Client, Message } from 'discord.js';
 import { CheckUserPermissions } from '../../utils/User';
 import { Create } from '../../utils/Channels';
-import { Client, Message } from 'discord.js';
+import { Command } from '../../models/Command';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -9,7 +9,11 @@ export class ConcreteCommand extends Command {
             client,
             {
                 name: 'createtextchannel',
-                aliases: ['nuevocanal', 'newchannel'],
+                aliases:
+                    [
+                        'nuevocanal',
+                        'newchannel'
+                    ],
                 description: 'Crea canales en tu servidor.',
                 category: 'Configuration',
                 usage: '<categoría> (#channelId)\n<nombre>\n<número?> {default:1}',

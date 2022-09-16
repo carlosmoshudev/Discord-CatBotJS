@@ -4,8 +4,10 @@ import { MessageConfig } from '../../../config/bot.json';
 import { FormatToList } from '../../../utils/Formatter';
 import { Command } from '../../../models/Command';
 
-export function pushLinks() {
-    const links =
+type NameValue = { name: string, value: string };
+
+export function pushLinks(): NameValue {
+    const links: string[] =
         [
             `[${Links.Invite.text}](${Links.Invite.url})`,
             `[${Links.Repository.text}](${Links.Repository.url})`,
@@ -16,7 +18,7 @@ export function pushLinks() {
         value: links.join(' | ')
     }
 }
-export function pushCommands(client: Client, category: string) {
+export function pushCommands(client: Client, category: string): string {
     let value = '';
     value += `\n**- Categoría de *${category}* **`
     client.commands.forEach(command => {
@@ -25,7 +27,7 @@ export function pushCommands(client: Client, category: string) {
     });
     return value;
 }
-export function pushCategories(client: Client) {
+export function pushCategories(client: Client): NameValue {
     const
         categories: string[] = [];
     client.commands.forEach(command => {
@@ -37,18 +39,18 @@ export function pushCategories(client: Client) {
         value: categories.join(' \n ')
     }
 }
-export function commandHelp(command: Command) {
+export function commandHelp(command: Command): NameValue[] {
     const
         valueInfo =
-`**Comando:**       *${MessageConfig.Prefix}${command.name}*
+            `**Comando:**       *${MessageConfig.Prefix}${command.name}*
 **Alias:**          *${FormatToList(command.aliases.map(alias => MessageConfig.Prefix + alias))}*
 **Descripción:**    *${command.description}*
 **Parámetros:**  \n\`${command.usage}\`
 **Permisos:**      \`${command.permissions}\`
 **Categoría:**      *${command.category}*\n`,
-        fields: RestOrArray<APIEmbedField> = [];
-        fields.push({name: Fields.CommandInfo, value: valueInfo });
-        fields.push({ name: Fields.CommandHelp, value: command.helptext })
+        fields: NameValue[] = [];
+    fields.push({ name: Fields.CommandInfo, value: valueInfo });
+    fields.push({ name: Fields.CommandHelp, value: command.helptext })
 
-    return fields; 
+    return fields;
 }

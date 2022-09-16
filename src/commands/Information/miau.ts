@@ -1,4 +1,4 @@
-import { EmbedBuilder, Client, Message, ColorResolvable } from 'discord.js';
+import { EmbedBuilder, Client, Message, ColorResolvable, User, Channel } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { Links } from './Miau/config.json';
 import { pushLinks, pushCommands, pushCategories, commandHelp } from './Miau/Fields';
@@ -27,12 +27,12 @@ export class ConcreteCommand extends Command {
     }
     async run(message: Message, args: string[]) {
         const
-            user = message.author,
-            client = message.client,
-            channel = message.channel,
-            commandOrCategory = args[0] || null,
-            embedTitle = `Miauyuda para ${user.username}#${user.discriminator}`,
-            embedReply = new EmbedBuilder()
+            user: User = message.author,
+            client: Client = message.client,
+            channel: Channel = message.channel,
+            commandOrCategory: string | null = args[0] || null,
+            embedTitle: string = `Miauyuda para ${user.username}#${user.discriminator}`,
+            embedReply: EmbedBuilder = new EmbedBuilder()
                 .setColor(EmbedDecorator.color as ColorResolvable)
                 .setURL(Links.Invite.url)
                 .setTimestamp()
@@ -44,7 +44,7 @@ export class ConcreteCommand extends Command {
                     });
         if (!commandOrCategory) {
             const
-                linksEmbed = new EmbedBuilder()
+                linksEmbed: EmbedBuilder = new EmbedBuilder()
                     .setColor(EmbedDecorator.secondarycolor as ColorResolvable)
                     .addFields(pushLinks());
             embedReply
@@ -55,9 +55,9 @@ export class ConcreteCommand extends Command {
         }
         if (client.commands.map(command =>
             command.name).includes(commandOrCategory!)) {
-            const cmdInfo = client.commands.get(commandOrCategory!);
+            const cmdInfo: Command = client.commands.get(commandOrCategory!)!;
             embedReply
-                .setTitle(`${embedTitle} sobre ${cmdInfo}`)
+                .setTitle(`${embedTitle} sobre ${cmdInfo?.name}`)
                 .addFields(commandHelp(cmdInfo!));
             channel.send({ embeds: [embedReply] });
         }

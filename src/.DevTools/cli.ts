@@ -1,4 +1,5 @@
-const colors = {
+type Color = { yellow: string, cyan: string, purple: string }; 
+const colors: Color = {
     yellow: '\x1b[33m%s\x1b[0m',
     cyan: '\x1b[36m%s\x1b[0m',
     purple: '\x1b[35m%s\x1b[0m',

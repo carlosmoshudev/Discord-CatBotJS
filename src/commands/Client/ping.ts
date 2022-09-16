@@ -1,13 +1,18 @@
-import { Command } from '../../models/Command';
 import { Client, Message } from 'discord.js';
+import { Command } from '../../models/Command';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
         super(
-            client, 
+            client,
             {
                 name: "ping",
-                aliases: ["delay", "latencia", "ms"],
+                aliases:
+                    [
+                        "delay",
+                        "latencia",
+                        "ms"
+                    ],
                 description: "Comprueba la latencia con el bot.",
                 category: "Client",
                 usage: "N/A",

@@ -1,10 +1,11 @@
-import { Command } from '../../models/Command';
-import { ColorResolvable, EmbedBuilder, Message, User } from 'discord.js';
+import { Channel, Client, ColorResolvable, EmbedBuilder, Message, User } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { GetType } from '../../utils/Channels';
 import { FromatToDatetime } from '../../utils/Formatter';
+import { Command } from '../../models/Command';
+
 export class ConcreteCommand extends Command {
-    constructor(client) {
+    constructor(client: Client) {
         super(
             client,
             {
@@ -21,12 +22,11 @@ export class ConcreteCommand extends Command {
             user: User = message.author,
             avatar: string | null = user.avatarURL(),
             channel: any = message.channel,
-            creation: string = FromatToDatetime(channel?.createdAt),
+            creation: string = FromatToDatetime(channel.createdAt!),
             channelConfig: string[] =
                 [
                     `**ID:**            ${channel?.id}\n`,
                     `**Creado:**        ${creation}\n`,
-                    `**Ratio:**         ${channel?.bitrate || "no configurado"}\n`,
                     `**Descripción:**   ${channel?.topic || "no establecida"}\n`,
                     `**Type:**          ${GetType(channel?.type)}\n`,
                     `**NSFW:**          ${this.getNSFW(channel)}\n`,
@@ -53,5 +53,5 @@ export class ConcreteCommand extends Command {
                 );
         message.channel.send({ embeds: [embedReply] });
     }
-    getNSFW = (channel) => channel.nsfw === false ? 'Todos los públicos' : 'Contenido explícito (+18)'
+    getNSFW = (channel: any) => channel.nsfw === false ? 'Todos los públicos' : 'Contenido explícito (+18)'
 }

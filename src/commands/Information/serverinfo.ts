@@ -1,7 +1,8 @@
-import { Command } from "../../models/Command";
 import { Client, ColorResolvable, EmbedBuilder, Guild, Message } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { FromatToDatetime } from '../../utils/Formatter';
+import { Command } from "../../models/Command";
+
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
         super(
