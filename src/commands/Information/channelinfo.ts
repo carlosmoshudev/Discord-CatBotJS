@@ -1,7 +1,7 @@
 import { Command } from '../../models/Command';
 import { EmbedBuilder, Message, User } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
-import { GetChannelType } from '../../utils/Channels';
+import { GetType } from '../../utils/Channels';
 import { FromatToDatetime } from '../../utils/Formatter';
 module.exports = class ChannelInfo extends Command {
     constructor(client) {
@@ -28,7 +28,7 @@ module.exports = class ChannelInfo extends Command {
                     `**Creado:**        ${creation}\n`,
                     `**Ratio:**         ${channel?.bitrate || "no configurado"}\n`,
                     `**Descripción:**   ${channel?.topic || "no establecida"}\n`,
-                    `**Type:**          ${GetChannelType(channel?.type)}\n`,
+                    `**Type:**          ${GetType(channel?.type)}\n`,
                     `**NSFW:**          ${this.getNSFW(channel)}\n`,
                     `**Categoría:**     ${channel?.parent}\n`,
                     `**ID Categoría:**  ${channel?.parentId}\n`,

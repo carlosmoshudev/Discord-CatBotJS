@@ -1,10 +1,8 @@
-const { Fields, Links } = require('./config.json');
+import { Fields, Links } from './config.json';
 const { Prefix } = require('../../../config/bot.json').MessageConfig;
-const { List } = require('../../../utils/Formatter');
+import { FormatToList } from '../../../utils/Formatter';
 
-module.exports =
-{
-    pushLinks: () => {
+    export function pushLinks() {
         const links =
             [
                 `[${Links.Invite.text}](${Links.Invite.url})`,
@@ -15,8 +13,8 @@ module.exports =
             name: Fields.Links,
             value: links.join(' | ')
         }
-    },
-    pushCommands: (client, category) => {
+    }
+    export function pushCommands(client, category) {
         const commands = client.commands;
         let value = '';
         value += `\n**- Categoría de *${category}* **`
@@ -25,8 +23,8 @@ module.exports =
                 value += `\n**!${command.class.name}** - ${command.class.description} | \`${command.class.permissions}\``
         });
         return value;
-    },
-    pushCategories: client => {
+    }
+    export function pushCategories(client) {
         const
             categories = [],
             commands = client.commands;
@@ -38,8 +36,8 @@ module.exports =
             name: '» Categorías de comandos',
             value: categories.join(' \n ')
         }
-    },
-    commandHelp: command => {
+    }
+    export function commandHelp(command) {
         const
             cmd = command.class,
             valueInfo =
@@ -56,4 +54,3 @@ module.exports =
                 ];
         return fields;
     }
-}

@@ -1,7 +1,7 @@
 import { Client } from "discord.js";
 export class Command {
-    client: any;
-    name: any;
+    client: Client;
+    name: string;
     aliases: string[];
     description: string;
     args: boolean;
@@ -14,7 +14,7 @@ export class Command {
     botpermissions: string;
     helptext: string;
     developerOnly: boolean;
-    constructor(client: Client, options) {
+    constructor(client: Client, options: any) {
         this.client = client;
         this.name = options.name;
         this.aliases = options.aliases;

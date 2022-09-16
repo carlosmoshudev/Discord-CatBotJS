@@ -1,5 +1,5 @@
 
-export function CreateChannel(message, name, parent, type) {
+export function Create(message, name, parent, type):void {
     message.guild.channels.create(
         {
             name: name,
@@ -7,7 +7,7 @@ export function CreateChannel(message, name, parent, type) {
             type: type,
         })
 }
-export function GetChannelType(typeIndex) {
+export function GetType(typeIndex) {
     const types =
         [
             'Canal de texto',

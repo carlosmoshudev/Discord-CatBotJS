@@ -1,4 +1,6 @@
-const Command = require("../../models/command");
+import { Command } from '../../models/Command';
+import { CheckUserPermissions } from '../../utils/User';
+import { Client, GuildMember, Message, Channel } from 'discord.js';
 const { EmbedBuilder } = require('discord.js');
 const { EmbedDecorator } = require('../../config/decorator.json');
 module.exports = class WayraChiste extends Command {

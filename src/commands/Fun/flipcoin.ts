@@ -1,4 +1,6 @@
-const Command = require("../../models/command");
+import { Command } from '../../models/Command';
+import { CheckUserPermissions } from '../../utils/User';
+import { Client, GuildMember, Message, Channel } from 'discord.js';
 module.exports = class FlipCoin extends Command {
     constructor(client) {
         super(
