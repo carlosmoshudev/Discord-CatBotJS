@@ -11,14 +11,15 @@ export class ConcreteCommand extends Command {
             client,
             {
                 name: 'miau',
-                aliases: [
-                    'help',
-                    'ayuda',
-                    'meow',
-                    'comandos',
-                    'commands',
-                    'man'
-                ],
+                aliases:
+                    [
+                        'help',
+                        'ayuda',
+                        'meow',
+                        'comandos',
+                        'commands',
+                        'man'
+                    ],
                 description: 'Proporciona ayuda con los comandos.',
                 category: 'Information',
                 usage: '<comando?> {default:global help}',
@@ -33,7 +34,7 @@ export class ConcreteCommand extends Command {
             commandOrCategory: string | null = args[0] || null,
             embedTitle: string = `Miauyuda para ${user.username}#${user.discriminator}`,
             embedReply: EmbedBuilder = new EmbedBuilder()
-                .setColor(EmbedDecorator.color as ColorResolvable)
+            .setColor(EmbedDecorator.color as ColorResolvable)
                 .setURL(Links.Invite.url)
                 .setTimestamp()
                 .setThumbnail(user.avatarURL())

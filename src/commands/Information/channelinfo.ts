@@ -10,11 +10,15 @@ export class ConcreteCommand extends Command {
             client,
             {
                 name: 'channelinfo',
-                aliases: ['infocanal', 'getchannel'],
+                aliases:
+                    [
+                        'infocanal',
+                        'getchannel'
+                    ],
                 description: 'Información del canal.',
                 category: 'Information',
                 usage: '<canal?> (#ChannelId) {default:current}',
-                helpText: 'bla bla'
+                helpText: '(ej. !channelinfo | !channelinfo 1013602284489412700)'
             })
     }
     async run(message: Message<boolean>, args: string[]) {

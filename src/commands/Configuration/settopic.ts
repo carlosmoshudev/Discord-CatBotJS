@@ -8,7 +8,12 @@ export class ConcreteCommand extends Command {
             client,
             {
                 name: 'settopic',
-                aliases: ['topic', 'topico', 'tematica'],
+                aliases:
+                    [
+                        'topic',
+                        'topico',
+                        'tematica'
+                    ],
                 description: 'Actualiza la temática del canal.',
                 category: 'Configuration',
                 permissions: 'ManageChannels',

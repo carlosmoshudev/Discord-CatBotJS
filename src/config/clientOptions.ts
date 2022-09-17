@@ -1,4 +1,4 @@
-import { Partials, GatewayIntentBits } from 'discord.js';
+import { Partials, GatewayIntentBits, ClientOptions } from 'discord.js';
 const clientOptions =
 {
     restTimeOffset: 0,
@@ -21,4 +21,4 @@ const clientOptions =
             GatewayIntentBits.GuildEmojisAndStickers,
         ]
 }
-export default clientOptions;
+export default clientOptions as ClientOptions;

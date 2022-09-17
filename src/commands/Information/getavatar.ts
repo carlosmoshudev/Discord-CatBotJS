@@ -8,7 +8,12 @@ export class ConcreteCommand extends Command {
             client,
             {
                 name: 'getavatar',
-                aliases: ['avatar', 'profilepic', 'getuserpic'],
+                aliases:
+                    [
+                        'avatar',
+                        'profilepic',
+                        'getuserpic'
+                    ],
                 description: 'Obtiene la foto de perfil.',
                 category: 'Information',
                 usage: '<member?> {default:user}',

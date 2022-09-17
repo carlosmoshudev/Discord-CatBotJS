@@ -1,12 +1,19 @@
-import { Command } from '../../models/Command';
 import { CheckUserPermissions } from '../../utils/User';
+import { Command } from '../../models/Command';
+import { Channel, Client, GuildMember, Message, TextChannel } from 'discord.js';
+
 export class ConcreteCommand extends Command {
-    constructor(client) {
+    constructor(client: Client) {
         super(
             client,
             {
                 name: 'clearmessages',
-                aliases: ['deletemessages', 'clearchannel', 'borrarmensajes'],
+                aliases:
+                    [
+                        'deletemessages',
+                        'clearchannel',
+                        'borrarmensajes'
+                    ],
                 description: 'Elimina los mensajes del canal.',
                 category: 'Moderation',
                 usage: '<número?> {max:100, default:100}',
@@ -14,14 +21,14 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !clearmessages | !clearmessages 100)\n Borra los mensajes de todos los usuarios. Max 100'
             })
     }
-    async run(message, args) {
+    async run(message: Message, args: string[]): Promise<void> {
         const
-            member = message.member,
-            channel = message.channel;
+            member: GuildMember = message.member!,
+            channel: Channel = message.channel as TextChannel;
         if (!CheckUserPermissions(member, this.permissions)) return;
         const
-            deleteCounter = args[0] || 100;
+            deleteCounter: number = parseInt(args[0]) || 100;
         channel.bulkDelete(deleteCounter, true)
-            .catch(error => console.log(error.stack));
+            .catch((error: Error) => console.log(error.stack));
     }
 }
