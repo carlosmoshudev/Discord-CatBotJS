@@ -1,12 +1,19 @@
 import { Command } from '../../models/Command';
 import { CheckUserPermissions } from '../../utils/User';
+import { Channel, Client, GuildMember, Message, User } from 'discord.js';
+
 export class ConcreteCommand extends Command {
-    constructor(client) {
+    constructor(client: Client) {
         super(
             client,
             {
                 name: 'getpermissions',
-                aliases: ['permissions', 'permisos', 'userpermissions'],
+                aliases:
+                    [
+                        'permissions',
+                        'permisos',
+                        'userpermissions'
+                    ],
                 description: 'Obtiene los permisos.',
                 category: 'Moderation',
                 usage: '<member?> {default:user}',
@@ -14,17 +21,17 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !getpermissions | !getpermissions @alguien)'
             })
     }
-    async run(message, args) {
+    async run(message: Message, args: string[]): Promise<void> {
         const
-            member = message.member,
-            channel = message.channel;
+            member: GuildMember = message.member!,
+            channel: Channel = message.channel;
         if (!CheckUserPermissions(member, this.permissions)) return;
         let
-            mention = message.mentions.users.first() || args[0],
-            user = await message.guild.members.fetch(mention);
-        if (!user.permissions) user = member;
+            mention: User | string = message.mentions.users.first() || args[0],
+            user: GuildMember = await message.guild?.members.fetch(mention)!;
+        if (!user?.permissions) user = member;
         const
-            permissions = user.permissions.toArray().map(permission =>
+            permissions: string = user.permissions.toArray().map(permission =>
                 `${permission}\n`).join('');
         //TODO: Arreglar la salida
         channel.send(permissions);

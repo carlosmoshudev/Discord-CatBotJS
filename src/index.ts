@@ -9,6 +9,7 @@ environment.config();
 //#region Build Client
 const client: Client<boolean> = new Client(clientOptions);
 client.commands = new Collection();
+client.aliases = new Collection();
 client.categories = new Collection();
 //#endregion
 //#region Event handling

@@ -113,3 +113,4 @@ src/.DevCommands/*
 src/.WorkingProgress/*
 
 tsconfig.json
+servers.json

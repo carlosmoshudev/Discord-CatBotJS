@@ -1,5 +1,6 @@
 import { BanOptions, Client, Message } from 'discord.js';
 import { Command } from '../../models/Command';
+
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
         super(
@@ -14,12 +15,12 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !ban @usuario 1.)'
             })
     }
-    async run(message: Message, args: string[]) {
+    async run(message: Message, args: string[]): Promise<void> {
         const
             banUser = message.mentions.members?.first() ||
                 await message.guild?.members.fetch(args[0])
-                    .catch(error => { return }),
-            banTime = args[1] || 360;
+                    .catch((error: Error) => { console.log(error); return; }),
+            banTime: number = parseInt(args[1]) || 360;
         if (banUser) await banUser.ban({ days: banTime } as BanOptions);
     }
 }

@@ -14,11 +14,11 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !rolldice 14)'
             })
     }
-    async run(message: Message, args) {
+    async run(message: Message, args: string[]): Promise<void> {
         const
             user: User = message.author,
             channel: Channel = message.channel,
-            faces: number = args[0] || 6,
+            faces: number = parseInt(args[0]) || 6,
             face: number = Math.floor(Math.random() * faces) + 1;
         channel.send(`${user}, te ha salido un ${face}. :game_die:`)
 

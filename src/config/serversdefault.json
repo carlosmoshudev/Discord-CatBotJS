@@ -1,0 +1,30 @@
+{
+    "serverIDhere":{
+        "name":"",
+        "channels":{
+            "logs":{
+                "welcome":"",
+                "ban":"",
+                "roles":"",
+                "messages":"",
+                "server":""
+            },
+            "post":{
+                "rules":"",
+                "welcome":"",
+                "twitchlive":"",
+                "twitter":"",
+                "levels":""
+            },
+            "support":{
+                "suggestions":"",
+                "acceptedsuggestions":"",
+                "tickets":"",
+                "solvedtickets":""
+            },
+            "serverstats":{
+                "users":""
+            }
+        }
+    }
+}
