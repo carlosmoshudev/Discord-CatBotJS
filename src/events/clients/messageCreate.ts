@@ -1,7 +1,7 @@
 import { Message, Client } from 'discord.js';
 import { MessageConfig } from '../../config/bot.json';
 
-export async function CreateMessage(message: Message<boolean>) {
+export async function CreateMessage(message: Message<boolean>): Promise<void> {
     const
         client: Client = message.client,
         args: string[] = message.content.split(/\s+/),
