@@ -1,4 +1,4 @@
-import { Client, RestOrArray, APIEmbedField } from 'discord.js';
+import { Client } from 'discord.js';
 import { Fields, Links } from './config.json';
 import { MessageConfig } from '../../../config/bot.json';
 import { FormatToList } from '../../../utils/Formatter';

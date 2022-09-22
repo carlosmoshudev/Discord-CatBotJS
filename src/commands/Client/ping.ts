@@ -19,7 +19,7 @@ export class ConcreteCommand extends Command {
                 helpText: "No responde a parámetros. (ej. !ping)",
             });
     }
-    async run(message: Message, args: string[]): Promise<void> {
+    async run(message: Message, _: string[]): Promise<void> {
         const APIlatency: number = message.client.ws.ping;
         const MessageLatency: number = Date.now() - message.createdTimestamp;
         message.reply(`Pong!  :ping_pong: 

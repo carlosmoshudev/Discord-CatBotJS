@@ -15,7 +15,7 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !wayrachiste) Sin parámetros'
             })
     }
-    async run(message: Message, args: string[]) {
+    async run(message: Message, _: string[]) {
         const
             user: User = message.author,
             channel: Channel = message.channel,
