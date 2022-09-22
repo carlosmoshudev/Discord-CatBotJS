@@ -18,7 +18,7 @@ export class ConcreteCommand extends Command {
                 helpText: 'sin parámetros.'
             })
     }
-    async run(message: Message, args: string[]): Promise<void> {
+    async run(message: Message, _: string[]): Promise<void> {
         const
             user: User = message.author,
             channel: Channel = message.channel,

@@ -20,7 +20,7 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !serverinfo | !serverinfo 0000000000000000)'
             })
     }
-    async run(message: Message, args: string[]) {
+    async run(message: Message, _: string[]) {
         const
             server: Guild = message.guild!,
             user: User = message.author,
