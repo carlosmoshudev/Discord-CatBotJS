@@ -111,6 +111,6 @@ dist
 #Developer
 src/.DevCommands/*
 src/.WorkingProgress/*
-
+build/*
 tsconfig.json
 servers.json
