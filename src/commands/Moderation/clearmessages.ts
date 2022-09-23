@@ -1,6 +1,12 @@
+import {
+    Channel,
+    Client,
+    GuildMember,
+    Message,
+    TextChannel
+} from 'discord.js';
 import { CheckUserPermissions } from '../../utils/User';
 import { Command } from '../../models/Command';
-import { Channel, Client, GuildMember, Message, TextChannel } from 'discord.js';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {

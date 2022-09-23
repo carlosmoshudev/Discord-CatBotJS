@@ -1,4 +1,7 @@
-import { Client, Message } from 'discord.js';
+import {
+    Client,
+    Message
+} from 'discord.js';
 import { CheckUserPermissions } from '../../utils/User';
 import { Create } from '../../utils/Channels';
 import { Command } from '../../models/Command';

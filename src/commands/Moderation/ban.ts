@@ -1,4 +1,8 @@
-import { BanOptions, Client, Message } from 'discord.js';
+import {
+    BanOptions,
+    Client,
+    Message
+} from 'discord.js';
 import { Command } from '../../models/Command';
 
 export class ConcreteCommand extends Command {

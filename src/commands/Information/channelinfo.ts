@@ -1,4 +1,10 @@
-import { Client, ColorResolvable, EmbedBuilder, Message, User } from 'discord.js';
+import {
+    Client,
+    ColorResolvable,
+    EmbedBuilder,
+    Message,
+    User
+} from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { GetType } from '../../utils/Channels';
 import { FromatToDatetime } from '../../utils/Formatter';
@@ -21,7 +27,7 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !channelinfo | !channelinfo 1013602284489412700)'
             })
     }
-    async run(message: Message<boolean>, _: string[]) {
+    async run(message: Message<boolean>, _args: string[]) {
         const
             user: User = message.author,
             avatar: string | null = user.avatarURL(),

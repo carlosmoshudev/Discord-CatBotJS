@@ -1,4 +1,9 @@
-import { Client, GuildMember, Message, Channel } from 'discord.js';
+import {
+    Client,
+    GuildMember,
+    Message,
+    Channel
+} from 'discord.js';
 import { CheckUserPermissions } from '../../utils/User';
 import { Command } from '../../models/Command';
 

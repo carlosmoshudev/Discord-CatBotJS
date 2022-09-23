@@ -1,4 +1,9 @@
-import { Client, Message, User, Channel } from 'discord.js';
+import {
+    Client,
+    Message,
+    User,
+    Channel
+} from 'discord.js';
 import { Command } from '../../models/Command';
 
 export class ConcreteCommand extends Command {
@@ -18,7 +23,7 @@ export class ConcreteCommand extends Command {
                 helpText: 'sin parámetros.'
             })
     }
-    async run(message: Message, _: string[]): Promise<void> {
+    async run(message: Message, _args: string[]): Promise<void> {
         const
             user: User = message.author,
             channel: Channel = message.channel,

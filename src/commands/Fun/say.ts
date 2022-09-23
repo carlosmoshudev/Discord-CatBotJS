@@ -1,4 +1,7 @@
-import { Client, Message } from 'discord.js';
+import {
+    Client,
+    Message
+} from 'discord.js';
 import { Command } from '../../models/Command';
 
 export class ConcreteCommand extends Command {

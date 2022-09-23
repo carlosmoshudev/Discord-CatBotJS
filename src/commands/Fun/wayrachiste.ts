@@ -1,4 +1,11 @@
-import { Client, EmbedBuilder, Message, User, Channel, ColorResolvable } from 'discord.js';
+import {
+    Client,
+    EmbedBuilder,
+    Message,
+    User,
+    Channel,
+    ColorResolvable
+} from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { Command } from '../../models/Command';
 
@@ -15,7 +22,7 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !wayrachiste) Sin parámetros'
             })
     }
-    async run(message: Message, _: string[]) {
+    async run(message: Message, _args: string[]) {
         const
             user: User = message.author,
             channel: Channel = message.channel,

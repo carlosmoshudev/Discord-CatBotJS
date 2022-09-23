@@ -1,6 +1,7 @@
 import {
     Client,
-    Message} from 'discord.js';
+    Message
+} from 'discord.js';
 import { Ready } from './clients/ready';
 import { CreateMessage } from './clients/messageCreate';
 import { DeleteMessage } from './clients/messageDelete';

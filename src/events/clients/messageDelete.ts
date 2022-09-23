@@ -22,8 +22,7 @@ export async function DeleteMessage(message: Message<boolean>): Promise<void> {
     if (message.embeds.length >= 1) {
         logChannel.send({ embeds: [embedReply, message.embeds[0]] });
         return;
-    } else if (message.embeds.length === 0 && content === "Se ha borrado un mensaje embebido.")
-    { 
+    } else if (message.embeds.length === 0 && content === "Se ha borrado un mensaje embebido.") {
         return;
     }
     logChannel.send({ embeds: [embedReply] });

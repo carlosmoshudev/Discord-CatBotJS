@@ -1,4 +1,8 @@
-import { Partials, GatewayIntentBits, ClientOptions } from 'discord.js';
+import {
+    Partials,
+    GatewayIntentBits,
+    ClientOptions
+} from 'discord.js';
 const clientOptions =
 {
     restTimeOffset: 0,

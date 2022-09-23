@@ -1,4 +1,7 @@
-import { Message, Client } from 'discord.js';
+import {
+    Message,
+    Client
+} from 'discord.js';
 import { MessageConfig } from '../../config/bot.json';
 
 export async function CreateMessage(message: Message<boolean>): Promise<void> {

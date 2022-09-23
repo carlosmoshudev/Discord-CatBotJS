@@ -1,10 +1,12 @@
 import { Client } from 'discord.js';
-import { Fields, Links } from './config.json';
+import {
+    Fields,
+    Links
+} from './config.json';
 import { MessageConfig } from '../../../config/bot.json';
 import { FormatToList } from '../../../utils/Formatter';
 import { Command } from '../../../models/Command';
-
-type NameValue = { name: string, value: string };
+import { NameValue } from '../../../types';
 
 export function pushLinks(): NameValue {
     const links: string[] =

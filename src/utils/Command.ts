@@ -1,4 +1,7 @@
-import { Collection, Client } from 'discord.js';
+import {
+    Collection,
+    Client
+} from 'discord.js';
 import { readdirSync } from 'fs';
 import { Command } from '../models/Command';
 

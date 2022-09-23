@@ -1,4 +1,7 @@
-import { Client, Message } from 'discord.js';
+import {
+    Client,
+    Message
+} from 'discord.js';
 import { Command } from '../../models/Command';
 
 export class ConcreteCommand extends Command {
@@ -19,7 +22,7 @@ export class ConcreteCommand extends Command {
                 helpText: "No responde a parámetros. (ej. !ping)",
             });
     }
-    async run(message: Message, _: string[]): Promise<void> {
+    async run(message: Message, _args: string[]): Promise<void> {
         const APIlatency: number = message.client.ws.ping;
         const MessageLatency: number = Date.now() - message.createdTimestamp;
         message.reply(`Pong!  :ping_pong: 

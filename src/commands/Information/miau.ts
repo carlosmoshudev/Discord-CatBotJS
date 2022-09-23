@@ -1,4 +1,11 @@
-import { EmbedBuilder, Client, Message, ColorResolvable, User, Channel } from 'discord.js';
+import {
+    EmbedBuilder,
+    Client,
+    Message,
+    ColorResolvable,
+    User,
+    Channel
+} from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { Links } from './Miau/config.json';
 import { pushLinks, pushCommands, pushCategories, commandHelp } from './Miau/Fields';
@@ -34,7 +41,7 @@ export class ConcreteCommand extends Command {
             commandOrCategory: string | null = args[0] || null,
             embedTitle: string = `Miauyuda para ${user.username}#${user.discriminator}`,
             embedReply: EmbedBuilder = new EmbedBuilder()
-            .setColor(EmbedDecorator.color as ColorResolvable)
+                .setColor(EmbedDecorator.color as ColorResolvable)
                 .setURL(Links.Invite.url)
                 .setTimestamp()
                 .setThumbnail(user.avatarURL())

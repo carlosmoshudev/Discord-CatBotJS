@@ -1,4 +1,7 @@
-import { Client, Message } from "discord.js";
+import {
+    Client,
+    Message
+} from "discord.js";
 
 export abstract class Command {
     client: Client;
