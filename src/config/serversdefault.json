@@ -24,6 +24,10 @@
             },
             "serverstats":{
                 "users":""
+            },
+            "share":{
+                "introduce":"",
+                "autoroles":""
             }
         }
     }
