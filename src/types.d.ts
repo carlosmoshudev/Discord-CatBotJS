@@ -10,3 +10,37 @@ export type CreateChannelData = {
     parent: CategoryChannelResolvable,
     type: number
 }
+export type ServerChannels = {
+    logs: logChannels,
+    post: postChannels,
+    support: supportChannels,
+    serverstats: serverStatChannels,
+    share: shareChannels
+}
+export interface logChannels {
+    welcome: string;
+    ban: string;
+    roles: string;
+    messages: string;
+    server: string;
+}
+export interface postChannels {
+    rules: string;
+    welcome: string;
+    twitchlive: string;
+    twitter: string;
+    levels: string;
+}
+export interface supportChannels {
+    suggestions: string;
+    acceptedsuggestions: string;
+    tickets: string;
+    solvedtickets: string;
+}
+export interface serverStatChannels {
+    usersjoined: string
+}
+export interface shareChannels {
+    introduce: string,
+    autoroles: string
+}
