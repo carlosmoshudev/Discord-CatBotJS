@@ -6,11 +6,11 @@ import {
 export abstract class Command {
     client: Client;
     name: string;
-    aliases: string[];
+    aliases: Array<string>;
     description: string;
     args: boolean;
     usage: string;
-    subcommands: string[];
+    subcommands: Array<string>;
     cooldown: number;
     permissions: string;
     category: string;
@@ -18,7 +18,7 @@ export abstract class Command {
     botpermissions: string;
     helptext: string;
     developerOnly: boolean;
-    abstract run(message: Message<boolean>, args: string[]): Promise<void>;
+    abstract run(message: Message<boolean>, args: Array<string>): Promise<void>;
     constructor(client: Client, options: any) {
         this.client = client;
         this.name = options.name;

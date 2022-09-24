@@ -13,12 +13,12 @@ declare namespace Intl {
     }
 
     export class ListFormat {
-        constructor(locales?: string | string[], options?: ListFormatOptions);
-        format(values: any[]): string;
-        formatToParts(values: any[]): ListFormatPart[];
+        constructor(locales?: string | Array<string>, options?: ListFormatOptions);
+        format(values: Array<any>): string;
+        formatToParts(values: Array<any>): ListFormatPart[];
         supportedLocalesOf(
-            locales: string | string[],
+            locales: string | Array<string>,
             options?: ListFormatOptions,
-        ): string[];
+        ): Array<string>;
     }
 }

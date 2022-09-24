@@ -28,14 +28,14 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !serverinfo | !serverinfo 0000000000000000)'
             })
     }
-    async run(message: Message, _args: string[]) {
+    async run(message: Message, _args: Array<string>) {
         const
             server: Guild = message.guild!,
             user: User = message.author,
             channel: Channel = message.channel,
             owner: User = message.client.users.cache.get(server!.ownerId)!,
             creation: string = FromatToDatetime(server!.createdAt),
-            serverConfig: string[] =
+            serverConfig: Array<string> =
                 [
                     `**ID:**            ${server!.id}\n`,
                     `**Creado en:**     ${creation}\n`,

@@ -33,7 +33,7 @@ export class ConcreteCommand extends Command {
                 helpText: 'Se puede añadir un comando o categoría como parámetro\n (ej. !miau ping, !miau getavatar)',
             })
     }
-    async run(message: Message, args: string[]) {
+    async run(message: Message, args: Array<string>) {
         const
             user: User = message.author,
             client: Client = message.client,

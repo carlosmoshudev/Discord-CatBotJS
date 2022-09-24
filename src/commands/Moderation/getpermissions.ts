@@ -27,7 +27,7 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !getpermissions | !getpermissions @alguien)'
             })
     }
-    async run(message: Message, args: string[]): Promise<void> {
+    async run(message: Message, args: Array<string>): Promise<void> {
         const
             member: GuildMember = message.member!,
             channel: Channel = message.channel;

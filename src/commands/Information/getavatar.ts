@@ -27,7 +27,7 @@ export class ConcreteCommand extends Command {
                 helpText: ''
             })
     }
-    async run(message: Message, _args: string[]) {
+    async run(message: Message, _args: Array<string>) {
         const
             user: User = message.author,
             channel: Channel = message.channel,

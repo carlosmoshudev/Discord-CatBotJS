@@ -19,14 +19,14 @@ export class ConcreteCommand extends Command {
                 description: 'Cuenta un chiste de Wayra. +18',
                 category: 'Fun',
                 usage: 'N/A',
-                helpText: '(ej. !wayrachiste) Sin parámetros'
+                helpText: 'Sin parámetros (ej. !wayrachiste)'
             })
     }
-    async run(message: Message, _args: string[]) {
+    async run(message: Message, _args: Array<string>) {
         const
             user: User = message.author,
             channel: Channel = message.channel,
-            jokes: string[] = //TODO: Traer de google sheets ? mongoose ?
+            jokes: Array<string> = //TODO: Traer de google sheets ? mongoose ?
                 [
                     `¿Qué le dijo un plátano a una gelatina? 
         Todavía no me desnudo y ya estás temblando.`,
@@ -57,7 +57,7 @@ export class ConcreteCommand extends Command {
         -Si eso es lo que quieres, ¡Decídete! ¿Quieres que me vaya o que me quede?`,
                 ],
             joke: string = jokes[Math.floor(Math.random() * jokes.length)],
-            embedReply = new EmbedBuilder()
+            embedReply: EmbedBuilder = new EmbedBuilder()
                 .setTitle("WayraChiste +18")
                 .setDescription(joke)
                 .setColor(EmbedDecorator.color as ColorResolvable)

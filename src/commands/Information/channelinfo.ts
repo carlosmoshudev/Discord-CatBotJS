@@ -27,13 +27,13 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !channelinfo | !channelinfo 1013602284489412700)'
             })
     }
-    async run(message: Message<boolean>, _args: string[]) {
+    async run(message: Message<boolean>, _args: Array<string>) {
         const
             user: User = message.author,
             avatar: string | null = user.avatarURL(),
             channel: any = message.channel,
             creation: string = FromatToDatetime(channel.createdAt!),
-            channelConfig: string[] =
+            channelConfig: Array<string> =
                 [
                     `**ID:**            ${channel?.id}\n`,
                     `**Creado:**        ${creation}\n`,
