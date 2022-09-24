@@ -1,4 +1,8 @@
-import { BanOptions, Client, Message } from 'discord.js';
+import {
+    BanOptions,
+    Client,
+    Message
+} from 'discord.js';
 import { Command } from '../../models/Command';
 
 export class ConcreteCommand extends Command {
@@ -15,7 +19,7 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !ban @usuario 1.)'
             })
     }
-    async run(message: Message, args: string[]): Promise<void> {
+    async run(message: Message, args: Array<string>): Promise<void> {
         const
             banUser = message.mentions.members?.first() ||
                 await message.guild?.members.fetch(args[0])

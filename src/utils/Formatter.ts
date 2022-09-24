@@ -1,14 +1,14 @@
 import { Language } from '../config/bot.json';
 import './Intl';
 
-export function FormatToList(array: string[]) {
-    const ListFormatter = new Intl.ListFormat(Language);
+export function FormatToList(array: Array<string>): string {
+    const ListFormatter: Intl.ListFormat = new Intl.ListFormat(Language);
     return ListFormatter.format(array);
 }
-export function FromatToDatetime(rawDatetime: Date) {
+export function FromatToDatetime(rawDatetime: Date): string {
     const
-        Date = rawDatetime.getUTCDate(),
-        Month = rawDatetime.getUTCMonth(),
-        Year = rawDatetime.getUTCFullYear();
+        Date: number = rawDatetime.getUTCDate(),
+        Month: number = rawDatetime.getUTCMonth(),
+        Year: number = rawDatetime.getUTCFullYear();
     return `${Date}/${Month}/${Year}`;
 }

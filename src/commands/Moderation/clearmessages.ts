@@ -1,6 +1,12 @@
+import {
+    Channel,
+    Client,
+    GuildMember,
+    Message,
+    TextChannel
+} from 'discord.js';
 import { CheckUserPermissions } from '../../utils/User';
 import { Command } from '../../models/Command';
-import { Channel, Client, GuildMember, Message, TextChannel } from 'discord.js';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -21,7 +27,7 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !clearmessages | !clearmessages 100)\n Borra los mensajes de todos los usuarios. Max 100'
             })
     }
-    async run(message: Message, args: string[]): Promise<void> {
+    async run(message: Message, args: Array<string>): Promise<void> {
         const
             member: GuildMember = message.member!,
             channel: Channel = message.channel as TextChannel;

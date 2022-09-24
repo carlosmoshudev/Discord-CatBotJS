@@ -1,4 +1,10 @@
-import { GuildBasedChannel, TextChannel, EmbedBuilder, Colors, Message } from 'discord.js';
+import {
+    GuildBasedChannel,
+    TextChannel,
+    EmbedBuilder,
+    Colors,
+    Message
+} from 'discord.js';
 import Servers from '../../config/servers.json';
 export async function UpdateMessage(old: Message, message: Message) {
     if (!Servers.hasOwnProperty(message.guildId!)) return;
@@ -15,7 +21,7 @@ export async function UpdateMessage(old: Message, message: Message) {
                     value: old.content
                 },
                 {
-                    name: "Nuevo mensaje", 
+                    name: "Nuevo mensaje",
                     value: message.content
                 }
             ])

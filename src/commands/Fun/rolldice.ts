@@ -1,4 +1,9 @@
-import { Client, Message, Channel, User } from 'discord.js';
+import {
+    Client,
+    Message,
+    Channel,
+    User
+} from 'discord.js';
 import { Command } from '../../models/Command';
 
 export class ConcreteCommand extends Command {
@@ -11,10 +16,10 @@ export class ConcreteCommand extends Command {
                 description: 'Lanza un dado de n caras.',
                 category: 'Fun',
                 usage: '<faces?> {default:6}',
-                helpText: '(ej. !rolldice 14)'
+                helpText: '(ej. !rolldice | !rolldice 14)'
             })
     }
-    async run(message: Message, args: string[]): Promise<void> {
+    async run(message: Message, args: Array<string>): Promise<void> {
         const
             user: User = message.author,
             channel: Channel = message.channel,

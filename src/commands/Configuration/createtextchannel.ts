@@ -1,6 +1,11 @@
-import { Client, Message } from 'discord.js';
+import {
+    CategoryChannelResolvable,
+    Client,
+    Message
+} from 'discord.js';
 import { CheckUserPermissions } from '../../utils/User';
 import { Create } from '../../utils/Channels';
+import { CreateChannelData } from '../../types';
 import { Command } from '../../models/Command';
 
 export class ConcreteCommand extends Command {
@@ -12,7 +17,9 @@ export class ConcreteCommand extends Command {
                 aliases:
                     [
                         'nuevocanal',
-                        'newchannel'
+                        'newchannel',
+                        'addchannel',
+                        'createchannel'
                     ],
                 description: 'Crea canales en tu servidor.',
                 category: 'Configuration',
@@ -21,15 +28,29 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !createtextchannel 1000000000000000000 Juegos 3)'
             })
     }
-    async run(message: Message, args: string[]): Promise<void> {
-        if (!CheckUserPermissions(message.member, 'ManageChannels')) return;
+    async run(message: Message, args: Array<string>): Promise<void> {
+        if (!CheckUserPermissions(message.member!, 'ManageChannels')) return;
         const
-            category: string = args[0],
+            category: CategoryChannelResolvable = args[0],
             channelName: string = args[1],
             channelCount: number = Number(args[2]) || 0;
-        if (channelCount === 0) Create(message, channelName, category, 0);
-        else
-            for (let i = 0; i < channelCount; i++)
-                Create(message, `${channelName}_${i}`, category, 0);
+        if (channelCount === 0) {
+            const ChannelData: CreateChannelData = {
+                message: message,
+                name: channelName,
+                parent: category,
+                type: 0
+            }
+            Create(ChannelData);
+        }
+        else for (let i = 0; i < channelCount; i++) {
+            const ChannelData: CreateChannelData = {
+                message: message,
+                name: `${channelName}_${i}`,
+                parent: category,
+                type: 0
+            };
+            Create(ChannelData);
+        }
     }
 }

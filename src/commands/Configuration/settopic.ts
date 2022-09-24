@@ -1,4 +1,9 @@
-import { Client, GuildMember, Message, Channel } from 'discord.js';
+import {
+    Client,
+    GuildMember,
+    Message,
+    Channel
+} from 'discord.js';
 import { CheckUserPermissions } from '../../utils/User';
 import { Command } from '../../models/Command';
 
@@ -21,9 +26,9 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !settopic Canal de ayuda y soporte.)'
             })
     }
-    async run(message: Message, args: string[]): Promise<void> {
+    async run(message: Message, args: Array<string>): Promise<void> {
         const
-            user: GuildMember | null = message.member,
+            user: GuildMember = message.member!,
             channel: Channel = message.channel;
         if (!CheckUserPermissions(user, this.permissions)
             || channel.type != 0) return;

@@ -1,6 +1,12 @@
+import {
+    Channel,
+    Client,
+    GuildMember,
+    Message,
+    User
+} from 'discord.js';
 import { Command } from '../../models/Command';
 import { CheckUserPermissions } from '../../utils/User';
-import { Channel, Client, GuildMember, Message, User } from 'discord.js';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -21,7 +27,7 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !getpermissions | !getpermissions @alguien)'
             })
     }
-    async run(message: Message, args: string[]): Promise<void> {
+    async run(message: Message, args: Array<string>): Promise<void> {
         const
             member: GuildMember = message.member!,
             channel: Channel = message.channel;

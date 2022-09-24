@@ -1,4 +1,12 @@
-import { Client, ColorResolvable, EmbedBuilder, Guild, Message, User, Channel } from 'discord.js';
+import {
+    Client,
+    ColorResolvable,
+    EmbedBuilder,
+    Guild,
+    Message,
+    User,
+    Channel
+} from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { FromatToDatetime } from '../../utils/Formatter';
 import { Command } from "../../models/Command";
@@ -20,14 +28,14 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !serverinfo | !serverinfo 0000000000000000)'
             })
     }
-    async run(message: Message, _: string[]) {
+    async run(message: Message, _args: Array<string>) {
         const
             server: Guild = message.guild!,
             user: User = message.author,
             channel: Channel = message.channel,
             owner: User = message.client.users.cache.get(server!.ownerId)!,
             creation: string = FromatToDatetime(server!.createdAt),
-            serverConfig: string[] =
+            serverConfig: Array<string> =
                 [
                     `**ID:**            ${server!.id}\n`,
                     `**Creado en:**     ${creation}\n`,

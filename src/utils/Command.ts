@@ -1,11 +1,10 @@
-import { Collection, Client } from 'discord.js';
+import {
+    Collection,
+    Client
+} from 'discord.js';
 import { readdirSync } from 'fs';
 import { Command } from '../models/Command';
-
-type CommandAndAlias = {
-    commands: Collection<string, Command>,
-    aliases: Collection<string, Command>
-};
+import { CommandAndAlias } from '../types';
 
 const
     directory: string = `${process.cwd()}/src/commands/`,

@@ -1,4 +1,9 @@
-import { Client, Message, User, Channel } from 'discord.js';
+import {
+    Client,
+    Message,
+    User,
+    Channel
+} from 'discord.js';
 import { Command } from '../../models/Command';
 
 export class ConcreteCommand extends Command {
@@ -15,14 +20,14 @@ export class ConcreteCommand extends Command {
                 description: 'Lanza una moneda al aire.',
                 category: 'Fun',
                 usage: 'N/A',
-                helpText: 'sin parámetros.'
+                helpText: 'sin parámetros. (ej. !flipcoin | !caraocruz)'
             })
     }
-    async run(message: Message, _: string[]): Promise<void> {
+    async run(message: Message, _args: Array<string>): Promise<void> {
         const
             user: User = message.author,
             channel: Channel = message.channel,
-            faces: string[] = ['cara', 'cruz'],
+            faces: Array<string> = ['cara', 'cruz'],
             dropChance: number = Math.random() * 100;
         let result: string;
         if (Math.round(dropChance) === 50) result = 'de canto';
