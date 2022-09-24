@@ -1,6 +1,7 @@
 import {
     Client,
     Collection,
+    GuildMember,
     Message
 } from 'discord.js';
 import {
@@ -37,7 +38,7 @@ client.on("messageUpdate", (old, message) =>
 client.on("guildMemberAdd", (member) =>
     onMemberAdd(member));
 client.on("guildMemberRemove", (member) =>
-    onMemberRemove(member));
+    onMemberRemove(member as GuildMember));
 //#endregion
 //#region Event Logging
 client.on('debug', message =>
