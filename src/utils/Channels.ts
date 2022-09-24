@@ -1,3 +1,4 @@
+import { GuildMember, TextChannel } from "discord.js";
 import { CreateChannelData } from "../types";
 
 export function Create(options: CreateChannelData): void {
@@ -26,4 +27,7 @@ export function GetType(typeIndex: number): string {
             'Foro'
         ];
     return types[typeIndex];
+}
+export function TextChannelOnCache(member: GuildMember, channelId: string): TextChannel {
+    return member.guild?.channels.cache.get(channelId!)! as TextChannel;
 }
