@@ -50,7 +50,7 @@ export async function MemberAdd(member: GuildMember): Promise<void> {
         .setColor(EmbedDecorator.color as ColorResolvable);
 
     logEmbed
-        .setTitle(`Nuevo usuario unido al servidor: ${user}`)
+        .setTitle(`${user} se ha unido al servidor.`)
         .setTimestamp()
         .setThumbnail(avatar!)
         .setColor(EmbedDecorator.color as ColorResolvable);
