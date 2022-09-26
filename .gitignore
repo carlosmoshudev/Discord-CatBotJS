@@ -114,3 +114,6 @@ src/.WorkingProgress/*
 build/*
 tsconfig.json
 servers.json
+
+#own channel
+src/events/clients/custom.ts
