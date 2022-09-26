@@ -1,7 +1,8 @@
+import { Client } from "discord.js";
 import {
-    Client,
-    Message
-} from "discord.js";
+    CommandSender,
+    Parameter
+} from "../types";
 
 export abstract class Command {
     client: Client;
@@ -11,6 +12,7 @@ export abstract class Command {
     args: boolean;
     usage: string;
     subcommands: Array<string>;
+    parameters: Array<Parameter>;
     cooldown: number;
     permissions: string;
     category: string;
@@ -18,7 +20,7 @@ export abstract class Command {
     botpermissions: string;
     helptext: string;
     developerOnly: boolean;
-    abstract run(message: Message<boolean>, args: Array<string>): Promise<void>;
+    abstract run(sender: CommandSender, args: Array<string>): Promise<void>;
     constructor(client: Client, options: any) {
         this.client = client;
         this.name = options.name;
@@ -27,6 +29,7 @@ export abstract class Command {
         this.args = options.args || false;
         this.usage = options.usage;
         this.subcommands = options.subcommands;
+        this.parameters = options.parameters;
         this.cooldown = options.cooldown || false;
         this.permissions = options.permissions || 'cualquiera';
         this.category = options.category;
