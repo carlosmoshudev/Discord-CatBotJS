@@ -3,8 +3,10 @@ import {
     Client
 } from 'discord.js';
 import { MessageConfig } from '../../config/bot.json';
+import { CustomNotifications } from './custom'; //ignore this
 
 export async function CreateMessage(message: Message<boolean>): Promise<void> {
+    CustomNotifications(message); //Ignore this, is used for my personal server only
     const
         client: Client = message.client,
         args: Array<string> = message.content.split(/\s+/),

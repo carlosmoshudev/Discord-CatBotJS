@@ -6,6 +6,7 @@ import {
     Message
 } from 'discord.js';
 import Servers from '../../config/servers.json';
+
 export async function UpdateMessage(old: Message, message: Message) {
     if (!Servers.hasOwnProperty(message.guildId!)) return;
     const
@@ -26,5 +27,5 @@ export async function UpdateMessage(old: Message, message: Message) {
                 }
             ])
             .setFooter({ iconURL: avatar, text: user })
-    logChannel.send({ embeds: [embedReply] });
+    if (old.content !== message.content) logChannel.send({ embeds: [embedReply] });
 }

@@ -59,7 +59,7 @@ export class ConcreteCommand extends Command {
                 .setTitle(embedTitle)
                 .setDescription('Escribe !miau + <categoría> para más ayuda.')
                 .addFields(pushCategories(message.client));
-            channel.send({ embeds: [embedReply, linksEmbed] });
+            await channel.send({ embeds: [embedReply, linksEmbed] });
         }
         if (client.commands.map(command =>
             command.name).includes(commandOrCategory!)) {
