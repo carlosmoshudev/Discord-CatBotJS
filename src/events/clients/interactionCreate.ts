@@ -1,8 +1,8 @@
 import { Interaction } from "discord.js";
 
 export async function InteractionCreate(interaction: Interaction) {
-    if (!interaction.isButton()) return;
-    interaction.reply(`
-    botón: ${interaction.customId}
-    `);
+    if (!interaction.isChatInputCommand()) return;
+    const command = interaction.client.commands.get(interaction.commandName!);
+    command?.run(interaction, []);
+    await interaction.reply({ ephemeral: true, content: `Comando ${command?.name} ejecutado correctamente!` });
 }
