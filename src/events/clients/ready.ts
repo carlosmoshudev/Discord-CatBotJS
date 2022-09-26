@@ -10,6 +10,7 @@ import {
     PurpleLog
 } from '../../.DevTools/cli';
 import clientPresence from '../../config/clientPresence';
+import { SlashCommandLoader } from '../../utils/SlashCommands';
 
 export function Ready(client: Client<true>): void {
     client.user.setPresence(clientPresence);
@@ -18,6 +19,8 @@ export function Ready(client: Client<true>): void {
     client.commands = loadedCommands.commands;
     client.aliases = loadedCommands.aliases;
     client.categories = CategoryLoader();
+
+    SlashCommandLoader(client);
 
     const guildsJoined: number = client.guilds.cache.size;
     const commandsLoaded: number = client.commands.size;
