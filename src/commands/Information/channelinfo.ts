@@ -2,13 +2,13 @@ import {
     Client,
     ColorResolvable,
     EmbedBuilder,
-    Message,
     User
 } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { GetType } from '../../utils/Channels';
 import { FromatToDatetime } from '../../utils/Formatter';
 import { Command } from '../../models/Command';
+import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -27,11 +27,11 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !channelinfo | !channelinfo 1013602284489412700)'
             })
     }
-    async run(message: Message<boolean>, _args: Array<string>) {
+    async run(sender: CommandSender, _args: Array<string>) {
         const
-            user: User = message.author,
+            user: User = sender.member?.user as User,
             avatar: string | null = user.avatarURL(),
-            channel: any = message.channel,
+            channel: any = sender.channel,
             creation: string = FromatToDatetime(channel.createdAt!),
             channelConfig: Array<string> =
                 [
@@ -61,7 +61,7 @@ export class ConcreteCommand extends Command {
                         iconURL: avatar!
                     }
                 );
-        message.channel.send({ embeds: [embedReply] });
+        sender.channel?.send({ embeds: [embedReply] });
     }
     getNSFW = (channel: any) => channel.nsfw === false ? 'Todos los públicos' : 'Contenido explícito (+18)'
 }

@@ -1,10 +1,6 @@
-import {
-    Client,
-    Message,
-    User,
-    Channel
-} from 'discord.js';
+import { Client } from 'discord.js';
 import { Command } from '../../models/Command';
+import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -23,15 +19,13 @@ export class ConcreteCommand extends Command {
                 helpText: 'sin parámetros. (ej. !flipcoin | !caraocruz)'
             })
     }
-    async run(message: Message, _args: Array<string>): Promise<void> {
+    async run(sender: CommandSender, _args: string[]): Promise<void> {
         const
-            user: User = message.author,
-            channel: Channel = message.channel,
             faces: Array<string> = ['cara', 'cruz'],
             dropChance: number = Math.random() * 100;
         let result: string;
         if (Math.round(dropChance) === 50) result = 'de canto';
         else result = faces[Math.round(dropChance / 100)];
-        channel.send(`${user}, tu moneda ha salido ${result}.`)
+        sender.channel?.send(`${sender.member?.user}, tu moneda ha salido ${result}.`)
     }
 }

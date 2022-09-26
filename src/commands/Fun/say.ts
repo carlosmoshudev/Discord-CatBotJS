@@ -1,8 +1,6 @@
-import {
-    Client,
-    Message
-} from 'discord.js';
+import { Client } from 'discord.js';
 import { Command } from '../../models/Command';
+import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -22,8 +20,7 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !say Hola amigos, soy un bot! ^^)'
             })
     }
-    async run(message: Message, args: Array<string>): Promise<void> {
-        if (args) message.channel.send(args.join(' '));
-        message.delete();
+    async run(sender: CommandSender, args: Array<string>): Promise<void> {
+        if (args) sender.channel?.send(args.join(' '));
     }
 }

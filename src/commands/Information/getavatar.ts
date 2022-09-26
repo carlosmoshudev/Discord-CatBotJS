@@ -1,5 +1,4 @@
 import {
-    Channel,
     Client,
     ColorResolvable,
     EmbedBuilder,
@@ -8,6 +7,7 @@ import {
 } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { Command } from '../../models/Command';
+import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -27,11 +27,11 @@ export class ConcreteCommand extends Command {
                 helpText: ''
             })
     }
-    async run(message: Message, _args: Array<string>) {
+    async run(sender: CommandSender, _args: Array<string>) {
         const
-            user: User = message.author,
-            channel: Channel = message.channel,
-            mention: User = message.mentions.users.first()!,
+            m = sender as Message,
+            user: User = sender.member?.user! as User,
+            mention: any = _args[0]!,
             embedReply: EmbedBuilder = new EmbedBuilder()
                 .setColor(EmbedDecorator.color as ColorResolvable)
         if (!mention) {
@@ -42,7 +42,7 @@ export class ConcreteCommand extends Command {
                 .setDescription(`[Ver imagen completa](${user.avatarURL({ size: 4096 })})`)
         }
         else if (mention.avatarURL() === null) {
-            channel.send(`El usuario (${mention.username}) no tiene avatar!`);
+            m.channel.send(`El usuario (${mention.username}) no tiene avatar!`);
             return;
         }
         else {
@@ -54,6 +54,6 @@ export class ConcreteCommand extends Command {
                 .setFooter({ text: `A petición de ${user.username}`, iconURL: `${user.avatarURL()}` })
                 .setDescription(`[Ver la imagen completa](${mention.avatarURL({ size: 4096 })})`);
         }
-        channel.send({ embeds: [embedReply] });
+        m.channel.send({ embeds: [embedReply] });
     }
 }

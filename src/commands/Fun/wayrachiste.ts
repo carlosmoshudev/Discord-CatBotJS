@@ -1,13 +1,14 @@
 import {
     Client,
     EmbedBuilder,
-    Message,
     User,
     Channel,
-    ColorResolvable
+    ColorResolvable,
+    TextChannel
 } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { Command } from '../../models/Command';
+import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -22,10 +23,10 @@ export class ConcreteCommand extends Command {
                 helpText: 'Sin parámetros (ej. !wayrachiste)'
             })
     }
-    async run(message: Message, _args: Array<string>) {
+    async run(sender: CommandSender, _args: Array<string>) {
         const
-            user: User = message.author,
-            channel: Channel = message.channel,
+            user: User = sender.member?.user! as User,
+            channel: Channel = sender.channel! as TextChannel,
             jokes: Array<string> = //TODO: Traer de google sheets ? mongoose ?
                 [
                     `¿Qué le dijo un plátano a una gelatina? 

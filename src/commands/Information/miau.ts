@@ -1,16 +1,17 @@
 import {
     EmbedBuilder,
     Client,
-    Message,
     ColorResolvable,
     User,
-    Channel
+    Channel,
+    TextChannel
 } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { Links } from './Miau/config.json';
 import { pushLinks, pushCommands, pushCategories, commandHelp } from './Miau/Fields';
 import { Command } from "../../models/Command";
 import Project from '../../../package.json';
+import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -33,11 +34,11 @@ export class ConcreteCommand extends Command {
                 helpText: 'Se puede añadir un comando o categoría como parámetro\n (ej. !miau ping, !miau getavatar)',
             })
     }
-    async run(message: Message, args: Array<string>) {
+    async run(sender: CommandSender, args: Array<string>) {
         const
-            user: User = message.author,
-            client: Client = message.client,
-            channel: Channel = message.channel,
+            user: User = sender.member?.user as User,
+            client: Client = sender.client,
+            channel: Channel = sender.channel as TextChannel,
             commandOrCategory: string | null = args[0] || null,
             embedTitle: string = `Miauyuda para ${user.username}#${user.discriminator}`,
             embedReply: EmbedBuilder = new EmbedBuilder()
@@ -58,7 +59,7 @@ export class ConcreteCommand extends Command {
             embedReply
                 .setTitle(embedTitle)
                 .setDescription('Escribe !miau + <categoría> para más ayuda.')
-                .addFields(pushCategories(message.client));
+                .addFields(pushCategories(sender.client));
             await channel.send({ embeds: [embedReply, linksEmbed] });
         }
         if (client.commands.map(command =>

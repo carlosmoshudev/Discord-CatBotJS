@@ -2,11 +2,11 @@ import {
     Channel,
     Client,
     GuildMember,
-    Message,
     TextChannel
 } from 'discord.js';
 import { CheckUserPermissions } from '../../utils/User';
 import { Command } from '../../models/Command';
+import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -27,10 +27,10 @@ export class ConcreteCommand extends Command {
                 helpText: '(ej. !clearmessages | !clearmessages 100)\n Borra los mensajes de todos los usuarios. Max 100'
             })
     }
-    async run(message: Message, args: Array<string>): Promise<void> {
+    async run(sender: CommandSender, args: Array<string>): Promise<void> {
         const
-            member: GuildMember = message.member!,
-            channel: Channel = message.channel as TextChannel;
+            member: GuildMember = sender.member! as GuildMember,
+            channel: Channel = sender.channel as TextChannel;
         if (!CheckUserPermissions(member, this.permissions)) return;
         const
             deleteCounter: number = parseInt(args[0]) || 100;
