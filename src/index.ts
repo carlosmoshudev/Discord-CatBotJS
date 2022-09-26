@@ -5,11 +5,11 @@ import {
     Message
 } from 'discord.js';
 import {
-    onReady,
+    onInteractionCreate,
     onMessageCreate,
     onMessageDelete,
     onMessageUpdate,
-    onInteractionCreate
+    onReady
 } from './events/ClientEvents';
 import {
     onMemberAdd,
@@ -40,7 +40,7 @@ client.on("guildMemberAdd", (member) =>
     onMemberAdd(member));
 client.on("guildMemberRemove", (member) =>
     onMemberRemove(member as GuildMember));
-client.on("interactionCreate", (interaction) =>
+client.on("interactionCreate", async (interaction) =>
     onInteractionCreate(interaction));
 //#endregion
 //#region Event Logging
@@ -51,4 +51,4 @@ client.on('warn', message =>
 client.on('error', message =>
     logger.error(message));
 //#endregion
-client?.login(process.env.DISCORD_OAUTH);
+client?.login(process.env.DISCORD_OAUTH!);
