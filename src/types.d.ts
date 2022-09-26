@@ -1,3 +1,15 @@
+import {
+    Channel,
+    ChatInputApplicationCommandData,
+    Client,
+    GuildMember,
+    Interaction,
+    Message,
+    SlashCommandStringOption,
+    TextChannel,
+    User
+} from "discord.js";
+
 export type NameValue = { name: string, value: string };
 export type Color = { yellow: string, cyan: string, purple: string };
 export type CommandAndAlias = {
@@ -5,7 +17,7 @@ export type CommandAndAlias = {
     aliases: Collection<string, Command>
 };
 export type CreateChannelData = {
-    message: Message,
+    message: (Message | Interaction),
     name: string,
     parent: CategoryChannelResolvable,
     type: number
@@ -44,3 +56,10 @@ export interface shareChannels {
     introduce: string,
     autoroles: string
 }
+export interface Parameter {
+    name: string,
+    description: string,
+    required: boolean,
+    options?: { name: string, value: string }
+}
+export type CommandSender = Message | Interaction
