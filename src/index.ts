@@ -8,7 +8,8 @@ import {
     onReady,
     onMessageCreate,
     onMessageDelete,
-    onMessageUpdate
+    onMessageUpdate,
+    onInteractionCreate
 } from './events/ClientEvents';
 import {
     onMemberAdd,
@@ -39,6 +40,8 @@ client.on("guildMemberAdd", (member) =>
     onMemberAdd(member));
 client.on("guildMemberRemove", (member) =>
     onMemberRemove(member as GuildMember));
+client.on("interactionCreate", (interaction) =>
+    onInteractionCreate(interaction));
 //#endregion
 //#region Event Logging
 client.on('debug', message =>
