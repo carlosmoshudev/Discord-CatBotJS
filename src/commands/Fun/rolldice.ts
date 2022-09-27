@@ -17,7 +17,7 @@ export class ConcreteCommand extends Command {
                 aliases: ['lanzardado'],
                 description: 'Lanza un dado de n caras.',
                 category: 'Fun',
-                usage: '<faces?> {default:6}',
+                usage: '<caras?> {default:6}',
                 parameters: [
                     {
                         name: 'caras',
@@ -26,8 +26,8 @@ export class ConcreteCommand extends Command {
                         type: 'number'
                     }
                 ],
-                helpText: '(ej. !rolldice | !rolldice 14)',
-                output: 'Has lanzado un dado, buena suerte!'
+                helpText: '(ej. /rolldice | /rolldice 14)',
+                output: 'Has lanzado un dado, ¡buena suerte!'
             })
     }
     async run(sender: CommandSender, args: Array<string>): Promise<void> {

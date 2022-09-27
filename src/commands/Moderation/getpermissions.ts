@@ -1,5 +1,6 @@
 import {
     Channel,
+    ChatInputCommandInteraction,
     Client,
     GuildMember,
     TextChannel,
@@ -39,16 +40,24 @@ export class ConcreteCommand extends Command {
     }
     async run(sender: CommandSender, args: Array<string>): Promise<void> {
         const
-            member: GuildMember = sender.member! as GuildMember,
-            channel: Channel = sender.channel as TextChannel;
+            slash: ChatInputCommandInteraction =
+                sender as ChatInputCommandInteraction,
+            member: GuildMember =
+                sender.member! as GuildMember,
+            channel: Channel =
+                sender.channel as TextChannel;
         if (!CheckUserPermissions(member, this.permissions)) return;
         let
-            mention: User | string = args[0],
-            user: GuildMember = await sender.guild?.members.fetch(mention)!;
+            mention: User | string =
+                slash.options.getUser('usuario')
+                || args[0],
+            user: GuildMember =
+                await sender.guild?.members.fetch(mention)!;
         if (!user?.permissions) user = member;
         const
-            permissions: string = user.permissions.toArray().map(permission =>
-                `${permission}\n`).join('');
+            permissions: string =
+                user.permissions.toArray().map(permission =>
+                    `${permission}\n`).join('');
         //TODO: Arreglar la salida
         channel.send(permissions);
     }

@@ -17,16 +17,20 @@ export class ConcreteCommand extends Command {
                 category: 'Fun',
                 usage: 'N/A',
                 helpText: 'sin parámetros. (ej. !flipcoin | !caraocruz)',
-                output: 'has lanzado una moneda al aire, ¡buena suerte!'
+                output: 'Has lanzado una moneda al aire, ¡buena suerte!'
             })
     }
     async run(sender: CommandSender, _args: Array<string>): Promise<void> {
         const
-            faces: Array<string> = ['cara', 'cruz'],
-            dropChance: number = Math.random() * 100;
+            faces: Array<string> =
+                ['cara', 'cruz'],
+            dropChance: number =
+                Math.random() * 100;
         let result: string;
-        if (Math.round(dropChance) === 50) result = 'de canto';
-        else result = faces[Math.round(dropChance / 100)];
+        if (Math.round(dropChance) === 50)
+            result = 'de canto';
+        else
+            result = faces[Math.round(dropChance / 100)];
         sender.channel?.send(`${sender.member?.user}, tu moneda ha salido ${result}.`)
     }
 }

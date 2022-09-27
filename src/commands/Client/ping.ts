@@ -22,8 +22,11 @@ export class ConcreteCommand extends Command {
             });
     }
     async run(sender: CommandSender, _args: Array<string>): Promise<void> {
-        const APIlatency: number = sender.client?.ws.ping!;
-        const MessageLatency: number = Date.now() - sender!.createdTimestamp;
+        const
+            APIlatency: number =
+                sender.client?.ws.ping!,
+            MessageLatency: number =
+                Date.now() - sender!.createdTimestamp;
         sender.channel?.send(`Pong!  :ping_pong: 
         Latencia de mensajes: ${MessageLatency}ms
         Latencia de la API: ${APIlatency}ms`);

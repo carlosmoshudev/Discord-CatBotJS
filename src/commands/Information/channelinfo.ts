@@ -38,10 +38,12 @@ export class ConcreteCommand extends Command {
     }
     async run(sender: CommandSender, _args: Array<string>) {
         const
-            user: User = sender.member?.user as User,
-            avatar: string | null = user.avatarURL(),
-            channel: any = sender.channel,
-            creation: string = FromatToDatetime(channel.createdAt!),
+            user: User =
+                sender.member?.user as User,
+            channel: any =
+                sender.channel,
+            creation: string =
+                FromatToDatetime(channel.createdAt!),
             channelConfig: Array<string> =
                 [
                     `**ID:**            ${channel?.id}\n`,
@@ -53,23 +55,24 @@ export class ConcreteCommand extends Command {
                     `**ID Categoría:**  ${channel?.parentId}\n`,
                     `**Mención:**       ${channel}\n`,
                 ],
-            embedReply = new EmbedBuilder()
-                .setTitle(`Información sobre canal: ${channel.name}`)
-                .setURL(channel.url)
-                .addFields([
-                    {
-                        name: 'Configuración del canal',
-                        value: channelConfig.join(''),
-                        inline: true
-                    }])
-                .setColor(EmbedDecorator.color as ColorResolvable)
-                .setTimestamp()
-                .setFooter(
-                    {
-                        text: `Solicitado por ${user.username}`,
-                        iconURL: avatar!
-                    }
-                );
+            embedReply =
+                new EmbedBuilder()
+                    .setTitle(`Información sobre canal: ${channel.name}`)
+                    .setURL(channel.url)
+                    .addFields([
+                        {
+                            name: 'Configuración del canal',
+                            value: channelConfig.join(''),
+                            inline: true
+                        }])
+                    .setColor(EmbedDecorator.color as ColorResolvable)
+                    .setTimestamp()
+                    .setFooter(
+                        {
+                            text: `Solicitado por ${user.username}`,
+                            iconURL: user.avatarURL()!
+                        }
+                    );
         sender.channel?.send({ embeds: [embedReply] });
     }
     getNSFW = (channel: any) => channel.nsfw === false ? 'Todos los públicos' : 'Contenido explícito (+18)'

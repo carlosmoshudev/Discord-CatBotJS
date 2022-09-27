@@ -25,7 +25,7 @@ export class ConcreteCommand extends Command {
                         'addchannel',
                         'createchannel'
                     ],
-                description: 'Crea canales en tu servidor.',
+                description: 'Crea uno o varios canales en tu servidor.',
                 category: 'Configuration',
                 usage: '<categoría> (#channelId)\n<nombre>\n<número?> {default:1}',
                 parameters: [

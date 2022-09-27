@@ -25,15 +25,18 @@ export class ConcreteCommand extends Command {
                         type: 'string'
                     }
                 ],
-                helpText: '(ej. !say Hola amigos, soy un bot! ^^)',
+                helpText: '(ej. /say Hola amigos, soy un bot! ^^)',
                 output: 'shhhh, quizá nadie sepa que has sido tú.'
             })
     }
     async run(sender: CommandSender, args: Array<string>): Promise<void> {
         const
-            slash: ChatInputCommandInteraction = sender as ChatInputCommandInteraction,
-            text: string = slash.options.getString('texto')
-                || args ? args.join(' ') : "Amigo, este comando requiere parámetros ^^";
+            slash: ChatInputCommandInteraction =
+                sender as ChatInputCommandInteraction,
+            text: string =
+                slash.options.getString('texto')
+                    || args ? args.join(' ')
+                    : "Amigo, este comando requiere parámetros ^^";
         sender.channel?.send(text);
     }
 }

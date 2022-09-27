@@ -1,5 +1,6 @@
 import {
     Channel,
+    ChatInputCommandInteraction,
     Client,
     GuildMember,
     TextChannel
@@ -38,11 +39,18 @@ export class ConcreteCommand extends Command {
     }
     async run(sender: CommandSender, args: Array<string>): Promise<void> {
         const
-            member: GuildMember = sender.member! as GuildMember,
-            channel: Channel = sender.channel as TextChannel;
+            slash: ChatInputCommandInteraction =
+                sender as ChatInputCommandInteraction,
+            member: GuildMember =
+                sender.member! as GuildMember,
+            channel: Channel =
+                sender.channel as TextChannel;
         if (!CheckUserPermissions(member, this.permissions)) return;
         const
-            deleteCounter: number = parseInt(args[0]) || 100;
+            deleteCounter: number =
+                slash.options.getInteger('número')
+                || parseInt(args[0])
+                || 100;
         channel.bulkDelete(deleteCounter, true)
             .catch((error: Error) => console.log(error.stack));
     }
