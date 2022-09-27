@@ -25,8 +25,16 @@ export class ConcreteCommand extends Command {
                     ],
                 description: 'Información del servidor.',
                 category: 'Information',
-                usage: '<server?> (#GuildID Joined) {default:current}',
-                helpText: '(ej. !serverinfo | !serverinfo 0000000000000000)'
+                usage: '<servidor?> (#GuildID Joined) {default:current}',
+                parameters: [
+                    {
+                        name: 'servidor',
+                        description: 'Un servidor donde estés unido y este bot también, para obtener la info',
+                        required: false,
+                        type: 'string'
+                    }],
+                helpText: '(ej. !serverinfo | !serverinfo 0000000000000000)',
+                output: 'miau'
             })
     }
     async run(sender: CommandSender, _args: Array<string>) {

@@ -31,7 +31,22 @@ export class ConcreteCommand extends Command {
                 description: 'Proporciona ayuda con los comandos.',
                 category: 'Information',
                 usage: '<comando?> {default:global help}',
+                parameters: [
+                    {
+                        name: 'comando',
+                        description: 'Sobre que obtener ayuda',
+                        required: false,
+                        type: 'string'
+                    },
+                    {
+                        name: 'categoría',
+                        description: 'Sobre que obtener ayuda',
+                        required: false,
+                        type: 'string'
+                    }
+                ],
                 helpText: 'Se puede añadir un comando o categoría como parámetro\n (ej. !miau ping, !miau getavatar)',
+                output: 'miau'
             })
     }
     async run(sender: CommandSender, args: Array<string>) {

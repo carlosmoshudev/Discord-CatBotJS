@@ -20,7 +20,8 @@ export class ConcreteCommand extends Command {
                 description: 'Cuenta un chiste de Wayra. +18',
                 category: 'Fun',
                 usage: 'N/A',
-                helpText: 'Sin parámetros (ej. !wayrachiste)'
+                helpText: 'Sin parámetros (ej. !wayrachiste)',
+                output: 'Créditos a WayraIsBleu ^^'
             })
     }
     async run(sender: CommandSender, _args: Array<string>) {

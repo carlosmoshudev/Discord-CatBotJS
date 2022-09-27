@@ -1,5 +1,7 @@
 import {
+    ChannelType,
     Client,
+    RESTPostAPIApplicationCommandsJSONBody,
     SlashCommandBuilder
 } from "discord.js";
 
@@ -7,18 +9,50 @@ import environment from 'dotenv';
 
 environment.config();
 
-export async function SlashCommandLoader(client: Client) {
-    const slahsCommands: any[] = [];
-    client.commands.forEach(cmd => {
+export async function SlashCommandLoader(client: Client): Promise<void> {
+    const slahsCommands: Array<RESTPostAPIApplicationCommandsJSONBody> = [];
+    client.commands.forEach(command => {
         const slashCmd = new SlashCommandBuilder()
-            .setName(cmd.name)
-            .setDescription(cmd.description);
-        if (cmd.parameters) cmd.parameters.forEach(param => {
-            slashCmd.addStringOption(option =>
+            .setName(command.name)
+            .setDescription(command.description);
+        if (command.parameters) command.parameters.forEach(parameter => {
+            if (parameter.type === 'string') slashCmd.addStringOption(option =>
                 option
-                    .setName(param.name)
-                    .setDescription(param.description)
-                    .setRequired(param.required)
+                    .setName(parameter.name)
+                    .setDescription(parameter.description)
+                    .setRequired(parameter.required)
+            );
+            else if (parameter.type === 'number') slashCmd.addIntegerOption(option =>
+                option
+                    .setName(parameter.name)
+                    .setDescription(parameter.description)
+                    .setRequired(parameter.required)
+            );
+            else if (parameter.type === 'bool') slashCmd.addBooleanOption(option =>
+                option
+                    .setName(parameter.name)
+                    .setDescription(parameter.description)
+                    .setRequired(parameter.required)
+            );
+            else if (parameter.type === 'user') slashCmd.addUserOption(option =>
+                option
+                    .setName(parameter.name)
+                    .setDescription(parameter.description)
+                    .setRequired(parameter.required)
+            );
+            else if (parameter.type === 'category') slashCmd.addChannelOption(option =>
+                option
+                    .setName(parameter.name)
+                    .setDescription(parameter.description)
+                    .setRequired(parameter.required)
+                    .addChannelTypes(ChannelType.GuildCategory)
+            );
+            else if (parameter.type === 'channel') slashCmd.addChannelOption(option =>
+                option
+                    .setName(parameter.name)
+                    .setDescription(parameter.description)
+                    .setRequired(parameter.required)
+                    .addChannelTypes(ChannelType.GuildText)
             )
         })
         slahsCommands.push(slashCmd.toJSON());

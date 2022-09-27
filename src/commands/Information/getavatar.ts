@@ -23,8 +23,16 @@ export class ConcreteCommand extends Command {
                     ],
                 description: 'Obtiene la foto de perfil.',
                 category: 'Information',
-                usage: '<member?> {default:user}',
-                helpText: ''
+                usage: '<usuario?> {default:user}',
+                parameters: [
+                    {
+                        name: 'usuario',
+                        description: 'el usuario al que robarle la foto',
+                        required: false,
+                        type: 'user'
+                    }
+                ],
+                helpText: '', output: 'yes'
             })
     }
     async run(sender: CommandSender, _args: Array<string>) {

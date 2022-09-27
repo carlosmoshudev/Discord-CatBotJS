@@ -16,10 +16,11 @@ export class ConcreteCommand extends Command {
                 description: 'Lanza una moneda al aire.',
                 category: 'Fun',
                 usage: 'N/A',
-                helpText: 'sin parámetros. (ej. !flipcoin | !caraocruz)'
+                helpText: 'sin parámetros. (ej. !flipcoin | !caraocruz)',
+                output: 'has lanzado una moneda al aire, ¡buena suerte!'
             })
     }
-    async run(sender: CommandSender, _args: string[]): Promise<void> {
+    async run(sender: CommandSender, _args: Array<string>): Promise<void> {
         const
             faces: Array<string> = ['cara', 'cruz'],
             dropChance: number = Math.random() * 100;

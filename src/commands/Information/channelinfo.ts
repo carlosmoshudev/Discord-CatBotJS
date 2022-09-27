@@ -24,7 +24,16 @@ export class ConcreteCommand extends Command {
                 description: 'Información del canal.',
                 category: 'Information',
                 usage: '<canal?> (#ChannelId) {default:current}',
-                helpText: '(ej. !channelinfo | !channelinfo 1013602284489412700)'
+                parameters: [
+                    {
+                        name: 'canal',
+                        description: 'id del canal sobre el que quieres info',
+                        required: false,
+                        type: 'channel'
+                    }
+                ],
+                helpText: '(ej. !channelinfo | !channelinfo 1013602284489412700)',
+                output: 'Enviada información sobre el canal.'
             })
     }
     async run(sender: CommandSender, _args: Array<string>) {

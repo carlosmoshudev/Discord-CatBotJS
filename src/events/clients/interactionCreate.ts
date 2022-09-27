@@ -4,5 +4,9 @@ export async function InteractionCreate(interaction: Interaction) {
     if (!interaction.isChatInputCommand()) return;
     const command = interaction.client.commands.get(interaction.commandName!);
     command?.run(interaction, []);
-    await interaction.reply({ ephemeral: true, content: `Comando ${command?.name} ejecutado correctamente!` });
+    await interaction.reply(
+        {
+            ephemeral: true,
+            content: command?.executionoutput,
+        });
 }

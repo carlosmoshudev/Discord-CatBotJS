@@ -60,6 +60,7 @@ export interface Parameter {
     name: string,
     description: string,
     required: boolean,
-    options?: { name: string, value: string }
+    options?: { name: string, value: string }[],
+    type: 'string' | 'number' | 'bool' | 'user' | 'channel' | 'role' | 'category',
 }
 export type CommandSender = Message | Interaction

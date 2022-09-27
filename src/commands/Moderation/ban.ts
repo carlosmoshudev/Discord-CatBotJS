@@ -16,7 +16,28 @@ export class ConcreteCommand extends Command {
                 category: 'Moderation',
                 permissions: 'BanMembers',
                 usage: '<member> #mention\n<days?> (default:360)',
-                helpText: '(ej. !ban @usuario 1.)'
+                parameters: [
+                    {
+                        name: 'usuario',
+                        description: 'A quien banear',
+                        required: true,
+                        type: 'user'
+                    },
+                    {
+                        name: 'motivo',
+                        description: 'Motivo del baneo',
+                        required: false,
+                        type: 'string'
+                    },
+                    {
+                        name: 'días',
+                        description: 'tiempo del baneo',
+                        required: false,
+                        type: 'number'
+                    }
+                ],
+                helpText: '(ej. !ban @usuario 1.)',
+                output: 'miembro baneado'
             })
     }
     async run(sender: CommandSender, args: Array<string>): Promise<void> {

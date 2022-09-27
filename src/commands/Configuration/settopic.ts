@@ -1,4 +1,5 @@
 import {
+    ChatInputCommandInteraction,
     Client,
     GuildMember
 } from 'discord.js';
@@ -21,20 +22,28 @@ export class ConcreteCommand extends Command {
                 description: 'Actualiza la temática del canal.',
                 category: 'Configuration',
                 permissions: 'ManageChannels',
-                usage: '<topic>',
+                usage: '<descripción>',
                 parameters: [
                     {
-                        name: 'topic',
-                        description: 'Introduce la descripción del canal',
-                        required: true
+                        name: 'descripción',
+                        description: 'La nueva descripción para el canal actual.',
+                        required: true,
+                        type: 'string'
                     }
                 ],
-                helpText: '(ej. !settopic Canal de ayuda y soporte.)'
+                helpText: '(ej. !settopic Canal de ayuda y soporte.)',
+                output: 'Solicitud de descripción de canal gestionada'
             })
     }
     async run(sender: CommandSender, args: string[]): Promise<void> {
         if (!CheckUserPermissions(sender.member! as GuildMember, this.permissions) ||
             sender.channel?.type !== 0) return;
-        sender.channel?.setTopic(args!.join(' '));
+        const
+            slash: ChatInputCommandInteraction =
+                sender as ChatInputCommandInteraction,
+            topic: string =
+                slash.options.getString('descripción')
+                || args!.join(' ');
+        sender.channel?.setTopic(topic);
     }
 }

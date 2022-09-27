@@ -23,8 +23,17 @@ export class ConcreteCommand extends Command {
                 description: 'Elimina los mensajes del canal.',
                 category: 'Moderation',
                 usage: '<número?> {max:100, default:100}',
+                parameters: [
+                    {
+                        name: 'número',
+                        description: 'número de mensajes a eliminar',
+                        required: false,
+                        type: 'number'
+                    }
+                ],
                 permissions: 'ManageMessages',
-                helpText: '(ej. !clearmessages | !clearmessages 100)\n Borra los mensajes de todos los usuarios. Max 100'
+                helpText: '(ej. !clearmessages | !clearmessages 100)\n Borra los mensajes de todos los usuarios. Max 100',
+                output: 'bloooom'
             })
     }
     async run(sender: CommandSender, args: Array<string>): Promise<void> {

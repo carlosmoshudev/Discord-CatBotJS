@@ -24,8 +24,17 @@ export class ConcreteCommand extends Command {
                 description: 'Obtiene los permisos.',
                 category: 'Moderation',
                 usage: '<member?> {default:user}',
+                parameters: [
+                    {
+                        name: 'usuario',
+                        description: 'usuario sobre el que obtener info',
+                        required: false,
+                        type: 'user'
+                    }
+                ],
                 permissions: 'ModerateMembers',
-                helpText: '(ej. !getpermissions | !getpermissions @alguien)'
+                helpText: '(ej. !getpermissions | !getpermissions @alguien)',
+                output: 'to pa ti'
             })
     }
     async run(sender: CommandSender, args: Array<string>): Promise<void> {
