@@ -2,13 +2,13 @@ import {
     Client,
     ColorResolvable,
     EmbedBuilder,
-    Message,
     User
 } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { GetType } from '../../utils/Channels';
 import { FromatToDatetime } from '../../utils/Formatter';
 import { Command } from '../../models/Command';
+import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -24,15 +24,26 @@ export class ConcreteCommand extends Command {
                 description: 'Información del canal.',
                 category: 'Information',
                 usage: '<canal?> (#ChannelId) {default:current}',
-                helpText: '(ej. !channelinfo | !channelinfo 1013602284489412700)'
+                parameters: [
+                    {
+                        name: 'canal',
+                        description: 'id del canal sobre el que quieres info',
+                        required: false,
+                        type: 'channel'
+                    }
+                ],
+                helpText: '(ej. !channelinfo | !channelinfo 1013602284489412700)',
+                output: 'Enviada información sobre el canal.'
             })
     }
-    async run(message: Message<boolean>, _args: Array<string>) {
+    async run(sender: CommandSender, _args: Array<string>) {
         const
-            user: User = message.author,
-            avatar: string | null = user.avatarURL(),
-            channel: any = message.channel,
-            creation: string = FromatToDatetime(channel.createdAt!),
+            user: User =
+                sender.member?.user as User,
+            channel: any =
+                sender.channel,
+            creation: string =
+                FromatToDatetime(channel.createdAt!),
             channelConfig: Array<string> =
                 [
                     `**ID:**            ${channel?.id}\n`,
@@ -44,24 +55,25 @@ export class ConcreteCommand extends Command {
                     `**ID Categoría:**  ${channel?.parentId}\n`,
                     `**Mención:**       ${channel}\n`,
                 ],
-            embedReply = new EmbedBuilder()
-                .setTitle(`Información sobre canal: ${channel.name}`)
-                .setURL(channel.url)
-                .addFields([
-                    {
-                        name: 'Configuración del canal',
-                        value: channelConfig.join(''),
-                        inline: true
-                    }])
-                .setColor(EmbedDecorator.color as ColorResolvable)
-                .setTimestamp()
-                .setFooter(
-                    {
-                        text: `Solicitado por ${user.username}`,
-                        iconURL: avatar!
-                    }
-                );
-        message.channel.send({ embeds: [embedReply] });
+            embedReply =
+                new EmbedBuilder()
+                    .setTitle(`Información sobre canal: ${channel.name}`)
+                    .setURL(channel.url)
+                    .addFields([
+                        {
+                            name: 'Configuración del canal',
+                            value: channelConfig.join(''),
+                            inline: true
+                        }])
+                    .setColor(EmbedDecorator.color as ColorResolvable)
+                    .setTimestamp()
+                    .setFooter(
+                        {
+                            text: `Solicitado por ${user.username}`,
+                            iconURL: user.avatarURL()!
+                        }
+                    );
+        sender.channel?.send({ embeds: [embedReply] });
     }
     getNSFW = (channel: any) => channel.nsfw === false ? 'Todos los públicos' : 'Contenido explícito (+18)'
 }

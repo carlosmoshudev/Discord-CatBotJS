@@ -1,13 +1,12 @@
 import {
     Client,
     EmbedBuilder,
-    Message,
     User,
-    Channel,
     ColorResolvable
 } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { Command } from '../../models/Command';
+import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -19,13 +18,14 @@ export class ConcreteCommand extends Command {
                 description: 'Cuenta un chiste de Wayra. +18',
                 category: 'Fun',
                 usage: 'N/A',
-                helpText: 'Sin parámetros (ej. !wayrachiste)'
+                helpText: 'Sin parámetros (ej. /wayrachiste)',
+                output: 'Créditos a WayraIsBleu ^^'
             })
     }
-    async run(message: Message, _args: Array<string>) {
+    async run(sender: CommandSender, _args: Array<string>) {
         const
-            user: User = message.author,
-            channel: Channel = message.channel,
+            user: User =
+                sender.member?.user! as User,
             jokes: Array<string> = //TODO: Traer de google sheets ? mongoose ?
                 [
                     `¿Qué le dijo un plátano a una gelatina? 
@@ -56,18 +56,20 @@ export class ConcreteCommand extends Command {
         El hombre le contesta:
         -Si eso es lo que quieres, ¡Decídete! ¿Quieres que me vaya o que me quede?`,
                 ],
-            joke: string = jokes[Math.floor(Math.random() * jokes.length)],
-            embedReply: EmbedBuilder = new EmbedBuilder()
-                .setTitle("WayraChiste +18")
-                .setDescription(joke)
-                .setColor(EmbedDecorator.color as ColorResolvable)
-                .setTimestamp()
-                .setFooter(
-                    {
-                        text: `Solicitado por ${user.username}`,
-                        iconURL: user.avatarURL()!
-                    }
-                );
-        channel.send({ embeds: [embedReply] });
+            joke: string =
+                jokes[Math.floor(Math.random() * jokes.length)],
+            embedReply: EmbedBuilder =
+                new EmbedBuilder()
+                    .setTitle("WayraChiste +18")
+                    .setDescription(joke)
+                    .setColor(EmbedDecorator.color as ColorResolvable)
+                    .setTimestamp()
+                    .setFooter(
+                        {
+                            text: `Solicitado por ${user.username}`,
+                            iconURL: user.avatarURL()!
+                        }
+                    );
+        sender.channel?.send({ embeds: [embedReply] });
     }
 }

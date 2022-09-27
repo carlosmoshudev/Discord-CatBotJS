@@ -1,10 +1,12 @@
 import {
     Client,
-    Message,
     Channel,
-    User
+    User,
+    TextChannel,
+    ChatInputCommandInteraction
 } from 'discord.js';
 import { Command } from '../../models/Command';
+import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -15,17 +17,33 @@ export class ConcreteCommand extends Command {
                 aliases: ['lanzardado'],
                 description: 'Lanza un dado de n caras.',
                 category: 'Fun',
-                usage: '<faces?> {default:6}',
-                helpText: '(ej. !rolldice | !rolldice 14)'
+                usage: '<caras?> {default:6}',
+                parameters: [
+                    {
+                        name: 'caras',
+                        description: 'número de caras',
+                        required: false,
+                        type: 'number'
+                    }
+                ],
+                helpText: '(ej. /rolldice | /rolldice 14)',
+                output: 'Has lanzado un dado, ¡buena suerte!'
             })
     }
-    async run(message: Message, args: Array<string>): Promise<void> {
+    async run(sender: CommandSender, args: Array<string>): Promise<void> {
         const
-            user: User = message.author,
-            channel: Channel = message.channel,
-            faces: number = parseInt(args[0]) || 6,
-            face: number = Math.floor(Math.random() * faces) + 1;
-        channel.send(`${user}, te ha salido un ${face}. :game_die:`)
-
+            slash: ChatInputCommandInteraction =
+                sender as ChatInputCommandInteraction,
+            user: User =
+                sender.member?.user! as User,
+            channel: Channel =
+                sender.channel! as TextChannel,
+            faces: number =
+                parseInt(slash.options.getString('caras') || args[0])
+                || 6,
+            faceResult: number =
+                Math.floor(Math.random() * faces) + 1;
+        channel.send(`${user}, te ha salido un ${faceResult}. :game_die:`)
     }
+
 }

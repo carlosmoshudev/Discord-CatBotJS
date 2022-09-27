@@ -3,13 +3,12 @@ import {
     ColorResolvable,
     EmbedBuilder,
     Guild,
-    Message,
-    User,
-    Channel
+    User
 } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { FromatToDatetime } from '../../utils/Formatter';
 import { Command } from "../../models/Command";
+import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -24,17 +23,28 @@ export class ConcreteCommand extends Command {
                     ],
                 description: 'Información del servidor.',
                 category: 'Information',
-                usage: '<server?> (#GuildID Joined) {default:current}',
-                helpText: '(ej. !serverinfo | !serverinfo 0000000000000000)'
+                usage: '<servidor?> (#GuildID Joined) {default:current}',
+                parameters: [
+                    {
+                        name: 'servidor',
+                        description: 'Un servidor donde estés unido y este bot también, para obtener la info',
+                        required: false,
+                        type: 'string'
+                    }],
+                helpText: '(ej. !serverinfo | !serverinfo 0000000000000000)',
+                output: 'miau'
             })
     }
-    async run(message: Message, _args: Array<string>) {
+    async run(sender: CommandSender, _args: Array<string>) {
         const
-            server: Guild = message.guild!,
-            user: User = message.author,
-            channel: Channel = message.channel,
-            owner: User = message.client.users.cache.get(server!.ownerId)!,
-            creation: string = FromatToDatetime(server!.createdAt),
+            server: Guild =
+                sender.guild!,
+            user: User =
+                sender.member?.user as User,
+            owner: User =
+                sender.client.users.cache.get(server!.ownerId)!,
+            creation: string =
+                FromatToDatetime(server!.createdAt),
             serverConfig: Array<string> =
                 [
                     `**ID:**            ${server!.id}\n`,
@@ -46,23 +56,24 @@ export class ConcreteCommand extends Command {
                     `**Propiedad:**     ${owner}\n`,
                     `**Creado:**        ${creation}\n`,
                 ],
-            embedReply: EmbedBuilder = new EmbedBuilder()
-                .setTitle(`Información sobre servidor: ${server!.name}`)
-                .addFields([
-                    {
-                        name: 'Configuración del servidor',
-                        value: serverConfig.join(''),
-                        inline: true
-                    }])
-                .setColor(EmbedDecorator.color as ColorResolvable)
-                .setTimestamp()
-                .setFooter(
-                    {
-                        text: `Solicitado por ${user.username}`,
-                        iconURL: user.avatarURL()!
-                    }
-                );
-        channel.send({ embeds: [embedReply] });
+            embedReply: EmbedBuilder =
+                new EmbedBuilder()
+                    .setTitle(`Información sobre servidor: ${server!.name}`)
+                    .addFields([
+                        {
+                            name: 'Configuración del servidor',
+                            value: serverConfig.join(''),
+                            inline: true
+                        }])
+                    .setColor(EmbedDecorator.color as ColorResolvable)
+                    .setTimestamp()
+                    .setFooter(
+                        {
+                            text: `Solicitado por ${user.username}`,
+                            iconURL: user.avatarURL()!
+                        }
+                    );
+        sender.channel?.send({ embeds: [embedReply] });
     }
     getF2A = (server: Guild) => server.mfaLevel === 0 ? '*Habilitado*' : '*Deshabilitado*';
 }

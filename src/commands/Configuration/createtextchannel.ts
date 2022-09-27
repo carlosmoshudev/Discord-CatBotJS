@@ -1,11 +1,15 @@
 import {
     CategoryChannelResolvable,
+    ChatInputCommandInteraction,
     Client,
-    Message
+    GuildMember
 } from 'discord.js';
 import { CheckUserPermissions } from '../../utils/User';
 import { Create } from '../../utils/Channels';
-import { CreateChannelData } from '../../types';
+import {
+    CommandSender,
+    CreateChannelData
+} from '../../types';
 import { Command } from '../../models/Command';
 
 export class ConcreteCommand extends Command {
@@ -21,22 +25,51 @@ export class ConcreteCommand extends Command {
                         'addchannel',
                         'createchannel'
                     ],
-                description: 'Crea canales en tu servidor.',
+                description: 'Crea uno o varios canales en tu servidor.',
                 category: 'Configuration',
                 usage: '<categoría> (#channelId)\n<nombre>\n<número?> {default:1}',
+                parameters: [
+                    {
+                        name: 'categoría',
+                        description: 'El ID de la categoría que contendrá los canales.',
+                        required: true,
+                        type: 'category'
+                    },
+                    {
+                        name: 'nombre',
+                        description: 'Nombre que le daremos al nuevo canal.',
+                        required: true,
+                        type: 'string'
+                    },
+                    {
+                        name: 'número',
+                        description: 'Número de canales. No requerido',
+                        required: false,
+                        type: 'number'
+                    }
+                ],
                 permissions: 'ManageChannels',
-                helpText: '(ej. !createtextchannel 1000000000000000000 Juegos 3)'
+                helpText: '(ej. /createtextchannel 1000000000000000000 Juegos 3)',
+                output: '¡Creación de canales solicitado!'
             })
     }
-    async run(message: Message, args: Array<string>): Promise<void> {
-        if (!CheckUserPermissions(message.member!, 'ManageChannels')) return;
+    async run(sender: CommandSender, args: Array<string>): Promise<void> {
+        if (!CheckUserPermissions(sender.member! as GuildMember, 'ManageChannels')) return;
         const
-            category: CategoryChannelResolvable = args[0],
-            channelName: string = args[1],
-            channelCount: number = Number(args[2]) || 0;
+            slash: ChatInputCommandInteraction =
+                sender as ChatInputCommandInteraction,
+            category: CategoryChannelResolvable =
+                slash.options.getChannel('categoría')?.id!
+                || args![0],
+            channelName: string =
+                slash.options.getString('nombre')!
+                || args![1],
+            channelCount: number =
+                Number(slash.options.getInteger('número') || args![2])
+                || 0;
         if (channelCount === 0) {
             const ChannelData: CreateChannelData = {
-                message: message,
+                message: sender!,
                 name: channelName,
                 parent: category,
                 type: 0
@@ -45,7 +78,7 @@ export class ConcreteCommand extends Command {
         }
         else for (let i = 0; i < channelCount; i++) {
             const ChannelData: CreateChannelData = {
-                message: message,
+                message: sender!,
                 name: `${channelName}_${i}`,
                 parent: category,
                 type: 0

@@ -9,7 +9,7 @@ const clientPresence =
     activities:
         [{
             name: ReadyConfig.Presence.Name,
-            type: ActivityType.Watching,
+            type: ActivityType.Competing,
         }]
 }
 

@@ -1,11 +1,11 @@
 import {
+    ChatInputCommandInteraction,
     Client,
-    GuildMember,
-    Message,
-    Channel
+    GuildMember
 } from 'discord.js';
 import { CheckUserPermissions } from '../../utils/User';
 import { Command } from '../../models/Command';
+import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -19,19 +19,31 @@ export class ConcreteCommand extends Command {
                         'topico',
                         'tematica'
                     ],
-                description: 'Actualiza la temática del canal.',
+                description: 'Actualiza o establece la temática del canal.',
                 category: 'Configuration',
                 permissions: 'ManageChannels',
-                usage: '<topic>',
-                helpText: '(ej. !settopic Canal de ayuda y soporte.)'
+                usage: '<descripción>',
+                parameters: [
+                    {
+                        name: 'descripción',
+                        description: 'La nueva descripción para el canal actual.',
+                        required: true,
+                        type: 'string'
+                    }
+                ],
+                helpText: '(ej. /settopic Canal de ayuda y soporte.)',
+                output: 'Solicitud de descripción de canal gestionada'
             })
     }
-    async run(message: Message, args: Array<string>): Promise<void> {
+    async run(sender: CommandSender, args: Array<string>): Promise<void> {
+        if (!CheckUserPermissions(sender.member! as GuildMember, this.permissions)
+            || sender.channel?.type !== 0) return;
         const
-            user: GuildMember = message.member!,
-            channel: Channel = message.channel;
-        if (!CheckUserPermissions(user, this.permissions)
-            || channel.type != 0) return;
-        channel?.setTopic(args.join(' '));
+            slash: ChatInputCommandInteraction =
+                sender as ChatInputCommandInteraction,
+            topic: string =
+                slash.options.getString('descripción')
+                || args!.join(' ');
+        sender.channel?.setTopic(topic);
     }
 }

@@ -1,33 +1,34 @@
-import {
-    Client,
-    Message
-} from 'discord.js';
+import { Client } from 'discord.js';
 import { Command } from '../../models/Command';
+import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
         super(
             client,
             {
-                name: "ping",
+                name: 'ping',
                 aliases:
                     [
-                        "delay",
-                        "latencia",
-                        "ms"
+                        'delay',
+                        'latencia',
+                        'ms'
                     ],
-                description: "Comprueba la latencia con el bot.",
-                category: "Client",
-                usage: "N/A",
-                helpText: "No responde a parámetros. (ej. !ping | !delay | !latencia)",
+                description: 'Comprueba la latencia con el bot.',
+                category: 'Client',
+                usage: 'N/A',
+                helpText: 'No responde a parámetros. (ej. /ping | !delay)',
+                output: 'Pong!'
             });
     }
-    async run(message: Message, _args: Array<string>): Promise<void> {
+    async run(sender: CommandSender, _args: Array<string>): Promise<void> {
         const
-            APIlatency: number = message.client.ws.ping,
-            MessageLatency: number = Date.now() - message.createdTimestamp;
-        message.reply(`Pong!  :ping_pong: 
-Latencia de mensajes: ${MessageLatency}ms
-Latencia de la API: ${APIlatency}ms`);
+            APIlatency: number =
+                sender.client?.ws.ping!,
+            MessageLatency: number =
+                Date.now() - sender!.createdTimestamp;
+        sender.channel?.send(`Pong!  :ping_pong: 
+        Latencia de mensajes: ${MessageLatency}ms
+        Latencia de la API: ${APIlatency}ms`);
     }
 };
