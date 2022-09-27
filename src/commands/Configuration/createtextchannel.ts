@@ -39,7 +39,7 @@ export class ConcreteCommand extends Command {
                         name: 'nombre',
                         description: 'Nombre que le daremos al nuevo canal.',
                         required: true,
-                        type: 'string'
+                        type: 'string',
                     },
                     {
                         name: 'número',

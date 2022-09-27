@@ -6,6 +6,7 @@ import {
 } from "discord.js";
 
 import environment from 'dotenv';
+import { Parameter } from "../types";
 
 environment.config();
 
@@ -16,46 +17,107 @@ export async function SlashCommandLoader(client: Client): Promise<void> {
             .setName(command.name)
             .setDescription(command.description);
         if (command.parameters) command.parameters.forEach(parameter => {
-            if (parameter.type === 'string') slashCmd.addStringOption(option =>
-                option
-                    .setName(parameter.name)
-                    .setDescription(parameter.description)
-                    .setRequired(parameter.required)
-            );
-            else if (parameter.type === 'number') slashCmd.addIntegerOption(option =>
-                option
-                    .setName(parameter.name)
-                    .setDescription(parameter.description)
-                    .setRequired(parameter.required)
-            );
-            else if (parameter.type === 'bool') slashCmd.addBooleanOption(option =>
-                option
-                    .setName(parameter.name)
-                    .setDescription(parameter.description)
-                    .setRequired(parameter.required)
-            );
-            else if (parameter.type === 'user') slashCmd.addUserOption(option =>
-                option
-                    .setName(parameter.name)
-                    .setDescription(parameter.description)
-                    .setRequired(parameter.required)
-            );
-            else if (parameter.type === 'category') slashCmd.addChannelOption(option =>
-                option
-                    .setName(parameter.name)
-                    .setDescription(parameter.description)
-                    .setRequired(parameter.required)
-                    .addChannelTypes(ChannelType.GuildCategory)
-            );
-            else if (parameter.type === 'channel') slashCmd.addChannelOption(option =>
-                option
-                    .setName(parameter.name)
-                    .setDescription(parameter.description)
-                    .setRequired(parameter.required)
-                    .addChannelTypes(ChannelType.GuildText)
-            )
+            parameter.options
+                ? BuildOptionsWithChoices(slashCmd, parameter)
+                : BuildOptions(slashCmd, parameter);
         })
         slahsCommands.push(slashCmd.toJSON());
     })
     client.application?.commands.set(slahsCommands);
+}
+function BuildOptionsWithChoices(slash: SlashCommandBuilder, parameter: Parameter): void {
+    console.log(`comando ${slash.name} tiene opciones para el parámetro ${parameter.name}`)
+    switch (parameter.type) {
+        case 'number':
+            slash.addIntegerOption(option => option
+                .setName(parameter.name)
+                .setDescription(parameter.description)
+                .setRequired(parameter.required)
+                .addChoices(parameter.options![0])
+            );
+            break;
+        case 'string':
+            if (parameter.options?.length === 1) {
+                slash.addStringOption(option => option
+                    .setName(parameter.name)
+                    .setDescription(parameter.description)
+                    .setRequired(parameter.required)
+                    .addChoices(parameter.options![0])
+                );
+            } else if (parameter.options?.length === 5) {
+                slash.addStringOption(option => option
+                    .setName(parameter.name)
+                    .setDescription(parameter.description)
+                    .setRequired(parameter.required)
+                    .addChoices(
+                        parameter.options![0],
+                        parameter.options![1],
+                        parameter.options![2],
+                        parameter.options![3],
+                        parameter.options![4])
+                );
+            }
+            break;
+        default:
+            BuildOptions(slash, parameter);
+            break;
+    }
+}
+function BuildOptions(slash: SlashCommandBuilder, parameter: Parameter): void {
+    switch (parameter.type) {
+        case 'bool':
+            slash.addBooleanOption(option => option
+                .setName(parameter.name)
+                .setDescription(parameter.description)
+                .setRequired(parameter.required)
+            );
+            break;
+        case 'category':
+            slash.addChannelOption(option => option
+                .setName(parameter.name)
+                .setDescription(parameter.description)
+                .setRequired(parameter.required)
+                .addChannelTypes(ChannelType.GuildCategory)
+            );
+            break;
+        case 'channel':
+            slash.addChannelOption(option => option
+                .setName(parameter.name)
+                .setDescription(parameter.description)
+                .setRequired(parameter.required)
+                .addChannelTypes(ChannelType.GuildText)
+            );
+            break;
+        case 'number':
+            slash.addIntegerOption(option => option
+                .setName(parameter.name)
+                .setDescription(parameter.description)
+                .setRequired(parameter.required)
+            );
+            break;
+        case 'role':
+            slash.addRoleOption(option => option
+                .setName(parameter.name)
+                .setDescription(parameter.description)
+                .setRequired(parameter.required)
+            );
+            break;
+        case 'string':
+            slash.addStringOption(option => option
+                .setName(parameter.name)
+                .setDescription(parameter.description)
+                .setRequired(parameter.required)
+            );
+            break;
+        case 'user':
+            slash.addUserOption(option => option
+                .setName(parameter.name)
+                .setDescription(parameter.description)
+                .setRequired(parameter.required)
+            );
+            break;
+        default:
+            console.error(`Algo ha ido mal con el comando ${slash.name}`);
+            break;
+    }
 }

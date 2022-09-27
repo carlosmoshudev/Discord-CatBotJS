@@ -43,7 +43,14 @@ export class ConcreteCommand extends Command {
                         name: 'categoría',
                         description: 'Sobre que obtener ayuda',
                         required: false,
-                        type: 'string'
+                        type: 'string',
+                        options: [
+                            { name: 'Cliente', value: 'client' },
+                            { name: 'Configuración', value: 'configuration' },
+                            { name: 'Diversión', value: 'fun' },
+                            { name: 'Información', value: 'information' },
+                            { name: 'Moderación', value: 'moderation' }
+                        ]
                     }
                 ],
                 helpText: 'Se puede añadir un comando o categoría como parámetro\n (ej. !miau ping, !miau getavatar)',
