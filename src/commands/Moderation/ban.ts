@@ -2,8 +2,7 @@ import {
     BanOptions,
     ChatInputCommandInteraction,
     Client,
-    GuildMember,
-    User
+    GuildMember
 } from 'discord.js';
 import { Command } from '../../models/Command';
 import { CommandSender } from '../../types';
@@ -39,7 +38,7 @@ export class ConcreteCommand extends Command {
                         type: 'number'
                     }
                 ],
-                helpText: '(ej. !ban @usuario 1.)',
+                helpText: '(ej. /ban @usuario 1.)',
                 output: 'miembro baneado'
             })
     }

@@ -4,7 +4,8 @@ import {
     ColorResolvable,
     User,
     Channel,
-    TextChannel
+    TextChannel,
+    ChatInputCommandInteraction
 } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { Links } from './Miau/config.json';
@@ -51,26 +52,38 @@ export class ConcreteCommand extends Command {
     }
     async run(sender: CommandSender, args: Array<string>) {
         const
-            user: User = sender.member?.user as User,
-            client: Client = sender.client,
-            channel: Channel = sender.channel as TextChannel,
-            commandOrCategory: string | null = args[0] || null,
-            embedTitle: string = `Miauyuda para ${user.username}#${user.discriminator}`,
-            embedReply: EmbedBuilder = new EmbedBuilder()
-                .setColor(EmbedDecorator.color as ColorResolvable)
-                .setURL(Links.Invite.url)
-                .setTimestamp()
-                .setThumbnail(user.avatarURL())
-                .setFooter(
-                    {
-                        text: `${Project.name}  v${Project.version}    |     by ${Project.author}`,
-                        iconURL: EmbedDecorator.icon
-                    });
+            slash: ChatInputCommandInteraction =
+                sender as ChatInputCommandInteraction,
+            user: User =
+                sender.member?.user as User,
+            client: Client =
+                sender.client,
+            channel: Channel =
+                sender.channel as TextChannel,
+            commandOrCategory: string | null =
+                slash.options.getString('comando')
+                || slash.options.getString('categoría')
+                || args[0]
+                || null,
+            embedTitle: string =
+                `Miauyuda para ${user.username}#${user.discriminator}`,
+            embedReply: EmbedBuilder =
+                new EmbedBuilder()
+                    .setColor(EmbedDecorator.color as ColorResolvable)
+                    .setURL(Links.Invite.url)
+                    .setTimestamp()
+                    .setThumbnail(user.avatarURL())
+                    .setFooter(
+                        {
+                            text: `${Project.name}  v${Project.version}    |     by ${Project.author}`,
+                            iconURL: EmbedDecorator.icon
+                        });
         if (!commandOrCategory) {
             const
-                linksEmbed: EmbedBuilder = new EmbedBuilder()
-                    .setColor(EmbedDecorator.secondarycolor as ColorResolvable)
-                    .addFields(pushLinks());
+                linksEmbed: EmbedBuilder =
+                    new EmbedBuilder()
+                        .setColor(EmbedDecorator.secondarycolor as ColorResolvable)
+                        .addFields(pushLinks());
             embedReply
                 .setTitle(embedTitle)
                 .setDescription('Escribe !miau + <categoría> para más ayuda.')
@@ -79,7 +92,8 @@ export class ConcreteCommand extends Command {
         }
         if (client.commands.map(command =>
             command.name).includes(commandOrCategory!)) {
-            const cmdInfo: Command = client.commands.get(commandOrCategory!)!;
+            const cmdInfo: Command =
+                client.commands.get(commandOrCategory!)!;
             embedReply
                 .setTitle(`${embedTitle} sobre ${cmdInfo?.name}`)
                 .addFields(commandHelp(cmdInfo!));
