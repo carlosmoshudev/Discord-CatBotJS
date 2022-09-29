@@ -1,11 +1,11 @@
 import {
     ChatInputCommandInteraction,
     Client,
-    GuildMember
+    GuildMember,
+    Interaction
 } from 'discord.js';
 import { CheckUserPermissions } from '../../utils/User';
 import { Command } from '../../models/Command';
-import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -13,16 +13,10 @@ export class ConcreteCommand extends Command {
             client,
             {
                 name: 'settopic',
-                aliases:
-                    [
-                        'topic',
-                        'topico',
-                        'tematica'
-                    ],
                 description: 'Actualiza o establece la temática del canal.',
                 category: 'Configuration',
                 permissions: 'ManageChannels',
-                usage: '<descripción>',
+                usage: '/settopic [<descripción>]',
                 parameters: [
                     {
                         name: 'descripción',
@@ -35,15 +29,14 @@ export class ConcreteCommand extends Command {
                 output: 'Solicitud de descripción de canal gestionada'
             })
     }
-    async run(sender: CommandSender, args: Array<string>): Promise<void> {
+    async run(sender: Interaction): Promise<void> {
         if (!CheckUserPermissions(sender.member! as GuildMember, this.permissions)
             || sender.channel?.type !== 0) return;
         const
             slash: ChatInputCommandInteraction =
                 sender as ChatInputCommandInteraction,
             topic: string =
-                slash.options.getString('descripción')
-                || args!.join(' ');
+                slash.options.getString('descripción')!;
         sender.channel?.setTopic(topic);
     }
 }

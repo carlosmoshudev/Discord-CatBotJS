@@ -2,7 +2,7 @@ import { GuildMember, TextChannel } from "discord.js";
 import { CreateChannelData } from "../types";
 
 export function Create(options: CreateChannelData): void {
-    options.message.guild?.channels.create(
+    options.slash.guild?.channels.create(
         {
             name: options.name,
             parent: options.parent,

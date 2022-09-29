@@ -1,6 +1,5 @@
-import { ChatInputCommandInteraction, Client } from 'discord.js';
+import { ChatInputCommandInteraction, Client, Interaction } from 'discord.js';
 import { Command } from '../../models/Command';
-import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -29,14 +28,12 @@ export class ConcreteCommand extends Command {
                 output: 'shhhh, quizá nadie sepa que has sido tú.'
             })
     }
-    async run(sender: CommandSender, args: Array<string>): Promise<void> {
+    async run(sender: Interaction): Promise<void> {
         const
             slash: ChatInputCommandInteraction =
-                sender as ChatInputCommandInteraction,
-            text: string =
-                slash.options.getString('texto')
-                    || args ? args.join(' ')
-                    : "Amigo, este comando requiere parámetros ^^";
+                sender as ChatInputCommandInteraction;
+        let text: string =
+            slash.options.getString('texto')!;
         sender.channel?.send(text);
     }
 }

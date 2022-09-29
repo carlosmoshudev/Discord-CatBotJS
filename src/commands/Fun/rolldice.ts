@@ -3,10 +3,10 @@ import {
     Channel,
     User,
     TextChannel,
-    ChatInputCommandInteraction
+    ChatInputCommandInteraction,
+    Interaction
 } from 'discord.js';
 import { Command } from '../../models/Command';
-import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -30,7 +30,7 @@ export class ConcreteCommand extends Command {
                 output: 'Has lanzado un dado, ¡buena suerte!'
             })
     }
-    async run(sender: CommandSender, args: Array<string>): Promise<void> {
+    async run(sender: Interaction): Promise<void> {
         const
             slash: ChatInputCommandInteraction =
                 sender as ChatInputCommandInteraction,
@@ -38,9 +38,7 @@ export class ConcreteCommand extends Command {
                 sender.member?.user! as User,
             channel: Channel =
                 sender.channel! as TextChannel,
-            faces: number =
-                parseInt(slash.options.getString('caras') || args[0])
-                || 6,
+            faces: number = slash.options.getInteger('caras')! || 6,
             faceResult: number =
                 Math.floor(Math.random() * faces) + 1;
         channel.send(`${user}, te ha salido un ${faceResult}. :game_die:`)

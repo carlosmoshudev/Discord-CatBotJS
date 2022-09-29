@@ -43,7 +43,7 @@ export function pushCategories(client: Client): NameValue {
 export function commandHelp(command: Command): Array<NameValue> {
     const
         valueInfo =
-            `**Comando:**       *${MessageConfig.Prefix}${command.name}*
+            `**Comando:**       */${command.name}*
 **Alias:**          *${FormatToList(command.aliases.map(alias => MessageConfig.Prefix + alias))}*
 **Descripción:**    *${command.description}*
 **Parámetros:**  \n\`${command.usage}\`

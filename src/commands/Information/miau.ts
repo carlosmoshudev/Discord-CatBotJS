@@ -5,30 +5,20 @@ import {
     User,
     Channel,
     TextChannel,
-    ChatInputCommandInteraction
+    ChatInputCommandInteraction,
+    Interaction
 } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { Links } from './Miau/config.json';
 import { pushLinks, pushCommands, pushCategories, commandHelp } from './Miau/Fields';
 import { Command } from "../../models/Command";
 import Project from '../../../package.json';
-import { CommandSender } from '../../types';
-
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
         super(
             client,
             {
                 name: 'miau',
-                aliases:
-                    [
-                        'help',
-                        'ayuda',
-                        'meow',
-                        'comandos',
-                        'commands',
-                        'man'
-                    ],
                 description: 'Proporciona ayuda con los comandos.',
                 category: 'Information',
                 usage: '<comando?> {default:global help}',
@@ -45,7 +35,7 @@ export class ConcreteCommand extends Command {
                         required: false,
                         type: 'string',
                         options: [
-                            { name: 'Cliente', value: 'client' },
+                            { name: 'Bot', value: 'bot' },
                             { name: 'Configuración', value: 'configuration' },
                             { name: 'Diversión', value: 'fun' },
                             { name: 'Información', value: 'information' },
@@ -57,7 +47,7 @@ export class ConcreteCommand extends Command {
                 output: 'miau'
             })
     }
-    async run(sender: CommandSender, args: Array<string>) {
+    async run(sender: Interaction) {
         const
             slash: ChatInputCommandInteraction =
                 sender as ChatInputCommandInteraction,
@@ -70,7 +60,6 @@ export class ConcreteCommand extends Command {
             commandOrCategory: string | null =
                 slash.options.getString('comando')
                 || slash.options.getString('categoría')
-                || args[0]
                 || null,
             embedTitle: string =
                 `Miauyuda para ${user.username}#${user.discriminator}`,

@@ -18,7 +18,7 @@ export type CommandAndAlias = {
     aliases: Collection<string, Command>
 };
 export type CreateChannelData = {
-    message: (Message | Interaction),
+    slash: Interaction,
     name: string,
     parent: CategoryChannelResolvable,
     type: number
@@ -64,4 +64,3 @@ export interface Parameter {
     options?: APIApplicationCommandOptionChoice<string>[],
     type: 'string' | 'number' | 'bool' | 'user' | 'channel' | 'role' | 'category',
 }
-export type CommandSender = Message | Interaction

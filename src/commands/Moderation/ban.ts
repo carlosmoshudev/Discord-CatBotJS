@@ -2,10 +2,9 @@ import {
     BanOptions,
     ChatInputCommandInteraction,
     Client,
-    GuildMember
+    Interaction
 } from 'discord.js';
 import { Command } from '../../models/Command';
-import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -42,18 +41,15 @@ export class ConcreteCommand extends Command {
                 output: 'miembro baneado'
             })
     }
-    async run(sender: CommandSender, args: Array<string>): Promise<void> {
+    async run(sender: Interaction): Promise<void> {
         const
             slash: ChatInputCommandInteraction =
                 sender as ChatInputCommandInteraction,
-            banUser: GuildMember =
+            banUser: any =
                 await sender.guild?.members.fetch(slash.options.getUser('usuario')!)
-                    .catch((error: Error) => { console.log(error); return; })
-                || await sender.guild?.members.fetch(args[0])
-                    .catch((error: Error) => { console.log(error); return; }) as GuildMember,
+                    .catch((error: Error) => { console.log(error); return; }),
             banTime: number =
                 slash.options.getInteger('días')
-                || parseInt(args[1])
                 || 360;
         if (banUser) await banUser.ban({ days: banTime } as BanOptions);
     }

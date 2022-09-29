@@ -2,11 +2,11 @@ import {
     Client,
     EmbedBuilder,
     User,
-    ColorResolvable
+    ColorResolvable,
+    Interaction
 } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { Command } from '../../models/Command';
-import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -22,7 +22,7 @@ export class ConcreteCommand extends Command {
                 output: 'Créditos a WayraIsBleu ^^'
             })
     }
-    async run(sender: CommandSender, _args: Array<string>) {
+    async run(sender: Interaction) {
         const
             user: User =
                 sender.member?.user! as User,

@@ -1,6 +1,5 @@
-import { Client } from 'discord.js';
+import { Client, Interaction } from 'discord.js';
 import { Command } from '../../models/Command';
-import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -20,7 +19,7 @@ export class ConcreteCommand extends Command {
                 output: 'Has lanzado una moneda al aire, ¡buena suerte!'
             })
     }
-    async run(sender: CommandSender, _args: Array<string>): Promise<void> {
+    async run(sender: Interaction): Promise<void> {
         const
             faces: Array<string> =
                 ['cara', 'cruz'],

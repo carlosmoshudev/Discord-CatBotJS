@@ -3,11 +3,11 @@ import {
     Client,
     ColorResolvable,
     EmbedBuilder,
+    Interaction,
     User
 } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { Command } from '../../models/Command';
-import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -35,15 +35,14 @@ export class ConcreteCommand extends Command {
                 helpText: '', output: 'yes'
             })
     }
-    async run(sender: CommandSender, _args: Array<string>) {
+    async run(sender: Interaction) {
         const
             slash =
                 sender as ChatInputCommandInteraction,
             user: User =
                 sender.member?.user! as User,
             mention: any =
-                slash.options.getUser('usuario')
-                || _args[0]!,
+                slash.options.getUser('usuario'),
             embedReply: EmbedBuilder
                 = new EmbedBuilder()
                     .setColor(EmbedDecorator.color as ColorResolvable)

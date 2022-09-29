@@ -10,6 +10,6 @@
         "CommandLoadLog":"-  Global commands loaded:"
     },
     "MessageConfig":{
-        "Prefix":"!"
+        "Prefix":"/"
     }
 }

@@ -3,12 +3,12 @@ import {
     ColorResolvable,
     EmbedBuilder,
     Guild,
+    Interaction,
     User
 } from 'discord.js';
 import { EmbedDecorator } from '../../config/decorator.json';
 import { FromatToDatetime } from '../../utils/Formatter';
 import { Command } from "../../models/Command";
-import { CommandSender } from '../../types';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -35,7 +35,7 @@ export class ConcreteCommand extends Command {
                 output: 'miau'
             })
     }
-    async run(sender: CommandSender, _args: Array<string>) {
+    async run(sender: Interaction) {
         const
             server: Guild =
                 sender.guild!,

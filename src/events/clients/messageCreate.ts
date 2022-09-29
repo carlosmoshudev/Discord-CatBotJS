@@ -1,19 +1,6 @@
-import {
-    Message,
-    Client
-} from 'discord.js';
-import { MessageConfig } from '../../config/bot.json';
+import { Message } from 'discord.js';
 import { CustomNotifications } from './custom'; //ignore this
 
 export async function CreateMessage(message: Message<boolean>): Promise<void> {
     CustomNotifications(message); //Ignore this, is used for my personal server only
-    const
-        client: Client = message.client,
-        args: Array<string> = message.content.split(/\s+/),
-        cmd: string | undefined = args.shift()?.toLowerCase().replace(MessageConfig.Prefix, ''),
-        prefix: boolean = (message.content.startsWith(MessageConfig.Prefix)),
-        isCommand: boolean = (client.commands.has(cmd!)),
-        isAlias: boolean = (client.aliases.has(cmd!));
-    if (prefix && !message.author.bot && isCommand) client.commands.get(cmd!)?.run(message, args);
-    else if (prefix && !message.author.bot && isAlias) client.aliases.get(cmd!)?.run(message, args);
 }

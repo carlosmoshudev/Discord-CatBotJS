@@ -3,11 +3,11 @@ import {
     ChatInputCommandInteraction,
     Client,
     GuildMember,
+    Interaction,
     TextChannel,
     User
 } from 'discord.js';
 import { Command } from '../../models/Command';
-import { CommandSender } from '../../types';
 import { CheckUserPermissions } from '../../utils/User';
 
 export class ConcreteCommand extends Command {
@@ -38,7 +38,7 @@ export class ConcreteCommand extends Command {
                 output: 'to pa ti'
             })
     }
-    async run(sender: CommandSender, args: Array<string>): Promise<void> {
+    async run(sender: Interaction): Promise<void> {
         const
             slash: ChatInputCommandInteraction =
                 sender as ChatInputCommandInteraction,
@@ -49,8 +49,7 @@ export class ConcreteCommand extends Command {
         if (!CheckUserPermissions(member, this.permissions)) return;
         let
             mention: User | string =
-                slash.options.getUser('usuario')
-                || args[0],
+                slash.options.getUser('usuario')!,
             user: GuildMember =
                 await sender.guild?.members.fetch(mention)!;
         if (!user?.permissions) user = member;

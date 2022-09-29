@@ -19,7 +19,6 @@ export function CommandLoader(client: Client): CommandAndAlias {
                 let commandBuilder = require(`${directory}${category}/${command}`);
                 const cmd: Command = new commandBuilder.ConcreteCommand(client);
                 commandsInfo.set(cmd.name, cmd);
-                cmd.aliases.forEach(alias => aliasesInfo.set(alias, cmd));
             }
         }));
     return {

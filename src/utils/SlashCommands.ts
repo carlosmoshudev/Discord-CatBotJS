@@ -21,6 +21,13 @@ export async function SlashCommandLoader(client: Client): Promise<void> {
                 ? BuildOptionsWithChoices(slashCmd, parameter)
                 : BuildOptions(slashCmd, parameter);
         })
+        if (command.subcommands && false) {
+            slashCmd.addSubcommand(subcmd =>
+                subcmd
+                    .setName('test')
+                    .setDescription('this is a test')
+            )
+        }
         slahsCommands.push(slashCmd.toJSON());
     })
     client.application?.commands.set(slahsCommands);
@@ -44,6 +51,29 @@ function BuildOptionsWithChoices(slash: SlashCommandBuilder, parameter: Paramete
                     .setRequired(parameter.required)
                     .addChoices(parameter.options![0])
                 );
+            } else if (parameter.options?.length === 3) {
+                slash.addStringOption(option => option
+                    .setName(parameter.name)
+                    .setDescription(parameter.description)
+                    .setRequired(parameter.required)
+                    .addChoices(
+                        parameter.options![0],
+                        parameter.options![1],
+                        parameter.options![2]
+                    )
+                );
+            } else if (parameter.options?.length === 4) {
+                slash.addStringOption(option => option
+                    .setName(parameter.name)
+                    .setDescription(parameter.description)
+                    .setRequired(parameter.required)
+                    .addChoices(
+                        parameter.options![0],
+                        parameter.options![1],
+                        parameter.options![2],
+                        parameter.options![3]
+                    )
+                );
             } else if (parameter.options?.length === 5) {
                 slash.addStringOption(option => option
                     .setName(parameter.name)
@@ -54,7 +84,8 @@ function BuildOptionsWithChoices(slash: SlashCommandBuilder, parameter: Paramete
                         parameter.options![1],
                         parameter.options![2],
                         parameter.options![3],
-                        parameter.options![4])
+                        parameter.options![4]
+                    )
                 );
             }
             break;
