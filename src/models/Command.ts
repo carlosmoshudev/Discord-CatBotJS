@@ -1,5 +1,5 @@
 import { Client, Interaction } from "discord.js";
-import { Parameter } from "../types";
+import { Parameter, SubCommandOptions } from "../types";
 
 export abstract class Command {
     client: Client;
@@ -7,7 +7,7 @@ export abstract class Command {
     aliases: Array<string>;
     description: string;
     usage: string;
-    subcommands: Array<string>;
+    subcommands: Array<SubCommandOptions>;
     parameters: Array<Parameter>;
     permissions: string;
     category: string;

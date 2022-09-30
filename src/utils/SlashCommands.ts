@@ -2,7 +2,8 @@ import {
     ChannelType,
     Client,
     RESTPostAPIApplicationCommandsJSONBody,
-    SlashCommandBuilder
+    SlashCommandBuilder,
+    SlashCommandSubcommandBuilder,
 } from "discord.js";
 
 import environment from 'dotenv';
@@ -17,22 +18,28 @@ export async function SlashCommandLoader(client: Client): Promise<void> {
             .setName(command.name)
             .setDescription(command.description);
         if (command.parameters) command.parameters.forEach(parameter => {
-            parameter.options
+            parameter.choices
                 ? BuildOptionsWithChoices(slashCmd, parameter)
                 : BuildOptions(slashCmd, parameter);
         })
-        if (command.subcommands && false) {
-            slashCmd.addSubcommand(subcmd =>
-                subcmd
-                    .setName('test')
-                    .setDescription('this is a test')
-            )
+        if (command.subcommands) {
+            command.subcommands.forEach(subcommanddata => {
+                const subcommand = new SlashCommandSubcommandBuilder()
+                    .setName(subcommanddata.name)
+                    .setDescription(subcommanddata.description);
+                if (subcommanddata.parameters) subcommanddata.parameters.forEach(parameter => {
+                    parameter.choices
+                        ? BuildOptionsWithChoices(subcommand, parameter)
+                        : BuildOptions(subcommand, parameter);
+                })
+                slashCmd.addSubcommand(subcommand);
+            })
         }
         slahsCommands.push(slashCmd.toJSON());
     })
     client.application?.commands.set(slahsCommands);
 }
-function BuildOptionsWithChoices(slash: SlashCommandBuilder, parameter: Parameter): void {
+function BuildOptionsWithChoices(slash: SlashCommandBuilder | SlashCommandSubcommandBuilder, parameter: Parameter): void {
     console.log(`comando ${slash.name} tiene opciones para el parámetro ${parameter.name}`)
     switch (parameter.type) {
         case 'number':
@@ -40,51 +47,51 @@ function BuildOptionsWithChoices(slash: SlashCommandBuilder, parameter: Paramete
                 .setName(parameter.name)
                 .setDescription(parameter.description)
                 .setRequired(parameter.required)
-                .addChoices(parameter.options![0])
+                .addChoices(parameter.choices![0])
             );
             break;
         case 'string':
-            if (parameter.options?.length === 1) {
+            if (parameter.choices?.length === 1) {
                 slash.addStringOption(option => option
                     .setName(parameter.name)
                     .setDescription(parameter.description)
                     .setRequired(parameter.required)
-                    .addChoices(parameter.options![0])
+                    .addChoices(parameter.choices![0])
                 );
-            } else if (parameter.options?.length === 3) {
+            } else if (parameter.choices?.length === 3) {
                 slash.addStringOption(option => option
                     .setName(parameter.name)
                     .setDescription(parameter.description)
                     .setRequired(parameter.required)
                     .addChoices(
-                        parameter.options![0],
-                        parameter.options![1],
-                        parameter.options![2]
+                        parameter.choices![0],
+                        parameter.choices![1],
+                        parameter.choices![2]
                     )
                 );
-            } else if (parameter.options?.length === 4) {
+            } else if (parameter.choices?.length === 4) {
                 slash.addStringOption(option => option
                     .setName(parameter.name)
                     .setDescription(parameter.description)
                     .setRequired(parameter.required)
                     .addChoices(
-                        parameter.options![0],
-                        parameter.options![1],
-                        parameter.options![2],
-                        parameter.options![3]
+                        parameter.choices![0],
+                        parameter.choices![1],
+                        parameter.choices![2],
+                        parameter.choices![3]
                     )
                 );
-            } else if (parameter.options?.length === 5) {
+            } else if (parameter.choices?.length === 5) {
                 slash.addStringOption(option => option
                     .setName(parameter.name)
                     .setDescription(parameter.description)
                     .setRequired(parameter.required)
                     .addChoices(
-                        parameter.options![0],
-                        parameter.options![1],
-                        parameter.options![2],
-                        parameter.options![3],
-                        parameter.options![4]
+                        parameter.choices![0],
+                        parameter.choices![1],
+                        parameter.choices![2],
+                        parameter.choices![3],
+                        parameter.choices![4]
                     )
                 );
             }
@@ -94,7 +101,7 @@ function BuildOptionsWithChoices(slash: SlashCommandBuilder, parameter: Paramete
             break;
     }
 }
-function BuildOptions(slash: SlashCommandBuilder, parameter: Parameter): void {
+function BuildOptions(slash: SlashCommandBuilder | SlashCommandSubcommandBuilder, parameter: Parameter): void {
     switch (parameter.type) {
         case 'bool':
             slash.addBooleanOption(option => option

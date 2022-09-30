@@ -61,6 +61,11 @@ export interface Parameter {
     name: string,
     description: string,
     required: boolean,
-    options?: APIApplicationCommandOptionChoice<string>[],
+    choices?: APIApplicationCommandOptionChoice<string>[],
     type: 'string' | 'number' | 'bool' | 'user' | 'channel' | 'role' | 'category',
+}
+export interface SubCommandOptions {
+    name: string,
+    description: string,
+    parameters: Array<Parameter>
 }

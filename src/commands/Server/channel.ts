@@ -19,43 +19,78 @@ export class ConcreteCommand extends Command {
                 description: 'Gestion sobre los canales.',
                 category: 'Server',
                 usage: '/channel [<acción>] [args]',
-                subcommands: ['getinfo', 'clear', 'create', 'delete'],
-                parameters: [
+                subcommands: [
                     {
-                        name: 'acción',
-                        description: 'Lo que quieres realizar con el canal',
-                        required: true,
-                        type: 'string',
-                        options: [
-                            { name: 'Obtener la información sobre un canal de texto. | [canal?]', value: 'getinfo' },
-                            { name: 'Borrar mensajes de un canal de texto. | [canal?] [número?]', value: 'clear' },
-                            { name: 'Crear uno o varios canales en una categoría. | [categoría] [nombre] [número?]', value: 'create' },
-                            { name: 'Eliminar un canal o toda una categoría. | [canal?] [categoría?]', value: 'delete' }
+                        name: 'info',
+                        description: 'Obtener la información sobre un canal de texto. | [canal?]',
+                        parameters: [
+                            {
+                                name: 'canal',
+                                description: 'Selecciona un canal de texto.',
+                                required: false,
+                                type: 'channel'
+                            }
                         ]
                     },
                     {
-                        name: 'categoría',
-                        description: 'La categoría sobre la que crear canales.',
-                        required: false,
-                        type: 'category'
+                        name: 'create',
+                        description: 'Crear uno o varios canales en una categoría. | [categoría] [nombre] [número?]',
+                        parameters: [
+                            {
+                                name: 'categoría',
+                                description: 'La categoría sobre la que crear canales.',
+                                required: true,
+                                type: 'category'
+                            },
+                            {
+                                name: 'nombre',
+                                description: 'El nombre para el nuevo canal.',
+                                required: true,
+                                type: 'string'
+                            },
+                            {
+                                name: 'número',
+                                description: 'Número de canales a crear.',
+                                required: false,
+                                type: 'number'
+                            }
+                        ]
                     },
                     {
-                        name: 'nombre',
-                        description: 'Nombre que le daremos al nuevo canal.',
-                        required: false,
-                        type: 'string',
+                        name: 'delete',
+                        description: 'Eliminar un canal o una categoría entera. | [canal?] [categoría?]',
+                        parameters: [
+                            {
+                                name: 'canal',
+                                description: 'Selecciona un canal a eliminar',
+                                required: false,
+                                type: 'channel'
+                            },
+                            {
+                                name: 'categoría',
+                                description: 'Selecciona la categoría a eliminar (se borran sus canales).',
+                                required: false,
+                                type: 'category'
+                            }
+                        ]
                     },
                     {
-                        name: 'número',
-                        description: 'Número de canales a crear.',
-                        required: false,
-                        type: 'number'
-                    },
-                    {
-                        name: 'canal',
-                        description: 'Selecciona un canal de texto.',
-                        required: false,
-                        type: 'channel'
+                        name: 'clear',
+                        description: 'Borrar mensajes de un canal de texto. | [canal?] [número?]',
+                        parameters: [
+                            {
+                                name: 'canal',
+                                description: 'Selecciona un canal que limpiar',
+                                required: false,
+                                type: 'channel'
+                            },
+                            {
+                                name: 'número',
+                                description: 'Número de mensajes a borrar.',
+                                required: false,
+                                type: 'number'
+                            }
+                        ]
                     }
                 ],
                 permissions: 'ManageChannels, ManageMessages',
@@ -65,7 +100,7 @@ export class ConcreteCommand extends Command {
     }
     async run(slash: Interaction): Promise<void> {
         const command: ChatInputCommandInteraction = slash as ChatInputCommandInteraction;
-        switch (command.options.getString('acción')) {
+        switch (command.options.getSubcommand()) {
             case 'create':
                 if (!CheckUserPermissions(slash.member!, 'ManageChannels')) return;
                 const contingencyCategory = slash.channel as TextChannel;
@@ -84,7 +119,7 @@ export class ConcreteCommand extends Command {
                     Number(command.options.getInteger('número')) || 100
                 );
                 break;
-            case 'getinfo':
+            case 'info':
                 GetChannelInfo(
                     slash,
                     command.options.getChannel('canal')! as TextChannel
