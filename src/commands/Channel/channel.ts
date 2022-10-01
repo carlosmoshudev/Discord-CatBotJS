@@ -6,9 +6,10 @@ import {
 } from 'discord.js';
 import { CheckUserPermissions } from '../../utils/User';
 import { Command } from '../../models/Command';
-import { CreateChannel } from './channel/create';
-import { GetChannelInfo } from './channel/getinfo';
-import { ClearMessages } from './channel/clear';
+import { CreateChannel } from './subcommands/create';
+import { GetChannelInfo } from './subcommands/info';
+import { ClearMessages } from './subcommands/clear';
+import { SetChannelTopic } from './subcommands/topic';
 
 export class ConcreteCommand extends Command {
     constructor(client: Client) {
@@ -17,7 +18,7 @@ export class ConcreteCommand extends Command {
             {
                 name: 'channel',
                 description: 'Gestion sobre los canales.',
-                category: 'Server',
+                category: 'Channel',
                 usage: '/channel [<acción>] [args]',
                 subcommands: [
                     {
@@ -62,7 +63,7 @@ export class ConcreteCommand extends Command {
                         parameters: [
                             {
                                 name: 'canal',
-                                description: 'Selecciona un canal a eliminar',
+                                description: 'Selecciona un canal a eliminar.',
                                 required: false,
                                 type: 'channel'
                             },
@@ -80,7 +81,7 @@ export class ConcreteCommand extends Command {
                         parameters: [
                             {
                                 name: 'canal',
-                                description: 'Selecciona un canal que limpiar',
+                                description: 'Selecciona un canal que limpiar.',
                                 required: false,
                                 type: 'channel'
                             },
@@ -89,6 +90,24 @@ export class ConcreteCommand extends Command {
                                 description: 'Número de mensajes a borrar.',
                                 required: false,
                                 type: 'number'
+                            }
+                        ]
+                    },
+                    {
+                        name: 'topic',
+                        description: 'Establece la descripción de un canal de texto. | [canal?] [descripción]',
+                        parameters: [
+                            {
+                                name: 'descripción',
+                                description: 'La nueva descripción para el canal.',
+                                required: true,
+                                type: 'string'
+                            },
+                            {
+                                name: 'canal',
+                                description: 'Selecciona el canal a describir.',
+                                required: false,
+                                type: 'channel'
                             }
                         ]
                     }
@@ -127,6 +146,14 @@ export class ConcreteCommand extends Command {
                 );
                 break;
             case 'delete':
+                break;
+            case 'topic':
+                SetChannelTopic(
+                    slash,
+                    command.options.getChannel('canal')! as TextChannel
+                    || slash.channel as TextChannel,
+                    command.options.getString('descripción')!
+                );
                 break;
             default:
                 console.log('not action retrieved');
