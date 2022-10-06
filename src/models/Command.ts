@@ -1,5 +1,11 @@
-import { Client, Interaction } from "discord.js";
-import { Parameter, SubCommandOptions } from "../types";
+import {
+    Client,
+    Interaction
+} from "discord.js";
+import {
+    Parameter,
+    SubCommandOptions
+} from "../types";
 
 export abstract class Command {
     client: Client;

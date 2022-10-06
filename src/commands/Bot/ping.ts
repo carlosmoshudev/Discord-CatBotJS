@@ -1,6 +1,6 @@
 import {
     Client,
-    Interaction
+    Interaction,
 } from 'discord.js';
 import { Command } from '../../models/Command';
 

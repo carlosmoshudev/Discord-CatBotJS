@@ -3,10 +3,20 @@ import { Interaction } from "discord.js";
 export async function InteractionCreate(interaction: Interaction) {
     if (!interaction.isChatInputCommand()) return;
     const command = interaction.client.commands.get(interaction.commandName!);
-    command?.run(interaction);
+    if (!command) return;
+    await command.run(interaction);
     await interaction.reply(
         {
             ephemeral: true,
-            content: command?.executionoutput,
+            content: command.executionoutput,
+            allowedMentions: {
+                repliedUser: false
+            },
+            components: [],
+            embeds: [],
+            files: [],
+            fetchReply: false,
+            flags: 64,
+            tts: false,
         });
 }

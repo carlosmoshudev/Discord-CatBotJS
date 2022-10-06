@@ -12,7 +12,7 @@ import {
 } from "discord.js";
 
 export type NameValue = { name: string, value: string };
-export type Color = { yellow: string, cyan: string, purple: string };
+export type Color = { yellow: string, cyan: string, purple: string, red: string, green: string, blue: string };
 export type CommandAndAlias = {
     commands: Collection<string, Command>,
     aliases: Collection<string, Command>
@@ -51,7 +51,7 @@ export interface supportChannels {
     solvedtickets: string;
 }
 export interface serverStatChannels {
-    usersjoined: string
+    usersjoined: string;
 }
 export interface shareChannels {
     introduce: string,

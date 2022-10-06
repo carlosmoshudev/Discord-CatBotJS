@@ -1,6 +1,8 @@
 import {
+    CategoryChannelResolvable,
     ChatInputCommandInteraction,
     Client,
+    GuildMember,
     Interaction,
     TextChannel
 } from 'discord.js';
@@ -119,44 +121,33 @@ export class ConcreteCommand extends Command {
     }
     async run(slash: Interaction): Promise<void> {
         const command: ChatInputCommandInteraction = slash as ChatInputCommandInteraction;
-        switch (command.options.getSubcommand()) {
-            case 'create':
-                if (!CheckUserPermissions(slash.member!, 'ManageChannels')) return;
-                const contingencyCategory = slash.channel as TextChannel;
-                CreateChannel(
-                    slash,
-                    command.options.getChannel('categoría')?.id! || contingencyCategory.parent!,
-                    command.options.getString('nombre')!,
-                    Number(command.options.getInteger('número')) || 0
-                );
-                break;
-            case 'clear':
-                if (!CheckUserPermissions(slash.member!, 'ManageChannels')) return;
-                ClearMessages(
-                    command.options.getChannel('canal')! as TextChannel
-                    || slash.channel as TextChannel,
-                    Number(command.options.getInteger('número')) || 100
-                );
-                break;
+        const subcommand: string = command.options.getSubcommand();
+        const channel: TextChannel = command.options.getChannel('canal') as TextChannel
+            || command.channel as TextChannel;
+        const category: CategoryChannelResolvable = command.options.getChannel('categoría') as CategoryChannelResolvable;
+        const name: string = command.options.getString('nombre')!;
+        const number: number = command.options.getInteger('número')!;
+        const topic: string = command.options.getString('descripción')!;
+
+        switch (subcommand) {
             case 'info':
-                GetChannelInfo(
-                    slash,
-                    command.options.getChannel('canal')! as TextChannel
-                    || slash.channel as TextChannel
-                );
+                GetChannelInfo(command, channel);
+                break;
+            case 'create':
+                if (!CheckUserPermissions(command.member as GuildMember, 'ManageChannels')) return;
+                CreateChannel(command, category, name, number || 0);
                 break;
             case 'delete':
                 break;
+            case 'clear':
+                if (!CheckUserPermissions(command.member as GuildMember, 'ManageMessages')) return;
+                ClearMessages(channel, number || 100);
+                break;
             case 'topic':
-                SetChannelTopic(
-                    slash,
-                    command.options.getChannel('canal')! as TextChannel
-                    || slash.channel as TextChannel,
-                    command.options.getString('descripción')!
-                );
+                if (!CheckUserPermissions(command.member as GuildMember, 'ManageChannels')) return;
+                SetChannelTopic(command, channel, topic);
                 break;
             default:
-                console.log('not action retrieved');
                 break;
         }
     }
