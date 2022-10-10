@@ -5,7 +5,7 @@ export async function InteractionCreate(interaction: Interaction) {
     const command = interaction.client.commands.get(interaction.commandName!);
     if (!command) return;
     await command.run(interaction);
-    await interaction.reply(
+    interaction.reply(
         {
             ephemeral: true,
             content: command.executionoutput,
@@ -18,5 +18,5 @@ export async function InteractionCreate(interaction: Interaction) {
             fetchReply: false,
             flags: 64,
             tts: false,
-        });
+        }).catch(console.error);
 }
